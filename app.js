@@ -8,10 +8,11 @@ function limpiarCampos(){
 
 function agregarAmigo() {
     nombre = document.getElementById("amigo").value;
-    nombre = nombre.toLowerCase();
+    // quitar caracteres especiales como tildes u otros
+    nombre = nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     //validacion para que no se permitan numeros
     if (!isNaN(nombre)) {
-        alert("Por favor, ingrese un nombre válido, no se permiten numeros, ni nombres o espacio en blanco");
+        alert("Por favor, ingrese un nombre válido, no se permiten numeros, ni nombres en blanco");
         limpiarCampos();
         return;
     }else{
@@ -61,5 +62,4 @@ function reiniciar() {
     document.getElementById("resultado").textContent = "";
     limpiarCampos();
 }
-
 
