@@ -1,0 +1,51 @@
+// Carlos Fabián Mesa Muñoz 
+let listaDeAmigos = [];
+let nombre;
+
+function limpiarCampos(){
+    document.getElementById("amigo").value = "";
+}
+
+function agregarAmigo() {
+    nombre = document.getElementById("amigo").value;
+    if (nombre) {
+        listaDeAmigos.push(nombre);
+        mostrarAmigos();
+        limpiarCampos();
+    }else{
+        alert("Por favor, ingrese un nombre.");
+    }
+}
+
+// mostrar amigos ingresados en la ListaDeAmigos
+function mostrarAmigos() {
+    let lista = document.getElementById("listaAmigos");
+    lista.innerHTML = ""; // Limpiar la lista antes de mostrar los amigos
+    for (let i = 0; i < listaDeAmigos.length; i++) {
+        let amigo = listaDeAmigos[i];
+        let listItem = document.createElement("li");
+        listItem.textContent = amigo;
+        lista.appendChild(listItem);
+    }
+}
+
+function sortearAmigo() {
+    if(listaDeAmigos.length < 2){
+        alert("Debe haber al menos dos amigos para sortear.");
+        document.getElementById("resultado").textContent = "";
+        return;
+    }
+
+    let amigoGanador = listaDeAmigos[Math.floor(Math.random()*listaDeAmigos.length)];
+    
+    document.getElementById("resultado").textContent = amigoGanador;
+    
+}
+
+function reiniciar() {
+    listaDeAmigos = [];
+    document.getElementById("listaAmigos").innerHTML = "";
+    document.getElementById("resultado").textContent = "";
+    limpiarCampos();
+}
+
