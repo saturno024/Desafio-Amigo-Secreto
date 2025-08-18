@@ -11,7 +11,7 @@ function agregarAmigo() {
     nombre = nombre.toLowerCase();
     //validacion para que no se permitan numeros
     if (!isNaN(nombre)) {
-        alert("Por favor, ingrese un nombre válido, no se permiten numeros.");
+        alert("Por favor, ingrese un nombre válido, no se permiten numeros, ni nombres o espacio en blanco");
         limpiarCampos();
         return;
     }else{
@@ -61,4 +61,5 @@ function reiniciar() {
     document.getElementById("resultado").textContent = "";
     limpiarCampos();
 }
+
 
