@@ -9,16 +9,24 @@ function limpiarCampos(){
 function agregarAmigo() {
     nombre = document.getElementById("amigo").value;
     nombre = nombre.toLowerCase();
-    if (nombre) {
-        if (!listaDeAmigos.includes(nombre)) {
-            listaDeAmigos.push(nombre);
-        } else {
-            alert("Este nombre ya está en la lista.");
+    //validacion para que no se permitan numeros
+    if (!isNaN(nombre)) {
+        alert("Por favor, ingrese un nombre válido, no se permiten numeros.");
+        limpiarCampos();
+        return;
+    }else{
+        if (nombre) {
+            if (!listaDeAmigos.includes(nombre)) {
+                listaDeAmigos.push(nombre);
+            } else {
+                alert("Este nombre ya está en la lista.");
         }
         mostrarAmigos();
         limpiarCampos();
-    }else{
+        }
+        else{
         alert("Por favor, ingrese un nombre.");
+        }
     }
 }
 
@@ -53,5 +61,4 @@ function reiniciar() {
     document.getElementById("resultado").textContent = "";
     limpiarCampos();
 }
-
 
