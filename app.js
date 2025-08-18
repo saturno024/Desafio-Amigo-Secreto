@@ -8,8 +8,8 @@ function limpiarCampos(){
 
 function agregarAmigo() {
     nombre = document.getElementById("amigo").value;
+    nombre = nombre.toLowerCase();
     if (nombre) {
-        nombre = nombre.toLowerCase();
         if (!listaDeAmigos.includes(nombre)) {
             listaDeAmigos.push(nombre);
         } else {
@@ -53,4 +53,5 @@ function reiniciar() {
     document.getElementById("resultado").textContent = "";
     limpiarCampos();
 }
+
 
