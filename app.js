@@ -50,9 +50,9 @@ function sortearAmigo() {
     }
 
     let amigoGanador = listaDeAmigos[Math.floor(Math.random()*listaDeAmigos.length)];
-    
-    document.getElementById("resultado").textContent = amigoGanador;
-    
+
+    document.getElementById("resultado").textContent = "El amigo secreto sorteado es:" + amigoGanador;
+
 }
 
 function reiniciar() {
