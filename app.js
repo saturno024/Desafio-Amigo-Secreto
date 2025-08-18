@@ -9,6 +9,7 @@ function limpiarCampos(){
 function agregarAmigo() {
     nombre = document.getElementById("amigo").value;
     if (nombre) {
+        nombre = nombre.toLowerCase();
         if (!listaDeAmigos.includes(nombre)) {
             listaDeAmigos.push(nombre);
         } else {
