@@ -39,10 +39,10 @@ Resultado del sorteo:
 ## Cómo usar la aplicación
 
 1. Ingresa el nombre de un amigo en el campo de texto.  
-2. Haz clic en **"Adicionar"** para agregarlo a la lista.  
+2. Haz clic en **"Añadir"** para agregarlo a la lista.  
 3. Repite los pasos anteriores para todos los amigos que quieras incluir.  
 4. Haz clic en **"Sortear Amigo"** para seleccionar aleatoriamente a un amigo.  
-5. Para reiniciar la lista y comenzar de nuevo, utiliza el botón de **reinicio**.
+5. Para reiniciar la lista y comenzar de nuevo, utiliza el botón de **Reiniciar**.
 
 ---
 
