@@ -9,7 +9,11 @@ function limpiarCampos(){
 function agregarAmigo() {
     nombre = document.getElementById("amigo").value;
     if (nombre) {
-        listaDeAmigos.push(nombre);
+        if (!listaDeAmigos.includes(nombre)) {
+            listaDeAmigos.push(nombre);
+        } else {
+            alert("Este nombre ya está en la lista.");
+        }
         mostrarAmigos();
         limpiarCampos();
     }else{
