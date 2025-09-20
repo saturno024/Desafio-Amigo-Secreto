@@ -1,45 +1,183 @@
 <!DOCTYPE html>
+<!-- declaracion de tipo de documento html5 para compatibilidad moderna -->
 <html lang="es">
+<!-- elemento raiz con idioma español para accesibilidad y seo -->
 <head>
+    <!-- configuracion basica de codificacion y viewport -->
     <meta charset="UTF-8">
+    <!-- codificacion utf-8 para soporte de caracteres especiales y emojis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- configuracion responsive - ancho igual al dispositivo, zoom inicial 1:1 -->
+    
+    <!-- meta tags para seo y optimizacion en motores de busqueda -->
+    <meta name="description" content="Sortea tu amigo secreto de forma divertida y fácil. Aplicación web gratuita para organizar intercambios de regalos navideños y eventos especiales.">
+    <!-- descripcion principal que aparece en resultados de busqueda - max 160 caracteres -->
+    <meta name="keywords" content="amigo secreto, sorteo, intercambio regalos, navidad, eventos, sortear nombres, juego navideño">
+    <!-- palabras clave relevantes separadas por comas para indexacion -->
+    <meta name="author" content="Desafío Amigo Secreto">
+    <!-- identificacion del autor del sitio web -->
+    <meta name="robots" content="index, follow">
+    <!-- instrucciones para robots de busqueda - indexar pagina y seguir enlaces -->
+    
+    <!-- meta tags para redes sociales - protocolo open graph -->
+    <meta property="og:title" content="Amigo Secreto - Sorteo Divertido">
+    <!-- titulo que aparece cuando se comparte en redes sociales -->
+    <meta property="og:description" content="Sortea tu amigo secreto de forma divertida y fácil. Aplicación web gratuita para organizar intercambios de regalos.">
+    <!-- descripcion para compartir en redes sociales -->
+    <meta property="og:type" content="website">
+    <!-- tipo de contenido - sitio web estatico -->
+    <meta property="og:url" content="https://tu-dominio.com">
+    <!-- url canonica del sitio web -->
+    <meta property="og:image" content="assets/amigo-secreto.png">
+    <!-- imagen que se muestra al compartir en redes sociales -->
+    <meta property="og:locale" content="es_ES">
+    <!-- configuracion regional - español de españa -->
+    
+    <!-- meta tags especificos para twitter cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- tipo de tarjeta de twitter - imagen grande con resumen -->
+    <meta name="twitter:title" content="Amigo Secreto - Sorteo Divertido">
+    <!-- titulo especifico para twitter -->
+    <meta name="twitter:description" content="Sortea tu amigo secreto de forma divertida y fácil.">
+    <!-- descripcion especifica para twitter -->
+    <meta name="twitter:image" content="assets/amigo-secreto.png">
+    <!-- imagen especifica para twitter -->
+    
+    <!-- meta tags para optimizacion de performance y compatibilidad -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- fuerza modo de compatibilidad moderno en internet explorer -->
+    <meta name="theme-color" content="#667eea">
+    <!-- color de tema para barra de estado en dispositivos moviles -->
+    
+    <!-- enlaces a recursos externos -->
     <link rel="stylesheet" href="style.css">
+    <!-- hoja de estilos principal de la aplicacion -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- preconexion a google fonts para mejor performance -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- preconexion con cors para recursos de fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <title>Amigo Secreto</title>
+    <!-- carga de fuentes inter y merriweather con pesos especificos y optimizacion de carga -->
+    
+    <title>Amigo Secreto - Sorteo Divertido y Fácil | Intercambio de Regalos</title>
+    <!-- titulo principal de la pagina - aparece en pestañas del navegador y resultados de busqueda -->
 </head>
 
 <body>
-    <main class="main-content">
-        <header class="header-banner">
-            <h1 class="main-title">Amigo Secreto</h1>
-            <img src="assets/amigo-secreto.png" alt="Imagen representativa de amigo secreto">
-        </header>
-        
-        <section class="input-section">
-            <h2 class="section-title">Digite el nombre de sus amigos</h2>
-            <div class="input-wrapper">
-                <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre">
-                <button class="button-add" onclick="agregarAmigo()">Añadir</button>
-            </div>
-           
-            <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
-            <ul id="resultado" class="result-list" aria-live="polite"></ul>
+    <!-- header principal fuera del contenedor main para diseño independiente -->
+    <header class="header-banner">
+        <!-- titulo principal de la aplicacion - h1 para jerarquia seo correcta -->
+        <h1 class="main-title">Amigo Secreto</h1>
+        <!-- imagen decorativa con texto alternativo descriptivo para accesibilidad -->
+        <img src="assets/amigo-secreto.png" alt="Ilustración festiva de amigo secreto con regalos y elementos navideños para sorteo de intercambio">
+    </header>
 
+    <!-- contenedor principal de la aplicacion con rol semantico main -->
+    <main class="main-content">        
+        <!-- seccion que agrupa todos los controles de entrada y funcionalidad -->
+        <section class="input-section">
+            <!-- subtitulo de seccion - h2 para jerarquia correcta -->
+            <h2 class="section-title">Digite el nombre de sus amigos</h2>
+            
+            <!-- contenedor flexbox para input y boton en la misma linea -->
+            <div class="input-wrapper">
+                <!-- etiqueta asociada al input pero oculta visualmente para screen readers -->
+                <label for="amigo" class="sr-only">Nombre del amigo</label>
+                <!-- input principal para nombres con atributos de accesibilidad -->
+                <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre" aria-describedby="contador estadoVacio">
+                <!-- boton para agregar nombres con aria-label descriptivo -->
+                <button class="button-add" onclick="agregarAmigo()" aria-label="Agregar amigo a la lista">Añadir</button>
+            </div>
+            
+            <!-- contador dinamico de amigos agregados -->
+            <div id="contador" class="friend-counter">Amigos agregados: <span id="numeroAmigos">0</span></div>
+           
+            <!-- lista semantica para mostrar nombres agregados con rol explicito -->
+            <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
+            
+            <!-- mensaje de estado vacio - se muestra cuando no hay nombres -->
+            <div id="estadoVacio" class="empty-state">
+                <!-- emoji decorativo para contexto visual -->
+                <span class="empty-icon">👥</span>
+                <!-- texto explicativo principal -->
+                <p>Agrega nombres de tus amigos para comenzar el sorteo</p>
+                <!-- texto secundario con instrucciones minimas -->
+                <small>Necesitas al menos 2 personas para sortear</small>
+            </div>
+            
+            <!-- contenedor para mostrar resultados con live region para screen readers -->
+            <div id="resultado" class="result-display" aria-live="polite"></div>
+
+            <!-- contenedor para botones principales de accion -->
             <div class="button-container">
+                <!-- boton principal para ejecutar sorteo -->
                 <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto">
-                    <img src="assets/play_circle_outline.png" alt="Ícono para sortear">
-                    Sortear amigo
-                </button><br>
-                 <button class="button-draw" onclick="reiniciar()" aria-label="Reiniciar">
-                    <img src="assets/play_circle_outline.png" alt="Ícono para reiniciar">
-                    Reiniciar
-                </button></brZ>
+                    <!-- icono visual del boton -->
+                    <img src="assets/play_circle_outline.png" alt="Ícono de reproducir para iniciar sorteo">
+                    <!-- texto del boton -->
+                    SORTEAR AMIGO
+                </button>
+                <!-- boton secundario para reiniciar aplicacion -->
+                <button class="button-draw" onclick="reiniciar()" aria-label="Reiniciar">
+                    <!-- icono visual del boton -->
+                    <img src="assets/play_circle_outline.png" alt="Ícono de reinicio para limpiar lista">
+                    <!-- texto del boton -->
+                    REINICIAR
+                </button>
             </div>
         </section>
     </main>
-
+    
+    <!-- footer informativo con creditos y metadatos del proyecto -->
+    <footer class="magic-footer">
+        <!-- contenedor para centrado y organizacion del contenido del footer -->
+        <div class="footer-content">
+            <!-- texto principal del footer con iconos decorativos -->
+            <p class="footer-text">
+                <!-- emoji decorativo -->
+                <span class="footer-icon">✨</span>
+                Hecho con 
+                <!-- emoji de corazon para elemento emocional -->
+                <span class="heart">💝</span> 
+                <!-- nombre del desarrollador en texto destacado -->
+                por <strong>Carlos Fabián Mesa Muñoz</strong>
+            </p>
+            <!-- linea secundaria con informacion del programa y año -->
+            <p class="footer-subtitle">
+                Desafío Amigo Secreto • Oracle Next Education • 2025 • G9
+            </p>
+        </div>
+    </footer>
+    
+    <!-- structured data en formato json-ld para mejorar seo y comprension de buscadores -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Amigo Secreto",
+        "description": "Aplicación web gratuita para sortear amigos secretos y organizar intercambios de regalos navideños",
+        "url": "https://tu-dominio.com",
+        "applicationCategory": "Game",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Carlos Fabián Mesa Muñoz"
+        },
+        "datePublished": "2025",
+        "inLanguage": "es",
+        "browserRequirements": "Requiere navegador moderno con soporte para JavaScript",
+        "softwareVersion": "1.0",
+        "screenshot": "assets/amigo-secreto.png"
+    }
+    </script>
+    
+    <!-- carga del script principal con defer para optimizar performance -->
     <script src="app.js" defer></script>
+    <!-- defer asegura que el script se ejecute despues de que el dom este completamente parseado -->
 </body>
 </html>

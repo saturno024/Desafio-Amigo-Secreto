@@ -1,73 +1,390 @@
+/* variables css globales - definicion centralizada de valores reutilizables */
 :root {
-    --color-primary: #4B69FD;
-    --color-secondary: #FFF9EB;
-    --color-tertiary: #C4C4C4;
-    --color-button: #fe652b;
-    --color-button-hover: #e55720;
-    --color-text: #444444;
-    --color-white: #FFFFFF;
+    /* paleta de colores principal - gradientes lineares con direccion diagonal */
+    --color-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --color-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --color-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    
+    /* colores solidos para elementos especificos */
+    --color-card: rgba(255, 255, 255, 0.95); /* fondo semi-transparente para glassmorphism */
+    --color-text: #2c3e50; /* color principal de texto - gris oscuro */
+    --color-text-light: #7f8c8d; /* color secundario de texto - gris claro */
+    --color-white: #ffffff; /* blanco puro para contraste */
+    
+    /* gradientes para botones con estados hover */
+    --color-button: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+    --color-button-hover: linear-gradient(135deg, #5f3dc4 0%, #9775fa 100%);
+    
+    /* sombras con diferentes intensidades para profundidad */
+    --color-shadow: rgba(0, 0, 0, 0.1); /* sombra sutil para elementos normales */
+    --color-shadow-hover: rgba(0, 0, 0, 0.2); /* sombra intensa para estados hover */
+    --shadow-magic: 0 8px 32px rgba(0, 0, 0, 0.1); /* sombra principal con blur alto */
+    
+    /* sistema de border-radius consistente */
+    --border-radius: 20px; /* radio grande para elementos principales */
+    --border-radius-small: 12px; /* radio pequeno para elementos secundarios */
+    
+    /* sistema de espaciado modular basado en multiplos de 12px */
+    --spacing-small: 12px;
+    --spacing-medium: 24px;
+    --spacing-large: 48px;
+    
+    /* sistema z-index organizado para control de capas */
+    --z-background: -2; /* elementos decorativos detras del contenido */
+    --z-behind: -1; /* pseudo-elementos detras de su contenedor */
+    --z-normal: 1; /* elementos normales en flujo */
+    --z-content: 2; /* contenido importante sobre elementos normales */
+    --z-overlay: 100; /* overlays y elementos flotantes */
+    --z-modal: 1000; /* modales y elementos criticos */
+    --z-notification: 9999; /* notificaciones - maxima prioridad visual */
+    
+    /* transicion suave con curva de bezier para animaciones naturales */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Estilos generales */
+/* reset css universal - elimina margenes y paddings por defecto del navegador */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* incluye padding y border en el width total */
 }
 
+/* clase de accesibilidad para ocultar elementos visualmente pero mantenerlos para lectores de pantalla */
+.sr-only {
+    position: absolute; /* saca del flujo normal sin afectar layout */
+    width: 1px; /* tamaño minimo invisible */
+    height: 1px;
+    padding: 0;
+    margin: -1px; /* posicion fuera del viewport */
+    overflow: hidden; /* oculta cualquier contenido que sobresalga */
+    clip: rect(0, 0, 0, 0); /* recorte rectangular que hace invisible el elemento */
+    white-space: nowrap; /* evita que el texto se ajuste a nuevas lineas */
+}
+
+/* configuracion del elemento body - contenedor principal de la aplicacion */
 body {
-    height: 100vh;
-    background-color: var(--color-primary);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 100vh; /* altura minima igual al viewport para ocupar pantalla completa */
+    background: var(--color-background); /* gradiente de fondo definido en variables */
+    background-attachment: fixed; /* mantiene el fondo fijo durante scroll */
+    display: flex; /* layout flexbox para centrado vertical */
+    flex-direction: column; /* elementos apilados verticalmente */
+    align-items: center; /* centrado horizontal de elementos */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* stack de fuentes con fallbacks */
+    overflow-x: hidden; /* oculta scroll horizontal para evitar desbordamiento */
+    margin: 0;
+    padding: 0 0 20px 0; /* padding inferior para separacion del footer */
+    position: relative; /* contexto de posicion para pseudo-elementos */
 }
 
+/* pseudo-elemento para efectos decorativos animados en el fondo */
+body::before {
+    content: ''; /* contenido vacio requerido para pseudo-elementos */
+    position: absolute; /* posicion absoluta respecto al body */
+    top: 0;
+    left: 0;
+    width: 100%; /* cubre todo el ancho del body */
+    height: 100%; /* cubre toda la altura del body */
+    /* gradientes radiales superpuestos para crear efecto de particulas luminosas */
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: float 6s ease-in-out infinite; /* animacion suave de flotacion */
+    pointer-events: none; /* permite interaccion con elementos debajo */
+}
+
+/* keyframe para animacion de flotacion suave con rotacion */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); } /* estado inicial y final */
+    50% { transform: translateY(-20px) rotate(5deg); } /* punto medio con desplazamiento y rotacion */
+}
+
+/* contenedor principal de la aplicacion con efecto glassmorphism */
 .main-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+    display: flex; /* layout flexbox para organizacion vertical de elementos */
+    flex-direction: column; /* elementos apilados verticalmente */
+    width: 95%; /* ancho responsivo que se adapta al contenedor */
+    max-width: 600px; /* ancho maximo para mantener legibilidad en pantallas grandes */
+    background: var(--color-card); /* fondo semi-transparente para glassmorphism */
+    backdrop-filter: blur(20px); /* efecto de desenfoque detras del elemento */
+    border-radius: var(--border-radius); /* bordes redondeados segun variable global */
+    box-shadow: var(--shadow-magic); /* sombra principal para profundidad */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* borde sutil semi-transparente */
+    position: relative; /* contexto de posicion para elementos absolutos internos */
+    margin: 10px auto 5px auto; /* centrado horizontal con espaciado minimo */
+    
+    /* gradiente superpuesto para efecto cristal */
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.95) 0%, /* blanco casi opaco en la parte superior */
+        rgba(255, 255, 255, 0.85) 100%); /* blanco mas transparente en la parte inferior */
+    
+    transition: var(--transition); /* transicion suave para animaciones */
+    
+    /* optimizaciones de performance para rendering */
+    contain: layout style; /* aislamiento de layout y estilos para mejor performance */
+    will-change: auto; /* preparacion para animaciones futuras */
 }
 
-/* Banner */
+/* efecto hover para interactividad del contenedor principal */
+.main-content:hover {
+    transform: translateY(-5px); /* elevacion sutil del elemento */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); /* sombra mas intensa y difusa */
+}
+
+/* banner header con efectos glassmorphism y centrado */
 .header-banner {
-    flex: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 0 0;
+    display: flex; /* layout flexbox para centrado de contenido */
+    flex-direction: column; /* elementos apilados verticalmente */
+    justify-content: center; /* centrado vertical del contenido */
+    align-items: center; /* centrado horizontal del contenido */
+    width: calc(100% - 40px); /* ancho con margenes laterales de 20px cada lado */
+    max-width: 600px; /* ancho maximo consistente con main-content */
+    height: 220px; /* altura fija para mantener proporciones */
+    margin: 20px auto 10px auto; /* centrado horizontal con espaciado superior e inferior */
+    
+    /* efecto glassmorphism con gradiente y desenfoque */
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, /* transparencia alta en esquina superior izquierda */
+        rgba(255, 255, 255, 0.1) 100%); /* transparencia muy alta en esquina inferior derecha */
+    backdrop-filter: blur(20px) saturate(180%); /* desenfoque y saturacion de color aumentada */
+    -webkit-backdrop-filter: blur(20px) saturate(180%); /* compatibilidad con navegadores webkit */
+    border-radius: 20px; /* bordes redondeados para consistencia visual */
+    /* sombras multiples - externa para profundidad e interna para reflejos cristalinos */
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1), /* sombra externa difusa */
+        inset 0 1px 0 rgba(255, 255, 255, 0.4); /* reflejo interno en la parte superior */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* borde semi-transparente para definicion */
+    
+    /* configuracion para pseudo-elementos y contenido interno */
+    position: relative; /* contexto de posicion para elementos absolutos */
+    overflow: hidden; /* oculta contenido que desborde el contenedor */
+    padding: 20px; /* espaciado interno uniforme */
+    gap: 15px; /* separacion entre elementos flexbox internos */
 }
 
-/* Sección de entrada */
+/* pseudo-elemento para capa de color de fondo del header */
+.header-banner::before {
+    content: ''; /* contenido vacio requerido para pseudo-elementos */
+    position: absolute; /* posicion absoluta dentro del header-banner */
+    top: 0; /* cubre completamente el contenedor padre */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* gradiente de colores principales para tema visual */
+    background: linear-gradient(135deg, 
+        rgba(102, 126, 234, 0.85) 0%, /* azul semi-transparente */
+        rgba(118, 75, 162, 0.85) 100%); /* purpura semi-transparente */
+    z-index: var(--z-behind); /* posiciona detras del contenido del header */
+    border-radius: 20px; /* mantiene bordes redondeados consistentes */
+}
+
+/* imagen dentro del header con efectos de animacion */
+.header-banner img {
+    position: relative; /* permite z-index para posicionamiento sobre pseudo-elemento */
+    z-index: var(--z-content); /* posiciona sobre el pseudo-elemento de fondo */
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2)); /* sombra aplicada directamente a la imagen */
+    animation: bounce 2s ease-in-out infinite; /* animacion de rebote continua */
+    max-width: 150px; /* tamaño maximo para mantener proporciones responsivas */
+    height: auto; /* altura automatica para mantener aspect ratio */
+}
+
+/* keyframe para animacion de rebote vertical suave */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0px); } /* posicion inicial y final */
+    50% { transform: translateY(-10px); } /* desplazamiento maximo hacia arriba */
+}
+
+/* seccion principal que contiene inputs y controles de la aplicacion */
 .input-section {
-    flex: 60%;
-    background-color: var(--color-secondary);
-    border: 1px solid #000;
-    border-radius: 64px 64px 0 0;
+    flex: 1; /* ocupa todo el espacio disponible en el contenedor flex */
+    /* gradiente sutil para diferenciacion visual del header */
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.9) 0%, /* blanco casi opaco */
+        rgba(240, 248, 255, 0.95) 100%); /* azul muy claro casi opaco */
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius); /* ✅ TODAS LAS ESQUINAS REDONDEADAS */
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    width: 100%;
+    padding: 15px 20px; /* ✅ PADDING REDUCIDO arriba/abajo */
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    /* ❌ min-height eliminado para compactar */
 }
 
-/* Títulos */
+.input-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-secondary);
+    opacity: 0.6;
+}
+
+/* 🎯 TÍTULOS Y TEXTOS MÁGICOS */
+.input-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    background: var(--color-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-medium);
+    text-align: center;
+}
+
+/* 🌟 TÍTULO PRINCIPAL - ONDAS DE ENERGÍA LLAMATIVAS */
 .main-title {
     font-size: 48px;
     font-family: "Merriweather", serif;
     font-weight: 900;
-    font-style: italic;
-    color: var(--color-white);
+    color: white;
+    text-align: center;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    
+    /* ✨ SOMBRA INTENSA CON COLORES */
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(102, 126, 234, 0.8),
+        0 0 40px rgba(118, 75, 162, 0.6),
+        0 0 60px rgba(255, 255, 255, 0.4);
+    
+    /* 🎯 ANIMACIÓN MÁS INTENSA */
+    animation: energyPulse 2s ease-in-out infinite;
+    
+    /* ⚡ OPTIMIZACIÓN DE PERFORMANCE */
+    will-change: transform, text-shadow;
 }
+
+/* ✨ ONDAS DE ENERGÍA - EFECTO PRINCIPAL */
+.main-title::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -25px;
+    right: -25px;
+    bottom: -20px;
+    background: 
+        radial-gradient(ellipse, rgba(102, 126, 234, 0.6) 0%, transparent 70%),
+        radial-gradient(ellipse, rgba(118, 75, 162, 0.5) 20%, transparent 80%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: energyWaves 2.5s ease-in-out infinite;
+    filter: blur(5px);
+}
+
+/* ✨ ANILLOS DE ENERGÍA EXPANSIVOS */
+.main-title::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: -35px;
+    right: -35px;
+    bottom: -30px;
+    background: 
+        radial-gradient(circle, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 44%),
+        radial-gradient(circle, transparent 60%, rgba(102, 126, 234, 0.4) 62%, transparent 64%),
+        radial-gradient(circle, transparent 80%, rgba(118, 75, 162, 0.3) 82%, transparent 84%);
+    border-radius: 50%;
+    z-index: -2;
+    animation: expandingRings 3s ease-out infinite;
+}
+
+/* 🎭 ANIMACIONES MÁS LLAMATIVAS */
+@keyframes energyPulse {
+    0% {
+        text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 0.8),
+            0 0 20px rgba(102, 126, 234, 0.8),
+            0 0 40px rgba(118, 75, 162, 0.6),
+            0 0 60px rgba(255, 255, 255, 0.4);
+        transform: scale(1);
+    }
+    50% {
+        text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 0.8),
+            0 0 30px rgba(102, 126, 234, 1),
+            0 0 60px rgba(118, 75, 162, 0.8),
+            0 0 80px rgba(255, 255, 255, 0.6),
+            0 0 100px rgba(102, 126, 234, 0.4);
+        transform: scale(1.02);
+    }
+    100% {
+        text-shadow: 
+            2px 2px 4px rgba(0, 0, 0, 0.8),
+            0 0 20px rgba(102, 126, 234, 0.8),
+            0 0 40px rgba(118, 75, 162, 0.6),
+            0 0 60px rgba(255, 255, 255, 0.4);
+        transform: scale(1);
+    }
+}
+
+@keyframes energyWaves {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.9);
+        opacity: 0.8;
+    }
+}
+
+@keyframes expandingRings {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    30% {
+        opacity: 0.8;
+    }
+    70% {
+        transform: scale(1.2);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* ✨ SECCIÓN DE TÍTULOS PRINCIPALES */
 
 .section-title {
     font-family: "Inter", serif;
-    font-size: 36px;
+    font-size: 28px;
     font-weight: 700;
-    color: var(--color-primary);
+    background: var(--color-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 10px 0;
     text-align: center;
+    
+    /* ✨ EFECTOS MÁGICOS PARA EL TÍTULO SECUNDARIO */
+    text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+    animation: fadeInUp 1s ease-out;
+    position: relative;
+}
+
+/* 🌟 ANIMACIÓN DE ENTRADA ELEGANTE */
+@keyframes fadeInUp {
+    0% { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
 /* Contenedores de entrada y botón */
@@ -79,17 +396,48 @@ body {
     margin-top: 20px;
 }
 
+/* ✨ INPUT MÁGICO CON EFECTOS INCREÍBLES */
 .input-name {
     width: 100%;
-    padding: 10px;
-    border: 2px solid #000;
-    border-radius: 25px 0 0 25px;
+    padding: 18px 24px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius-small) 0 0 var(--border-radius-small);
     font-size: 16px;
+    font-family: "Inter", sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    outline: none;
+    
+    /* 🌟 EFECTO GLASSMORPHISM */
+    box-shadow: 
+        inset 0 2px 10px rgba(0, 0, 0, 0.1),
+        0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.input-name:focus {
+    border-color: rgba(102, 126, 234, 0.6);
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0 2px 10px rgba(102, 126, 234, 0.1),
+        0 8px 30px rgba(102, 126, 234, 0.2);
+}
+
+.input-name::placeholder {
+    color: var(--color-text-light);
+    font-style: italic;
 }
 
 .button-container {
-    width: 300px;
-    justify-content: center;
+    display: flex; /* Agregado: para mostrar ambos botones */
+    flex-direction: column; /* Agregado: botones en columna */
+    gap: 12px; /* ✅ ESPACIO REDUCIDO entre botones */
+    width: 100%;
+    max-width: 300px;
+    align-items: center; /* Agregado: centrar botones */
+    margin-top: 15px; /* ✅ MARGEN SUPERIOR REDUCIDO */
+    margin-bottom: 10px; /* ✅ MARGEN INFERIOR MÍNIMO */
 }
 
 /* Estilos de entrada de texto */
@@ -105,33 +453,298 @@ body {
 }
 
 /* Estilos de botón */
+/* 🔮 BOTONES MÁGICOS CON SÚPER PODERES */
 button {
-    padding: 15px 30px;
+    padding: 16px 32px;
     font-family: "Inter", sans-serif;
     font-size: 16px;
-    border: 2px solid #000;
-    border-radius: 25px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--border-radius-small);
     cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    /* ⚡ OPTIMIZACIÓN DE PERFORMANCE */
+    will-change: transform, box-shadow;
+    
+    /* ✨ EFECTO GLASSMORPHISM */
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* 🌟 EFECTO PARTÍCULAS EN HOVER */
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+    transition: left 0.5s;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+/* ♿ ESTILOS DE ACCESIBILIDAD PARA BOTONES */
+button:focus {
+    outline: 3px solid rgba(102, 126, 234, 0.6);
+    outline-offset: 2px;
+    transform: translateY(-2px);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.15),
+        0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+button:focus-visible {
+    outline: 3px solid rgba(102, 126, 234, 0.8);
+    outline-offset: 2px;
+}
+
+/* ♿ SOPORTE PARA ALTO CONTRASTE */
+@media (prefers-contrast: high) {
+    :root {
+        --color-text: #000000;
+        --color-background: linear-gradient(135deg, #000080 0%, #4B0082 100%);
+        --color-card: rgba(255, 255, 255, 1);
+    }
+    
+    button:focus {
+        outline: 4px solid #000000;
+        background: #ffffff;
+        color: #000000;
+    }
+    
+    .input-name:focus {
+        border: 4px solid #000000;
+        background: #ffffff;
+    }
+}
+
+/* ♿ SOPORTE PARA MOTION REDUCIDO */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .main-title {
+        animation: none;
+    }
+    
+    .header-banner img {
+        animation: none;
+    }
 }
 
 .button-add {
-    background-color: var(--color-tertiary);
-    color: var(--color-text);
-    border-radius: 0 25px 25px 0;
+    background: var(--color-button);
+    color: var(--color-white);
+    border-radius: 0 var(--border-radius-small) var(--border-radius-small) 0;
+    transform: translateY(0);
 }
 
 .button-add:hover {
-    background-color: #a1a1a1;
+    background: var(--color-button-hover);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 12px 40px rgba(255, 107, 107, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-/* Listas */
+.button-add:active {
+    transform: translateY(0) scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+/* 📋 LISTAS MÁGICAS */
 ul {
     list-style-type: none;
     color: var(--color-text);
     font-family: "Inter", sans-serif;
     font-size: 18px;
     margin: 20px 0;
+    padding: 0;
+}
+
+/* 🌟 ELEMENTOS DE LISTA CON SÚPER EFECTOS */
+ul li {
+    padding: 12px 20px;
+    margin: 8px 0;
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.8) 0%, 
+        rgba(240, 248, 255, 0.9) 100%);
+    border-radius: var(--border-radius-small);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    
+    /* ✨ EFECTOS GLASSMORPHISM */
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    
+    /* 🎭 ANIMACIÓN DE ENTRADA */
+    animation: slideInLeft 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+/* 🎊 EFECTO HOVER ESPECTACULAR */
+ul li:hover {
+    transform: translateX(5px) scale(1.02);
+    background: linear-gradient(145deg, 
+        rgba(102, 126, 234, 0.1) 0%, 
+        rgba(162, 155, 254, 0.1) 100%);
+    border-color: rgba(102, 126, 234, 0.3);
+    box-shadow: 
+        0 8px 25px rgba(102, 126, 234, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* 🌈 EFECTO BRILLANTE QUE PASA */
+ul li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.6), 
+        transparent);
+    transition: left 0.6s;
+}
+
+ul li:hover::before {
+    left: 100%;
+}
+
+/* 🎯 ANIMACIÓN DE ENTRADA ESCALONADA */
+@keyframes slideInLeft {
+    0% { 
+        opacity: 0; 
+        transform: translateX(-30px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
+}
+
+/* ⏰ DELAY ESCALONADO PARA MÚLTIPLES ELEMENTOS */
+ul li:nth-child(1) { animation-delay: 0.1s; }
+ul li:nth-child(2) { animation-delay: 0.2s; }
+ul li:nth-child(3) { animation-delay: 0.3s; }
+ul li:nth-child(4) { animation-delay: 0.4s; }
+ul li:nth-child(5) { animation-delay: 0.5s; }
+
+/* 📊 CONTADOR DE AMIGOS */
+.friend-counter {
+    text-align: center;
+    margin: 15px 0;
+    padding: 8px 16px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-light);
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.7) 0%, 
+        rgba(240, 248, 255, 0.8) 100%);
+    border-radius: var(--border-radius-small);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+}
+
+.friend-counter #numeroAmigos {
+    color: var(--color-purple-medium);
+    font-weight: 700;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+/* 🎊 ANIMACIÓN BOUNCE PARA EL NÚMERO */
+.friend-counter #numeroAmigos.bounce {
+    animation: counterBounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes counterBounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); color: var(--color-button); }
+    100% { transform: scale(1); }
+}
+
+/* 💫 EFECTO HOVER PARA CONTADOR */
+.friend-counter:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.9) 0%, 
+        rgba(240, 248, 255, 0.9) 100%);
+    border-color: rgba(102, 126, 234, 0.2);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+}
+
+/* 📝 ESTADO VACÍO AMIGABLE */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    margin: 20px 0;
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.6) 0%, 
+        rgba(248, 250, 252, 0.7) 100%);
+    border: 2px dashed rgba(102, 126, 234, 0.2);
+    border-radius: var(--border-radius-medium);
+    backdrop-filter: blur(8px);
+    transition: var(--transition);
+}
+
+.empty-state.hidden {
+    display: none;
+}
+
+.empty-state .empty-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 16px;
+    opacity: 0.7;
+}
+
+.empty-state p {
+    color: var(--color-text);
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.empty-state small {
+    color: var(--color-text-light);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.empty-state:hover {
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.8) 0%, 
+        rgba(248, 250, 252, 0.9) 100%);
+    border-color: rgba(102, 126, 234, 0.3);
 }
 
 .result-list {
@@ -142,21 +755,612 @@ ul {
     text-align: center;
 }
 
-/* Botón de sortear título */
+/* 🏆 RESULTADO ÉPICO CON EFECTOS MÁGICOS */
+.result-display {
+    margin-top: 30px;
+    padding: 25px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    border-radius: var(--border-radius-medium);
+    
+    /* 🌟 DISEÑO ÉPICO */
+    background: linear-gradient(135deg, 
+        rgba(255, 215, 0, 0.1) 0%, 
+        rgba(255, 193, 7, 0.1) 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    color: var(--color-text);
+    
+    /* ✨ EFECTOS GLASSMORPHISM */
+    backdrop-filter: blur(15px);
+    box-shadow: 
+        0 8px 32px rgba(255, 215, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    
+    /* 🎭 ANIMACIÓN DE ENTRADA DRAMÁTICA */
+    animation: resultReveal 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: scale(1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* 🎊 ANIMACIÓN DE REVELACIÓN DRAMÁTICA */
+@keyframes resultReveal {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.3) rotateY(180deg); 
+    }
+    50% { 
+        opacity: 0.8; 
+        transform: scale(1.1) rotateY(90deg); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1) rotateY(0deg); 
+    }
+}
+
+/* 🌟 EFECTO DE CONFETI MEJORADO - ¡MÁS DIVERTIDO! */
+.result-display::before {
+    content: '🎉';
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    font-size: 28px;
+    animation: confetti 2s ease-in-out infinite;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.result-display::after {
+    content: '🎊';
+    position: absolute;
+    top: -15px;
+    right: 15px;
+    font-size: 28px;
+    animation: confetti 2s ease-in-out infinite reverse;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes confetti {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 1; 
+    }
+    25% { 
+        transform: translateY(-10px) rotate(90deg); 
+        opacity: 0.8; 
+    }
+    50% { 
+        transform: translateY(-20px) rotate(180deg); 
+        opacity: 1; 
+    }
+    75% { 
+        transform: translateY(-10px) rotate(270deg); 
+        opacity: 0.8; 
+    }
+}
+
+/* 💫 EFECTO HOVER PARA EL RESULTADO */
+.result-display:hover {
+    transform: scale(1.02);
+    box-shadow: 
+        0 12px 40px rgba(255, 215, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: var(--transition);
+}
+
+/* 🎊 BOTÓN SORTEAR - ¡EL MÁS ÉPICO! */
 .button-draw {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
-    padding: 10px 40px;
+    max-width: 300px;
+    padding: 20px 40px;
     color: var(--color-white);
-    background-color: var(--color-button);
-    font-size: 16px;
+    background: var(--color-button);
+    font-size: 18px;
+    font-weight: 700;
+    margin: var(--spacing-medium) auto;
+    position: relative;
+    overflow: hidden;
+    
+    /* 🌟 EFECTO PULSANTE MÁGICO */
+    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 
+        0 0 30px rgba(255, 107, 107, 0.4),
+        0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        box-shadow: 
+            0 0 30px rgba(255, 107, 107, 0.4),
+            0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+    50% { 
+        box-shadow: 
+            0 0 50px rgba(255, 107, 107, 0.7),
+            0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.button-draw::after {
+    content: '🎲';
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    animation: sparkle 1.5s ease-in-out infinite;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
 }
 
 .button-draw img {
-    margin-right: 40px;
+    margin-right: 16px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .button-draw:hover {
-    background-color: var(--color-button-hover);
+    background: var(--color-button-hover);
+    transform: scale(1.05);
+    animation: none;
+    box-shadow: 
+        0 0 60px rgba(255, 87, 34, 0.6),
+        0 16px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* 🌟 FOOTER MÁGICO - ¡ESPECTACULAR! */
+.magic-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, 
+        rgba(102, 126, 234, 0.95) 0%, 
+        rgba(118, 75, 162, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 16px 0;
+    z-index: var(--z-modal);
+    
+    /* ✨ EFECTO GLASSMORPHISM */
+    box-shadow: 
+        0 -8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.footer-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-text {
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.footer-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.footer-icon {
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; }
+}
+
+.heart {
+    color: #ff6b6b;
+    animation: heartbeat 2s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.footer-text strong {
+    background: linear-gradient(45deg, #fff, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+/* � RESPONSIVE TABLET (BREAKPOINT INTERMEDIO) */
+@media (max-width: 992px) {
+    .main-content {
+        padding: 25px;
+        margin: 20px 10px;
+    }
+    
+    .main-title {
+        font-size: 48px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+    
+    .header-banner img {
+        max-width: 120px;
+    }
+}
+
+/* 📱 RESPONSIVE TABLET PEQUEÑA */
+@media (max-width: 768px) {
+    .header-banner {
+        height: 220px;
+        padding: 20px 0;
+    }
+    
+    .main-title {
+        font-size: 44px;
+    }
+    
+    .input-wrapper {
+        flex-direction: column;
+        gap: 12px;
+        max-width: 400px;
+    }
+    
+    .input-name, .button-add {
+        width: 100%;
+        border-radius: var(--border-radius-small);
+    }
+    
+    .header-banner img {
+        max-width: 100px;
+    }
+    
+    .friend-item {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+}
+
+/* 📱 RESPONSIVE MÓVIL */
+@media (max-width: 600px) {
+    .footer-text {
+        font-size: 12px;
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .footer-subtitle {
+        font-size: 10px;
+    }
+    
+    .magic-footer {
+        padding: 12px 0;
+    }
+    
+    /* ✅ RESPONSIVE PARA HEADER */
+    .header-banner {
+        height: 200px;
+        padding: 15px 0;
+    }
+    
+    .main-title {
+        font-size: 40px;
+        text-shadow: 
+            0 0 20px rgba(255, 255, 255, 0.8),
+            0 0 30px rgba(168, 85, 247, 0.6),
+            0 0 40px rgba(139, 92, 246, 0.4);
+    }
+    
+    .header-banner img {
+        max-width: 80px;
+        height: auto;
+    }
+    
+    .main-content {
+        padding: 20px 15px;
+        margin: 15px 8px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+}
+
+/* 📱 RESPONSIVE ULTRA-PEQUEÑO (SMARTPHONES PEQUEÑOS) */
+@media (max-width: 360px) {
+    .main-content {
+        padding: 15px 10px;
+        margin: 10px 5px;
+        min-height: calc(100vh - 200px);
+    }
+    
+    .main-title {
+        font-size: 36px;
+        text-shadow: 
+            0 0 15px rgba(255, 255, 255, 0.9),
+            0 0 25px rgba(168, 85, 247, 0.7),
+            0 0 35px rgba(139, 92, 246, 0.5);
+    }
+    
+    .section-title {
+        font-size: 20px;
+        margin: 8px 0;
+    }
+    
+    .input-wrapper {
+        flex-direction: column;
+        gap: 8px;
+        max-width: 100%;
+    }
+    
+    .input-name, .button-add {
+        width: 100%;
+        border-radius: var(--border-radius-small);
+        padding: 14px 16px;
+        font-size: 14px;
+    }
+    
+    .button-draw {
+        padding: 14px 18px;
+        font-size: 14px;
+        max-width: 100%;
+        min-height: 50px;
+    }
+    
+    .result-display {
+        font-size: 18px;
+        padding: 18px 12px;
+        line-height: 1.4;
+        word-break: break-word;
+    }
+    
+    .empty-state {
+        padding: 25px 12px;
+        font-size: 14px;
+    }
+    
+    .friend-item {
+        font-size: 13px;
+        padding: 8px 10px;
+        margin: 4px 0;
+    }
+    
+    .header-banner {
+        height: 180px;
+        padding: 12px 0;
+    }
+    
+    .header-banner img {
+        max-width: 70px;
+    }
+    
+    /* ✨ OPTIMIZACIÓN PARA OVERFLOW EN PANTALLAS PEQUEÑAS */
+    .friends-list {
+        max-height: 40vh;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(168, 85, 247, 0.5) transparent;
+    }
+    
+    .friends-list::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .friends-list::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+    }
+    
+    .friends-list::-webkit-scrollbar-thumb {
+        background: rgba(168, 85, 247, 0.6);
+        border-radius: 2px;
+    }
+    
+    .empty-state .empty-icon {
+        font-size: 36px;
+    }
+    
+    .empty-state p {
+        font-size: 16px;
+    }
+}
+
+/* 🎯 AJUSTE PARA QUE EL MAIN NO SE TAPE CON EL FOOTER */
+body {
+    padding-bottom: 120px; /* Más espacio para evitar que se tape */
+}
+
+/* 🚨 SISTEMA DE NOTIFICACIONES MÁGICAS */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: var(--border-radius-medium);
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: var(--z-notification);
+    max-width: 400px;
+    
+    /* ✨ EFECTOS GLASSMORPHISM */
+    backdrop-filter: blur(20px);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    
+    /* 🎭 ANIMACIÓN DE ENTRADA ESPECTACULAR */
+    animation: slideInNotification 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translateX(0);
+    transition: var(--transition);
+}
+
+/* 🎊 ANIMACIÓN DE ENTRADA */
+@keyframes slideInNotification {
+    0% { 
+        opacity: 0; 
+        transform: translateX(100%) scale(0.8); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateX(0) scale(1); 
+    }
+}
+
+/* 🌟 NOTIFICACIÓN DE ÉXITO */
+.notification.success {
+    background: linear-gradient(135deg, 
+        rgba(34, 197, 94, 0.9) 0%, 
+        rgba(16, 185, 129, 0.9) 100%);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.notification.success::before {
+    content: '🎉';
+    margin-right: 8px;
+    font-size: 16px;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+/* 🚨 NOTIFICACIÓN DE ERROR */
+.notification.error {
+    background: linear-gradient(135deg, 
+        rgba(239, 68, 68, 0.9) 0%, 
+        rgba(220, 38, 38, 0.9) 100%);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.notification.error::before {
+    content: '❌';
+    margin-right: 8px;
+    font-size: 16px;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+/* 🔥 NOTIFICACIÓN DE ADVERTENCIA */
+.notification.warning {
+    background: linear-gradient(135deg, 
+        rgba(245, 158, 11, 0.9) 0%, 
+        rgba(217, 119, 6, 0.9) 100%);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.notification.warning::before {
+    content: '⚠️';
+    margin-right: 8px;
+    font-size: 16px;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+}
+
+/* 🎯 ANIMACIÓN DE SALIDA */
+.notification.hide {
+    animation: slideOutNotification 0.3s ease-in-out forwards;
+}
+
+@keyframes slideOutNotification {
+    0% { 
+        opacity: 1; 
+        transform: translateX(0) scale(1); 
+    }
+    100% { 
+        opacity: 0; 
+        transform: translateX(100%) scale(0.8); 
+    }
+}
+
+/* 💫 EFECTO HOVER PARA NOTIFICACIONES */
+.notification:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+    box-shadow: 
+        0 12px 40px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* 🌍 SOPORTE CROSS-BROWSER MEJORADO */
+
+/* Chrome, Safari - Webkit prefix for backdrop-filter */
+.main-content,
+.header-banner,
+.input-name,
+button,
+.button-draw,
+.result-display,
+.magic-footer,
+.notification {
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+
+/* Firefox fallback for backdrop-filter (no support yet) */
+@supports not (backdrop-filter: blur(20px)) {
+    .main-content {
+        background: rgba(255, 255, 255, 0.98);
+    }
+    
+    .header-banner {
+        background: linear-gradient(135deg, 
+            rgba(102, 126, 234, 0.95) 0%, 
+            rgba(118, 75, 162, 0.95) 100%);
+    }
+    
+    .magic-footer {
+        background: rgba(102, 126, 234, 0.98);
+    }
+}
+
+/* Flexbox support para IE11 */
+.input-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.main-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+/* CSS Grid fallback para navegadores antiguos */
+@supports not (display: grid) {
+    .friends-list {
+        display: block;
+    }
+    
+    .friend-item {
+        display: block;
+        margin-bottom: 8px;
+    }
+}
+
+/* Clip-path fallback */
+@supports not (clip-path: polygon()) {
+    .notification::before {
+        display: none;
+    }
 }
