@@ -84,7 +84,7 @@ const AmigoSecreto = {
         const valor = inputAmigo.value.trim();
         
         if (valor.length > 0) {
-            const resultado = validarNombre(valor);
+            const resultado = validarNombreAvanzado(valor); // usar validación AVANZADA
             if (resultado.valido) {
                 inputAmigo.style.borderColor = '#4CAF50';
                 inputAmigo.style.boxShadow = '0 0 5px rgba(76, 175, 80, 0.3)';
@@ -128,7 +128,15 @@ const REGEX_CACHE = {
     // regex para eliminar marcas diacriticas (acentos) en normalizacion
     diacriticos: /[\u0300-\u036f]/g,
     // regex para normalizar espacios multiples a uno solo
-    espaciosNormalizacion: /\s+/g
+    espaciosNormalizar: /\s+/g,
+    // regex para validar que no sean solo números
+    soloNumeros: /^\d+$/,
+    // regex para validar caracteres repetitivos excesivos (más de 3 iguales seguidos)
+    caracteresRepetitivos: /(.)\1{3,}/,
+    // regex para validar que no sea solo un carácter repetido
+    caracterUnicoRepetido: /^(.)\1+$/,
+    // regex para detectar solo espacios
+    soloEspacios: /^\s+$/
 };
 
 // constantes de configuracion para validacion
@@ -329,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function() { // agregar escuchador
         const validacionTiempoReal = debounce(function() {
             const valor = inputAmigo.value.trim(); // obtener valor actual del input
             if (valor.length > 0) { // solo validar si hay contenido
-                const resultado = validarNombre(valor); // ejecutar validacion completa
+                const resultado = validarNombreAvanzado(valor); // ejecutar validacion AVANZADA completa
                 // aplicar estilos visuales segun resultado de validacion
                 if (resultado.valido) {
                     inputAmigo.style.borderColor = '#4CAF50'; // verde para valido
@@ -473,6 +481,115 @@ function limpiarCampos(){ // declaracion de funcion sin parametros para limpiar 
 } // fin de la funcion limpiarCampos
 
 /**
+ * función de validación avanzada con múltiples capas de verificación
+ * implementa validaciones robustas para nombres de amigos secretos
+ * @param {string} nombre - nombre a validar
+ * @returns {object} objeto con propiedades valido (boolean) y mensaje (string)
+ */
+function validarNombreAvanzado(nombre) {
+    // Limpiar espacios al inicio y final
+    nombre = nombre.trim();
+    
+    // Verificar que no esté vacío después de limpiar
+    if (!nombre) {
+        return { valido: false, mensaje: "Por favor, ingrese un nombre." };
+    }
+    
+    // Verificar que no sean solo espacios
+    if (REGEX_CACHE.soloEspacios.test(nombre)) {
+        return { valido: false, mensaje: "El nombre no puede contener solo espacios." };
+    }
+    
+    // Verificar longitud mínima
+    if (nombre.length < VALIDACION_CONFIG.LONGITUD_MINIMA) {
+        return { valido: false, mensaje: `El nombre debe tener al menos ${VALIDACION_CONFIG.LONGITUD_MINIMA} caracteres.` };
+    }
+    
+    // Verificar longitud máxima
+    if (nombre.length > VALIDACION_CONFIG.LONGITUD_MAXIMA) {
+        return { valido: false, mensaje: `El nombre no puede tener más de ${VALIDACION_CONFIG.LONGITUD_MAXIMA} caracteres.` };
+    }
+    
+    // Verificar que no sean solo números
+    if (REGEX_CACHE.soloNumeros.test(nombre)) {
+        return { valido: false, mensaje: "Por favor, ingrese un nombre válido, no solo números." };
+    }
+    
+    // Verificar que no contenga solo caracteres especiales
+    if (!/[a-záéíóúñüçàèìòùâêîôûäëïöüÿāēīōū]/i.test(nombre)) {
+        return { valido: false, mensaje: "El nombre debe contener al menos una letra." };
+    }
+    
+    // Verificar caracteres repetitivos excesivos (más de 3 iguales seguidos)
+    if (REGEX_CACHE.caracteresRepetitivos.test(nombre)) {
+        return { valido: false, mensaje: "El nombre no puede tener más de 3 caracteres iguales seguidos." };
+    }
+    
+    // Lista de palabras prohibidas/spam
+    const palabrasProhibidas = ['test', 'prueba', 'spam', 'admin', 'null', 'undefined', 'delete', 'script', 'ejemplo', 'demo'];
+    const nombreLower = nombre.toLowerCase();
+    if (palabrasProhibidas.some(palabra => nombreLower.includes(palabra))) {
+        return { valido: false, mensaje: "Por favor, ingrese un nombre real válido." };
+    }
+    
+    // Verificar que no sea solo un carácter repetido
+    if (REGEX_CACHE.caracterUnicoRepetido.test(nombre)) {
+        return { valido: false, mensaje: "El nombre no puede ser solo un carácter repetido." };
+    }
+    
+    return { valido: true, mensaje: "Nombre válido", nombre: nombre };
+}
+
+/**
+ * función para detectar nombres similares usando algoritmo de similitud
+ * previene duplicados inteligentemente considerando variaciones del mismo nombre
+ * @param {string} nuevoNombre - nombre a comparar con la lista existente
+ * @returns {object} objeto con información sobre similitud encontrada
+ */
+function detectarNombresSimilares(nuevoNombre) {
+    const nombreNormalizado = nuevoNombre.normalize("NFD").replace(REGEX_CACHE.diacriticos, "").toLowerCase();
+    
+    for (let amigo of listaDeAmigos) {
+        const amigoNormalizado = amigo.normalize("NFD").replace(REGEX_CACHE.diacriticos, "").toLowerCase();
+        
+        // Verificar nombres idénticos
+        if (amigoNormalizado === nombreNormalizado) {
+            return { similar: true, tipo: 'idéntico', nombre: amigo };
+        }
+        
+        // Verificar nombres muy similares (diferencia de 1-2 caracteres)
+        if (calcularSimilitud(nombreNormalizado, amigoNormalizado) > 0.8 && 
+            Math.abs(nombreNormalizado.length - amigoNormalizado.length) <= 2) {
+            return { similar: true, tipo: 'muy similar', nombre: amigo };
+        }
+    }
+    
+    return { similar: false };
+}
+
+/**
+ * función para calcular similitud entre dos strings
+ * implementa algoritmo simple pero efectivo para comparar nombres
+ * @param {string} str1 - primer string a comparar
+ * @param {string} str2 - segundo string a comparar
+ * @returns {number} porcentaje de similitud entre 0 y 1
+ */
+function calcularSimilitud(str1, str2) {
+    const len1 = str1.length;
+    const len2 = str2.length;
+    const maxLen = Math.max(len1, len2);
+    
+    if (maxLen === 0) return 1;
+    
+    let coincidencias = 0;
+    for (let i = 0; i < Math.min(len1, len2); i++) {
+        if (str1[i] === str2[i]) coincidencias++;
+    }
+    
+    return coincidencias / maxLen;
+}
+
+/**
  * funcion principal para agregar nuevos amigos a la lista
  * esta es la funcion mas importante de la aplicacion para gestionar nombres
  * incluye validacion completa, verificacion de duplicados y actualizacion de interfaz
@@ -488,32 +605,38 @@ function agregarAmigo() {
     
     const nombre = inputElement.value; // obtener valor actual del input como variable local
     
-    // validar el nombre usando la funcion robusta de validacion
-    const validacion = validarNombre(nombre); // llamar funcion que retorna objeto con estado y mensaje
+    // validar el nombre usando la función AVANZADA de validación
+    const validacion = validarNombreAvanzado(nombre); // usar nueva función robusta
     if (!validacion.valido) { // verificar si la validacion fue negativa
         mostrarNotificacion('❌ ' + validacion.mensaje, 'error'); // mostrar notificacion de error con mensaje especifico
         limpiarCampos(); // limpiar campo de entrada para nueva oportunidad
         return; // salir de la funcion si la validacion falla
     } // fin de verificacion de validacion
     
-    // normalizar el nombre para comparaciones consistentes (sin acentos, minusculas)
-    const nombreNormalizado = normalizarNombre(nombre); // aplicar normalizacion para comparacion uniforme
+    // NUEVA: Verificar duplicados y nombres similares usando detección inteligente
+    const similitud = detectarNombresSimilares(validacion.nombre);
+    if (similitud.similar) {
+        if (similitud.tipo === 'idéntico') {
+            mostrarNotificacion('⚠️ Este nombre ya está en la lista', 'warning');
+            limpiarCampos();
+            return;
+        } else {
+            // Mostrar confirmación para nombres similares
+            const confirmar = confirm(`El nombre "${validacion.nombre}" es muy similar a "${similitud.nombre}" que ya está en la lista. ¿Desea agregarlo de todas formas?`);
+            if (!confirmar) {
+                limpiarCampos();
+                return;
+            }
+        }
+    }
     
-    // verificar si el nombre ya existe usando comparacion normalizada para evitar duplicados
-    if (listaDeAmigos.some(amigo => normalizarNombre(amigo) === nombreNormalizado)) { // usar metodo some() con callback de comparacion
-        mostrarNotificacion('⚠️ Este nombre ya está en la lista', 'warning'); // notificar sobre duplicado encontrado
-        limpiarCampos(); // limpiar campo para permitir nuevo intento
-        return; // salir de la funcion si el nombre ya existe
-    } // fin de verificacion de duplicados
-    
-    // agregar el nombre ORIGINAL (no normalizado) a la lista para mostrar correctamente
-    const nombreLimpio = nombre.trim(); // aplicar trim para limpiar espacios laterales del nombre original
-    listaDeAmigos.push(nombreLimpio); // agregar nombre al array global usando metodo push()
+    // agregar el nombre ORIGINAL (validado) a la lista para mostrar correctamente
+    listaDeAmigos.push(validacion.nombre); // agregar nombre validado al array global
     
     // OPTIMIZACIÓN: Anuncio para lectores de pantalla
-    SCREEN_READER.announce(`${nombreLimpio} agregado a la lista. Total: ${listaDeAmigos.length} amigos.`);
+    SCREEN_READER.announce(`${validacion.nombre} agregado a la lista. Total: ${listaDeAmigos.length} amigos.`);
     
-    mostrarNotificacion(`🎉 ¡${nombreLimpio} agregado exitosamente!`, 'success'); // feedback positivo con template literal
+    mostrarNotificacion(`🎉 ¡${validacion.nombre} agregado exitosamente!`, 'success'); // feedback positivo con template literal
     mostrarAmigos(); // actualizar la lista visual en pantalla llamando funcion de renderizado
     limpiarCampos(); // limpiar input para siguiente entrada y mantener focus
 } // fin de la funcion agregarAmigo
