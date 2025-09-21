@@ -1,6 +1,18 @@
 <div align="center">
 
-# 🎁 Desafio Amigo Secreto - Oracle next education - G9
+# 🎁 Desafio Amigo Secreto - Oracle Next education - Alura Latam - G9
+
+## 👨‍💻 **Autor**
+
+<div align="center">
+
+**Carlos Fabián Mesa Muñoz**
+
+[![GitHub](https://img.shields.io/badge/GitHub-saturno024-black?style=for-the-badge&logo=github)](https://github.com/saturno024)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Carlos_Mesa-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/carlos-mesa)
+[![Email](https://img.shields.io/badge/Email-contacto-red?style=for-the-badge&logo=gmail)](mailto:contacto@carlosmesa.dev)
+
+</div>
 
 ### *aplicación web para organizar sorteos de Amigo Secreto*
 
@@ -297,28 +309,12 @@ MIT License - Puedes usar, modificar y distribuir libremente
 
 ---
 
-## 👨‍💻 **Autor**
+##  **Agradecimientos**
 
-<div align="center">
-
-**Carlos Fabián Mesa Muñoz**
-
-[![GitHub](https://img.shields.io/badge/GitHub-saturno024-black?style=for-the-badge&logo=github)](https://github.com/saturno024)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Carlos_Mesa-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/carlos-mesa)
-[![Email](https://img.shields.io/badge/Email-contacto-red?style=for-the-badge&logo=gmail)](mailto:contacto@carlosmesa.dev)
-
-*"Desarrollando experiencias digitales que conectan personas"*
-
-</div>
-
----
-
-## 🙏 **Agradecimientos**
-
-- 🎨 **Inspiración de diseño**: Material Design, Apple Human Interface Guidelines
+- 🎨 **Diseño original de:**: Alura latam
 - 🛠️ **Herramientas de desarrollo**: VS Code, Git, GitHub
 - 🎯 **Metodología**: Agile, Test-Driven Development
-- 📚 **Recursos de aprendizaje**: MDN Web Docs, JavaScript.info
+- 📚 **Recursos de aprendizaje**: MDN Web Docs, JavaScript.info, Alura latam 
 
 
 ---
