@@ -2,13 +2,13 @@
 
 ## ⚡ **Rama Principal Recomendada**
 
-Para una **versión estable y completa**, por favor visita la rama principal:
+La **versión oficial** presentada para el Desafío Amigo Secreto se encuentra en la rama `main`, la cual es la **versión estable y completa**. Por favor, visita la rama principal:
 
 ### 🏠 [**Rama Main (Versión Estable)**](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/main)
 
 > **🎓 La rama `main` es la versión oficial presentada como parte del Desafío Amigo Secreto de Alura Latam Oracle Next Education** 
 > 
-> **💎 Esta es la versión oficial estable** que contiene hasta el momento **todas las funcionalidades estables** completamente probadas y listas para producción.
+> **💎 Esta es la versión oficial estable** que contiene hasta el momento **todas las funcionalidades estables** completamente probadas y listas para la entrega del desafio en version oficial y estable .
 
 **� Versión Oficial del Desafío:**
 - 🎯 **Entrega oficial** - Versión presentada a Alura Latam Oracle Next Education
@@ -96,27 +96,11 @@ Esta rama que contiene un diseño alternativo:
 ---
 
 
-## 🔄 **Estado de Desarrollo**
+## 🔄 **Estado de esta rama es en Desarrollo**
 
 ### 📅 **Última Actualización:** Septiembre 2025
 
-### 🎯 **Próximos Pasos:**
-1. 🎨 Completar diseño responsive avanzado
-2. ⚡ Optimizar performance del sorteo
-3. 🔧 Mejorar sistema de validaciones
-4. ✨ Añadir más animaciones fluidas
-5. 📱 Perfeccionar experiencia móvil
-6. 🔄 Integrar mejores características hacia main
 
----
-
-## ⚠️ **Advertencias para Desarrolladores**
-
-- 🚨 **No uses este código en producción**
-- 🔄 **Los commits pueden ser revertidos sin previo aviso**
-- 📝 **La documentación puede estar desactualizada**
-- 🐛 **Pueden existir bugs no documentados**
-- ⚡ **El rendimiento no está optimizado**
 
 ---
 
