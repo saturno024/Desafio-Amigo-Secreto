@@ -1,5 +1,29 @@
 # 🔬 Desafío Amigo Secreto - Rama Diseño alternativo 
 
+## ⚡ **Rama Principal Recomendada**
+
+Para una **versión estable y completa**, por favor visita la rama principal:
+
+### 🏠 [**Rama Main (Versión Estable)**](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/main)
+
+> **🎓 La rama `main` es la versión oficial presentada como parte del Desafío Amigo Secreto de Alura Latam Oracle Next Education** 
+> 
+> **💎 Esta es la versión oficial estable** que contiene hasta el momento **todas las funcionalidades estables** completamente probadas y listas para producción.
+
+**� Versión Oficial del Desafío:**
+- 🎯 **Entrega oficial** - Versión presentada a Alura Latam Oracle Next Education
+- 📚 **Proyecto completo** - Cumple todos los requisitos del desafío
+- ✅ **Código 100% estable** - Completamente probado y funcional
+- ✅ **Todas las funcionalidades implementadas** - Sin limitaciones
+- ✅ **Documentación completa** - Guías detalladas de uso
+- ✅ **Sistema de sorteo inteligente** - Sin repetición de ganadores
+- ✅ **Validaciones robustas** - 11+ tipos de validación
+- ✅ **Interfaz responsive** - Funciona en todos los dispositivos
+- ✅ **Optimizaciones de performance** - Carga rápida y fluida
+- ✅ **Accesibilidad completa** - WCAG 2.1 AA compliance
+
+---
+
 ## ⚠️ **AVISO IMPORTANTE**
 
 > **🚨 CÓDIGO EXPERIMENTAL - NO USAR EN PRODUCCIÓN**
@@ -71,30 +95,6 @@ Esta rama que contiene un diseño alternativo:
 
 ---
 
-## ⚡ **Rama Principal Recomendada**
-
-Para una **versión estable y completa**, por favor visita la rama principal:
-
-### 🏠 [**Rama Main (Versión Estable)**](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/main)
-
-> **🎓 La rama `main` es la versión oficial presentada como parte del Desafío Amigo Secreto de Alura Latam Oracle Next Education** 
-> 
-> **💎 Esta es la versión oficial estable** que contiene hasta el momento **todas las funcionalidades estables** completamente probadas y listas para producción.
-
-**� Versión Oficial del Desafío:**
-- 🎯 **Entrega oficial** - Versión presentada a Alura Latam Oracle Next Education
-- 📚 **Proyecto completo** - Cumple todos los requisitos del desafío
-- ✅ **Código 100% estable** - Completamente probado y funcional
-- ✅ **Todas las funcionalidades implementadas** - Sin limitaciones
-- ✅ **Documentación completa** - Guías detalladas de uso
-- ✅ **Sistema de sorteo inteligente** - Sin repetición de ganadores
-- ✅ **Validaciones robustas** - 11+ tipos de validación
-- ✅ **Interfaz responsive** - Funciona en todos los dispositivos
-- ✅ **Optimizaciones de performance** - Carga rápida y fluida
-- ✅ **Accesibilidad completa** - WCAG 2.1 AA compliance
-- ✅ **Listo para producción** - Código de calidad enterprise
-
----
 
 ## 🔄 **Estado de Desarrollo**
 
