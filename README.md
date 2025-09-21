@@ -31,14 +31,14 @@
 
 ## 🌟 **Descripción del Proyecto**
 
-**Amigo Secreto** es una aplicación web basica para simplificar la organización de sorteos de intercambio de regalos. Con un enfoque en la **experiencia de usuario**, **validaciones inteligentes** y **animaciones festivas**, esta aplicación transforma un proceso tradicionalmente manual en una experiencia digital memorable.
+**Amigo Secreto** es una aplicación web básica para simplificar la organización de sorteos de intercambio de regalos. Con un enfoque en la **experiencia de usuario**, **validaciones inteligentes** y **diseño responsive**, esta aplicación transforma un proceso tradicionalmente manual en una experiencia digital memorable.
 
 ### 🎯 **¿Por qué Amigo Secreto?**
 
 - ✅ **Eliminación de errores humanos** en sorteos manuales
 - ✅ **Validaciones avanzadas** que previenen duplicados y nombres similares
 - ✅ **Interfaz intuitiva** que cualquier persona puede usar
-- ✅ **Animaciones festivas** que crean ambiente de celebración
+- ✅ **Diseño responsive** que se adapta a cualquier dispositivo
 - ✅ **Código limpio y mantenible** siguiendo mejores prácticas
 
 ---
@@ -53,18 +53,18 @@
 - **Feedback en tiempo real** con indicadores visuales
 
 ### 🎨 **Experiencia de Usuario Premium**
-- **Animaciones CSS fluidas** y transiciones suaves
-- **Efectos de confeti** en el resultado del sorteo
+- **Transiciones CSS suaves** y animaciones elegantes
+- **Alerta verde simple** para mostrar el resultado del sorteo
 - **Diseño responsive** adaptable a todos los dispositivos
 - **Indicadores visuales** para validación en tiempo real
 - **Notificaciones elegantes** para feedback del usuario
 
-### 🎪 **Sorteo Festivo Avanzado**
+### 🎪 **Sorteo Simple y Efectivo**
 - **Algoritmo de sorteo verdaderamente aleatorio**
-- **Contador dinámico** que crea suspense
-- **Animación de confetti** al revelar el resultado
-- **Sonidos festivos** (opcional) para mayor inmersión
-- **Efecto de rotación** de nombres antes del resultado final
+- **Tiempo de suspense** optimizado para mejor experiencia
+- **Alerta verde elegante** al revelar el resultado
+- **Mensaje claro y directo** del ganador seleccionado
+- **Animación suave** sin efectos complejos que distraigan
 
 ### ⚡ **Performance y Optimización**
 - **Debouncing** en validaciones para mejor rendimiento
@@ -85,7 +85,7 @@
 
 ### 🎉 **Resultado del Sorteo**
 ![Resultado del Sorteo](assets/Capturas/img2.png)
-*Animación festiva con confetti y efectos visuales*
+*Alerta verde simple y elegante mostrando el ganador*
 
 </div>
 
@@ -146,8 +146,8 @@ DESAFIO-AMIGO-SECRETO/
 ```
 1️⃣ Asegúrate de tener al menos 2 participantes
 2️⃣ Click en "Sortear Amigo"
-3️⃣ Disfruta la animación de suspense
-4️⃣ ¡Ve el resultado con efecto de confetti!
+3️⃣ Espera un momento de suspense
+4️⃣ ¡Ve el resultado en una alerta verde elegante!
 ```
 
 ### **3. Gestionar la Lista**
@@ -191,8 +191,8 @@ DESAFIO-AMIGO-SECRETO/
 | 📁 **Líneas de Código** | ~800 líneas |
 | 🎯 **Funciones** | 15+ funciones |
 | 🛡️ **Validaciones** | 8 tipos diferentes |
-| 🎨 **Animaciones CSS** | 12 animaciones |
-| 📱 **Breakpoints** | 4 responsive |
+| 🎨 **Animaciones CSS** | 8 animaciones |
+| 📱 **Breakpoints** | 3 responsive |
 | ⚡ **Tiempo de Carga** | <100ms |
 | 🌐 **Compatibilidad** | 98% navegadores |
 
@@ -219,7 +219,7 @@ DESAFIO-AMIGO-SECRETO/
 **❓ Las animaciones no se ven**
 ```
 ✅ Solución: Actualiza tu navegador a una versión más reciente
-✅ Solución: Desactiva extensiones que bloqueen CSS/JavaScript
+✅ Solución: Verifica que CSS esté habilitado correctamente
 ```
 
 ---
