@@ -1,5 +1,17 @@
 # 🔬 Desafío Amigo Secreto - Rama Diseño alternativo 
 
+## ⚠️ **AVISO IMPORTANTE**
+
+> **🚨 CÓDIGO EXPERIMENTAL - NO USAR EN PRODUCCIÓN**
+> 
+> Esta rama (`design-experimental`) está en **desarrollo activo** y contiene código experimental que no ha sido completamente probado. 
+> 
+> **🎓 Para el código oficial del Desafío Amigo Secreto de Alura Latam Oracle Next Education, usar la [rama `main`](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/main)** 
+> 
+> **💎 La rama `main` es la versión oficial presentada como entrega del desafío** con todas las funcionalidades implementadas y probadas.
+
+---
+
 <div align="center">
 
 ![Amigo Secreto Logo](./assets/amigo-secreto.png)
@@ -14,23 +26,13 @@
 **🚧 Esta rama contiene un diseño experimental en desarrollo activo. No es estable y está sujeta a cambios constantes.**
 
 ### 🚀 **Demo en Vivo (Experimental)**
-[![Live Demo](https://img.shields.io/badge/🌐_Demo_Experimental-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://desafio-amigo-secretov2.vercel.app/)
+<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
+  <img src="https://img.shields.io/badge/🌐_Demo_Experimental-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
+</a>
 
-**[🔗 Ver Demo en Vivo](https://desafio-amigo-secretov2.vercel.app/)** - Prueba la versión experimental
+**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🔗 Ver Demo en Vivo</a>** - Prueba la versión experimental
 
 </div>
-
----
-
-## ⚠️ **AVISO IMPORTANTE**
-
-> **🚨 CÓDIGO EXPERIMENTAL - NO USAR EN PRODUCCIÓN**
-> 
-> Esta rama (`design-experimental`) está en **desarrollo activo** y contiene código experimental que no ha sido completamente probado. 
-> 
-> **🎓 Para el código oficial del Desafío Amigo Secreto de Alura Latam Oracle Next Education, usar la [rama `main`](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/main)** 
-> 
-> **💎 La rama `main` es la versión oficial presentada como entrega del desafío** con todas las funcionalidades implementadas y probadas.
 
 ---
 
@@ -136,6 +138,6 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 **🔬 Rama En desarrollo - No estable**
 
-[🚀 Demo Experimental](https://desafio-amigo-secretov2.vercel.app/) | [🏠 Ir a Rama Main](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/main) | [📋 Ver Issues](https://github.com/saturno024/Desafio-Amigo-Secreto/issues) | [🔀 Pull Requests](https://github.com/saturno024/Desafio-Amigo-Secreto/pulls)
+<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 Demo Experimental</a> | [🏠 Ir a Rama Main](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/main) | [📋 Ver Issues](https://github.com/saturno024/Desafio-Amigo-Secreto/issues) | [🔀 Pull Requests](https://github.com/saturno024/Desafio-Amigo-Secreto/pulls)
 
 </div>
