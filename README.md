@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🎁 Amigo Secreto - Sistema de Sorteo Inteligente
+# 🎁 Desafio Amigo Secreto - Oracle next education 
 
-### *La aplicación web más avanzada para organizar sorteos de Amigo Secreto*
+### *aplicación web para organizar sorteos de Amigo Secreto*
 
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto-)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -19,7 +19,7 @@
 
 ## 🌟 **Descripción del Proyecto**
 
-**Amigo Secreto** es una aplicación web moderna y robusta diseñada para simplificar la organización de sorteos de intercambio de regalos. Con un enfoque en la **experiencia de usuario**, **validaciones inteligentes** y **animaciones festivas**, esta aplicación transforma un proceso tradicionalmente manual en una experiencia digital memorable.
+**Amigo Secreto** es una aplicación web basica para simplificar la organización de sorteos de intercambio de regalos. Con un enfoque en la **experiencia de usuario**, **validaciones inteligentes** y **animaciones festivas**, esta aplicación transforma un proceso tradicionalmente manual en una experiencia digital memorable.
 
 ### 🎯 **¿Por qué Amigo Secreto?**
 
@@ -203,19 +203,6 @@ Amigo-Secreto/
 ```
 
 ---
-
-## 🤝 **Contribuir al Proyecto**
-
-¡Las contribuciones son bienvenidas! Este proyecto sigue las mejores prácticas de desarrollo colaborativo.
-
-### **🚀 Cómo Contribuir**
-
-1. **Fork** el repositorio
-2. **Crea** una rama para tu feature (`git checkout -b feature/nueva-caracteristica`)
-3. **Commit** tus cambios (`git commit -m 'feat: añadir nueva característica'`)
-4. **Push** a la rama (`git push origin feature/nueva-caracteristica`)
-5. **Abre** un Pull Request
-
 ### **📋 Convenciones de Código**
 
 ```javascript
