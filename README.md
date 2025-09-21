@@ -50,7 +50,6 @@
 - **Validación de caracteres** (evita números puros, caracteres repetitivos, nombres con numeros, espacios en blanco)
 - **Filtro de palabras prohibidas** (admin, test, null, etc.)
 - **Longitud mínima/máxima** configurable
-- **Se pueden editar los nombres añadidos en la lista** Nombres editables
 - **Feedback en tiempo real** con indicadores visuales
 
 ### 🎨 **Experiencia de Usuario Premium**
@@ -155,7 +154,7 @@ DESAFIO-AMIGO-SECRETO/
 ```
 1️⃣ Elimina participantes individualmente con ❌
 2️⃣ Reinicia toda la lista con "Reiniciar"
-3️⃣ Edita nombres haciendo click sobre ellos
+
 ```
 
 ---
