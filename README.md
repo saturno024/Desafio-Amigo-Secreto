@@ -1,6 +1,7 @@
 <div align="center">
 
-# 🎁 Desafio Amigo Secreto - Oracle Next education - Alura Latam - G9
+# 🎁 Desafio Amigo Secreto 🎁
+#  🎓 Oracle Next Education - Alura Latam - G9 🎓
 
 ## 👨‍💻 **Autor**
 
