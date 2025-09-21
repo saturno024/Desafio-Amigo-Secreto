@@ -50,11 +50,11 @@ La **versión oficial** presentada para el Desafío Amigo Secreto se encuentra e
 **🚧 Esta rama contiene un diseño experimental en desarrollo activo. No es estable y está sujeta a cambios constantes.**
 
 ### 🚀 **Demo en Vivo (Experimental)**
-<a href="https://desafio-amigo-secretov1-git-9bc023-fabian-mesa-munozs-projects.vercel.app/" target="_blank">
+<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
   <img src="https://img.shields.io/badge/🌐_Demo_Experimental-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
 </a>
 
-**<a href="https://desafio-amigo-secretov1-git-9bc023-fabian-mesa-munozs-projects.vercel.app/" target="_blank">🔗 Ver Demo en Vivo</a>** - Prueba la versión experimental
+**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🔗 Ver Demo en Vivo</a>** - Prueba la versión experimental
 
 ### 📸 **Capturas de Pantalla**
 
