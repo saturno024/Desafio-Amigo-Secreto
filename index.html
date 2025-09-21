@@ -20,12 +20,20 @@
         <section class="input-section">
             <h2 class="section-title">Digite el nombre de sus amigos</h2>
             <div class="input-wrapper">
-                <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre">
-                <button class="button-add" onclick="agregarAmigo()">Añadir</button>
+                <label for="amigo" class="sr-only">Nombre del amigo</label>
+                <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre" 
+                       aria-describedby="input-help" maxlength="30">
+                <button class="button-add" onclick="agregarAmigo()" aria-label="Añadir amigo a la lista">Añadir</button>
             </div>
+            <div id="input-help" class="sr-only">Ingrese nombres de 2 a 30 caracteres. No se permiten solo números.</div>
            
-            <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
-            <ul id="resultado" class="result-list" aria-live="polite"></ul>
+            <div id="contador" class="contador-participantes">0 amigos agregados</div>
+            
+            <ul id="listaAmigos" class="name-list" aria-labelledby="lista-titulo" role="list"></ul>
+            <div id="lista-titulo" class="sr-only">Lista de amigos agregados</div>
+            
+            <div id="resultado" class="result-list" aria-live="polite" aria-atomic="true"></div>
+            <div id="anunciador" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
             <div class="button-container">
                 <button class="button-draw" onclick="sortearAmigo()" aria-label="Sortear amigo secreto">
@@ -35,9 +43,26 @@
                  <button class="button-draw" onclick="reiniciar()" aria-label="Reiniciar">
                     <img src="assets/play_circle_outline.png" alt="Ícono para reiniciar">
                     Reiniciar
-                </button></brZ>
+                </button>
             </div>
         </section>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Desarrollado con ❤️ por <strong>Carlos Fabián Mesa Muñoz</strong>
+                </p>
+                <p class="footer-links">
+                    <a href="https://github.com/saturno024" target="_blank" aria-label="GitHub de Carlos Fabián">
+                        GitHub
+                    </a> |
+                    <a href="#" onclick="mostrarInfo()" aria-label="Información de la aplicación">
+                        Acerca de
+                    </a>
+                </p>
+                <p class="footer-version">v2.1.0 - Optimizado para accesibilidad</p>
+            </div>
+        </footer>
     </main>
 
     <script src="app.js" defer></script>

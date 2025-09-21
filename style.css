@@ -20,28 +20,46 @@ body {
     background-color: var(--color-primary);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
+    /* Optimizaciones de performance */
+    contain: layout style;
 }
 
 .main-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100vh;
     width: 100%;
+    /* Optimización para contenido dinámico */
+    contain: layout;
+}
+
+/* Clase para screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 /* Banner */
 .header-banner {
-    flex: 40%;
+    flex: 0 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 0 0;
+    padding: 20px 0;
+    min-height: 120px;
 }
 
 /* Sección de entrada */
 .input-section {
-    flex: 60%;
+    flex: 1;
     background-color: var(--color-secondary);
     border: 1px solid #000;
     border-radius: 64px 64px 0 0;
@@ -50,6 +68,7 @@ body {
     align-items: center;
     padding: 20px;
     width: 100%;
+    overflow-y: auto;
 }
 
 /* Títulos */
@@ -104,6 +123,13 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* Mejorar focus para accesibilidad */
+.input-name:focus,
+.input-title:focus {
+    outline: 3px solid #4B69FD;
+    outline-offset: 2px;
+}
+
 /* Estilos de botón */
 button {
     padding: 15px 30px;
@@ -113,6 +139,20 @@ button {
     border-radius: 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
+    /* Optimización para animaciones */
+    will-change: transform, background-color;
+    transition: all 0.2s ease;
+}
+
+/* Mejorar focus para botones */
+button:focus {
+    outline: 3px solid #4B69FD;
+    outline-offset: 3px;
+}
+
+/* Mejorar hover y active states */
+button:active {
+    transform: translateY(1px);
 }
 
 .button-add {
@@ -132,6 +172,17 @@ ul {
     font-family: "Inter", sans-serif;
     font-size: 18px;
     margin: 20px 0;
+    /* Optimización para listas dinámicas */
+    contain: layout;
+}
+
+/* Mejorar accesibilidad de elementos de lista */
+li:focus {
+    outline: 2px solid #4B69FD;
+    outline-offset: 2px;
+    background-color: rgba(75, 105, 253, 0.1);
+    border-radius: 4px;
+    padding: 2px 4px;
 }
 
 .result-list {
@@ -140,6 +191,190 @@ ul {
     font-size: 22px;
     font-weight: bold;
     text-align: center;
+    /* Optimización para contenido dinámico */
+    contain: layout style;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos para el sorteo loading */
+.sorteo-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--color-button);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Estilos para resultado festivo */
+.resultado-festivo {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 25px;
+    margin: 10px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 3px solid gold;
+}
+
+.resultado-animado {
+    animation: resultadoEntrada 0.8s ease-out;
+}
+
+@keyframes resultadoEntrada {
+    0% {
+        transform: scale(0.5) rotate(-10deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.confeti {
+    position: absolute;
+    font-size: 30px;
+    animation: flotarConfeti 2s ease-in-out infinite;
+}
+
+.confeti:first-child {
+    top: 10px;
+    left: 10px;
+    animation-delay: 0s;
+}
+
+.confeti:last-child {
+    top: 10px;
+    right: 10px;
+    animation-delay: 0.5s;
+}
+
+@keyframes flotarConfeti {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(180deg); }
+}
+
+.corona {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    animation: coronaPulso 1.5s ease-in-out infinite;
+}
+
+@keyframes coronaPulso {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.2); }
+}
+
+.ganador-container {
+    text-align: center;
+    color: white;
+    margin-top: 15px;
+}
+
+.ganador-titulo {
+    font-family: "Merriweather", serif;
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: tituloParpadeo 2s ease-in-out infinite;
+}
+
+@keyframes tituloParpadeo {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.ganador-nombre {
+    font-family: "Inter", sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border: 2px dashed #FFD700;
+    border-radius: 15px;
+    margin: 10px 0;
+    animation: nombreBrillo 1.5s ease-in-out infinite;
+}
+
+@keyframes nombreBrillo {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    50% { 
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    }
+}
+
+.celebracion {
+    font-size: 24px;
+    margin-top: 10px;
+    animation: celebracionBaile 1s ease-in-out infinite;
+}
+
+@keyframes celebracionBaile {
+    0%, 100% { transform: translateY(0px); }
+    25% { transform: translateY(-5px); }
+    75% { transform: translateY(5px); }
+}
+
+/* Confeti flotante */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ff6b6b;
+    animation: confettiFall linear infinite;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
 }
 
 /* Botón de sortear título */
@@ -159,4 +394,110 @@ ul {
 
 .button-draw:hover {
     background-color: var(--color-button-hover);
+}
+
+/* Contador de participantes */
+.contador-participantes {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: var(--color-text);
+    text-align: center;
+    margin: 10px 0;
+    padding: 5px 10px;
+    background-color: rgba(75, 105, 253, 0.1);
+    border-radius: 15px;
+    font-weight: 500;
+}
+
+/* Estilos para items de amigos con botón eliminar */
+.amigo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.amigo-item:hover {
+    background-color: rgba(255, 255, 255, 0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.amigo-nombre {
+    flex: 1;
+    font-weight: 500;
+}
+
+.btn-eliminar {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-left: 10px;
+    padding: 0;
+}
+
+.btn-eliminar:hover {
+    background-color: #ff3742;
+    transform: scale(1.1);
+}
+
+.btn-eliminar:active {
+    transform: scale(0.95);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: 15px 20px;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.footer-text {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.footer-links {
+    margin: 8px 0;
+    font-size: 12px;
+}
+
+.footer-links a {
+    color: var(--color-white);
+    text-decoration: none;
+    margin: 0 5px;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+.footer-version {
+    font-size: 11px;
+    opacity: 0.8;
+    margin: 5px 0 0;
 }
