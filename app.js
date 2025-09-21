@@ -143,6 +143,8 @@ function agregarAmigo() {
     if (similitud.similar) {
         if (similitud.tipo === 'idéntico') {
             alert("Este nombre ya está en la lista.");
+            limpiarCampos();
+            return;
         } else {
             const confirmar = confirm(`El nombre "${validacion.nombre}" es muy similar a "${similitud.nombre}" que ya está en la lista. ¿Desea agregarlo de todas formas?`);
             if (!confirmar) {
