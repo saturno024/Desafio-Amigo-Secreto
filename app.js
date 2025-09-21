@@ -62,6 +62,11 @@ function validarNombre(nombre) {
         return { valido: false, error: "Por favor, ingrese un nombre válido, no solo números." };
     }
     
+    // Verificar que no contenga números (nueva validación)
+    if (/\d/.test(nombre)) {
+        return { valido: false, error: "El nombre no puede contener números. Solo letras y espacios están permitidos." };
+    }
+    
     // Verificar que no contenga solo caracteres especiales
     if (/^[^a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/.test(nombre)) {
         return { valido: false, error: "El nombre debe contener al menos una letra." };
@@ -318,22 +323,6 @@ function reiniciar() {
     anunciarCambio("Lista reiniciada. Todos los nombres han sido eliminados.");
 }
 
-function mostrarInfo() {
-    alert(`🎁 Amigo Secreto v2.1.0
-
-✨ Funcionalidades:
-• Agregar amigos con validaciones robustas
-• Eliminar amigos individuales con el botón ×
-• Sorteo aleatorio justo con animaciones festivas
-• Navegación completa por teclado
-• Compatible con lectores de pantalla
-• Detección de nombres similares
-
-🔧 Desarrollado por Carlos Fabián Mesa Muñoz
-📱 Optimizado para accesibilidad y performance
-
-¡Disfruta tu intercambio de regalos! 🎄`);
-}
 
 // Agregar soporte para Enter en el input
 document.addEventListener('DOMContentLoaded', () => {
