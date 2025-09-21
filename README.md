@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎁 Desafio Amigo Secreto - Oracle next education 
+# 🎁 Desafio Amigo Secreto - Oracle next education - G9
 
 ### *aplicación web para organizar sorteos de Amigo Secreto*
 
@@ -319,14 +319,17 @@ MIT License - Puedes usar, modificar y distribuir libremente
 - 🛠️ **Herramientas de desarrollo**: VS Code, Git, GitHub
 - 🎯 **Metodología**: Agile, Test-Driven Development
 - 📚 **Recursos de aprendizaje**: MDN Web Docs, JavaScript.info
-- 🎄 **Temática festiva**: Inspirada en las tradiciones navideñas latinoamericanas
+
 
 ---
 
 <div align="center">
 
-**⭐ Si este proyecto te ha sido útil, ¡considera darle una estrella! ⭐**
+**⭐ Realizado por Carlos Fabián Mesa Muñoz ⭐**
 
-**🎁 ¡Que tengas un excelente intercambio de regalos! 🎁**
+**💖 Hecho con amor 💖**
+
+**🎓 Oracle Next Education - Alura Latam - G9 🎓**
+
 
 </div>
