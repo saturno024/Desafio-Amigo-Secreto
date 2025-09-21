@@ -17,11 +17,6 @@ function validarNombre(nombre) {
         return { valido: false, error: "Por favor, ingrese un nombre." };
     }
     
-    // Verificar que no sean solo espacios
-    if (/^\s+$/.test(nombre)) {
-        return { valido: false, error: "El nombre no puede contener solo espacios." };
-    }
-    
     // Verificar longitud mínima
     if (nombre.length < 2) {
         return { valido: false, error: "El nombre debe tener al menos 2 caracteres." };
