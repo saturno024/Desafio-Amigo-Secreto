@@ -50,6 +50,7 @@
 - **Validación de caracteres** (evita números puros, caracteres repetitivos, nombres con numeros, espacios en blanco)
 - **Filtro de palabras prohibidas** (admin, test, null, etc.)
 - **Longitud mínima/máxima** configurable
+- **Se puede editar los nombres añadidos en la lista** Nombres editables
 - **Feedback en tiempo real** con indicadores visuales
 
 ### 🎨 **Experiencia de Usuario Premium**
@@ -71,7 +72,7 @@
 - **Caché de expresiones regulares** para validaciones rápidas
 - **Manipulación eficiente del DOM**
 - **Carga instantánea** sin dependencias externas
-- **Código JavaScript vanilla** optimizado
+- **Código JavaScript** optimizado
 
 ---
 
@@ -221,25 +222,6 @@ Amigo-Secreto/
 ✅ Solución: Actualiza tu navegador a una versión más reciente
 ✅ Solución: Desactiva extensiones que bloqueen CSS/JavaScript
 ```
-
----
-
-## 📈 **Roadmap y Futuras Versiones**
-
-### **🎯 Version 2.1.0 (En desarrollo)**
-- [ ] Implementación de PWA (Progressive Web App)
-- [ ] Soporte offline con Service Workers
-- [ ] Notificaciones push para recordatorios
-
-### **🚀 Version 2.2.0 (Planificada)**
-- [ ] Modo multijugador en tiempo real
-- [ ] Integración con calendario para eventos
-- [ ] API REST para integración con otras apps
-
-### **✨ Version 3.0.0 (Visión a largo plazo)**
-- [ ] Aplicación móvil nativa (React Native)
-- [ ] Machine Learning para sugerencias inteligentes
-- [ ] Integración con plataformas de videoconferencia
 
 ---
 
