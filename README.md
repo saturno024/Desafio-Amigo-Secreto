@@ -56,6 +56,18 @@ La **versión oficial** presentada para el Desafío Amigo Secreto se encuentra e
 
 **<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🔗 Ver Demo en Vivo</a>** - Prueba la versión experimental
 
+### 📸 **Capturas de Pantalla**
+
+<div align="center">
+
+![Captura 1](./assets/Capturas/img1.png)
+*Interfaz principal del diseño experimental*
+
+![Captura 2](./assets/Capturas/img2.png)
+*Vista de funcionalidades avanzadas*
+
+</div>
+
 </div>
 
 ---
