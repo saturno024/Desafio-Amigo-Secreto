@@ -16,7 +16,7 @@
 
 ### *aplicación web para organizar sorteos de Amigo Secreto*
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto-)
+[![Version](https://img.shields.io/badge/version-1.1.5-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto-)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto-)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
