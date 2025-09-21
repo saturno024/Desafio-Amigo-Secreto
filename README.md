@@ -9,7 +9,7 @@
 **Carlos Fabián Mesa Muñoz**
 
 [![GitHub](https://img.shields.io/badge/GitHub-saturno024-black?style=for-the-badge&logo=github)](https://github.com/saturno024)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Carlos_Mesa-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/carlos-mesa)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Carlos_Mesa-blue?style=for-the-badge&logo=linkedin)](http://linkedin.com/in/fabi%C3%A1n-mesa-7a544429a/)
 [![Email](https://img.shields.io/badge/Email-contacto-red?style=for-the-badge&logo=gmail)](mailto:fabianmesa24@hotmail.com)
 
 </div>
