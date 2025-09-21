@@ -50,7 +50,7 @@
 - **Validación de caracteres** (evita números puros, caracteres repetitivos, nombres con numeros, espacios en blanco)
 - **Filtro de palabras prohibidas** (admin, test, null, etc.)
 - **Longitud mínima/máxima** configurable
-- **Se puede editar los nombres añadidos en la lista** Nombres editables
+- **Se pueden editar los nombres añadidos en la lista** Nombres editables
 - **Feedback en tiempo real** con indicadores visuales
 
 ### 🎨 **Experiencia de Usuario Premium**
