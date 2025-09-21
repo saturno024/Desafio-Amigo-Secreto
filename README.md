@@ -81,11 +81,11 @@
 <div align="center">
 
 ### 📱 **Pantalla Principal**
-![Pantalla Principal](Capturas/img1.png)
+![Pantalla Principal](assets/Capturas/img1.png)
 *Interfaz limpia y moderna con validación en tiempo real*
 
 ### 🎉 **Resultado del Sorteo**
-![Resultado del Sorteo](Capturas/img2.png)
+![Resultado del Sorteo](assets/Capturas/img2.png)
 *Animación festiva con confetti y efectos visuales*
 
 </div>
@@ -117,17 +117,17 @@ python -m http.server 8000
 ### **Estructura del Proyecto**
 
 ```
-Amigo-Secreto/
+DESAFIO-AMIGO-SECRETO/
 ├── 📄 index.html          # Estructura HTML semantic
 ├── 🎨 style.css           # Estilos CSS modernos
 ├── ⚡ app.js              # Lógica JavaScript avanzada
 ├── 📖 README.md           # Este archivo
 ├── 📁 assets/             # Recursos multimedia
 │   ├── amigo-secreto.png  # Logo principal
-│   └── play_circle_outline.png # Iconos
-├── 📁 Capturas/           # Screenshots del proyecto
-│   ├── img1.png          # Pantalla principal
-│   └── img2.png          # Resultado sorteo
+│   ├── play_circle_outline.png # Iconos
+│   └── 📁 Capturas/       # Screenshots del proyecto
+│       ├── img1.png       # Pantalla principal
+│       └── img2.png       # Resultado sorteo
 └── 📁 docs/              # Documentación adicional
 ```
 

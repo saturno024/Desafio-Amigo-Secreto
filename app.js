@@ -252,58 +252,23 @@ function sortearAmigo() {
     setTimeout(() => {
         let amigoGanador = listaDeAmigos[Math.floor(Math.random() * listaDeAmigos.length)];
         
-        // Crear resultado festivo
+        // Crear resultado simple y limpio
         resultado.innerHTML = `
-            <div class="resultado-festivo">
-                <div class="confeti">🎊</div>
-                <div class="corona">👑</div>
-                <div class="ganador-container">
-                    <h3 class="ganador-titulo">¡El Amigo Secreto es!</h3>
-                    <div class="ganador-nombre">${amigoGanador}</div>
-                    <div class="celebracion">🎉✨🎁✨🎉</div>
+            <div class="resultado-simple">
+                <div class="ganador-mensaje">
+                    <span class="icono-ganador">🎉</span>
+                    <span class="ganador-texto">¡El Amigo Secreto es: <strong>${amigoGanador}</strong>!</span>
+                    <span class="icono-ganador">🎉</span>
                 </div>
-                <div class="confeti">🎊</div>
             </div>
         `;
-        
-        // Agregar clase de animación
-        resultado.classList.add('resultado-animado');
-        
-        // Crear efecto de confeti flotante
-        crearConfeti();
         
         // Anunciar resultado
         anunciarCambio(`¡Sorteo realizado! El ganador es ${amigoGanador}.`);
         
-        // Quitar animación después de un tiempo
-        setTimeout(() => {
-            resultado.classList.remove('resultado-animado');
-        }, 3000);
-        
-    }, 1500); // 1.5 segundos de suspense
+    }, 1000); // 1 segundo de suspense
 }
 
-function crearConfeti() {
-    const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7'];
-    const confettiContainer = document.createElement('div');
-    confettiContainer.className = 'confetti-container';
-    document.body.appendChild(confettiContainer);
-    
-    for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti-piece';
-        confetti.style.left = Math.random() * 100 + '%';
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.animationDelay = Math.random() * 3 + 's';
-        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        confettiContainer.appendChild(confetti);
-    }
-    
-    // Limpiar confeti después de 5 segundos
-    setTimeout(() => {
-        confettiContainer.remove();
-    }, 5000);
-}
 
 function reiniciar() {
     if (listaDeAmigos.length > 0) {

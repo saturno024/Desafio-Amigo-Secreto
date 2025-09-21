@@ -53,8 +53,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 0;
-    min-height: 120px;
+    padding: 15px 0;
+    min-height: 80px;
+}
+
+.header-banner img {
+    max-width: 200px;
+    height: auto;
 }
 
 /* Sección de entrada */
@@ -66,18 +71,20 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 30px 25px;
     width: 100%;
     overflow-y: auto;
 }
 
 /* Títulos */
 .main-title {
-    font-size: 48px;
+    font-size: 36px;
     font-family: "Merriweather", serif;
     font-weight: 900;
     font-style: italic;
     color: var(--color-white);
+    margin: 0 10px;
+    text-align: center;
 }
 
 .section-title {
@@ -85,7 +92,7 @@ body {
     font-size: 36px;
     font-weight: 700;
     color: var(--color-primary);
-    margin: 10px 0;
+    margin: 15px 0 25px 0;
     text-align: center;
 }
 
@@ -95,7 +102,7 @@ body {
     justify-content: center;
     width: 100%;
     max-width: 600px;
-    margin-top: 20px;
+    margin: 20px 0 25px 0;
 }
 
 .input-name {
@@ -109,6 +116,7 @@ body {
 .button-container {
     width: 300px;
     justify-content: center;
+    margin-top: 30px;
 }
 
 /* Estilos de entrada de texto */
@@ -171,7 +179,7 @@ ul {
     color: var(--color-text);
     font-family: "Inter", sans-serif;
     font-size: 18px;
-    margin: 20px 0;
+    margin: 25px 0 30px 0;
     /* Optimización para listas dinámicas */
     contain: layout;
 }
@@ -187,6 +195,7 @@ li:focus {
 
 .result-list {
     margin-top: 15px;
+    margin-bottom: 30px;
     color: #05DF05;
     font-size: 22px;
     font-weight: bold;
@@ -222,16 +231,57 @@ li:focus {
     100% { transform: rotate(360deg); }
 }
 
-/* Estilos para resultado festivo */
-.resultado-festivo {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
-    padding: 25px;
-    margin: 10px 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border: 3px solid gold;
+/* Estilos para resultado simple */
+.resultado-simple {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 15px 0 25px 0;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    border: 2px solid #20c997;
+    animation: resultadoSlideIn 0.5s ease-out;
+}
+
+.ganador-mensaje {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.icono-ganador {
+    font-size: 20px;
+    animation: iconoPulso 1.5s ease-in-out infinite;
+}
+
+.ganador-texto {
+    font-family: "Inter", sans-serif;
+}
+
+.ganador-texto strong {
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes resultadoSlideIn {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes iconoPulso {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
 }
 
 .resultado-animado {
@@ -402,8 +452,8 @@ li:focus {
     font-size: 14px;
     color: var(--color-text);
     text-align: center;
-    margin: 10px 0;
-    padding: 5px 10px;
+    margin: 15px 0 20px 0;
+    padding: 8px 15px;
     background-color: rgba(75, 105, 253, 0.1);
     border-radius: 15px;
     font-weight: 500;
@@ -494,6 +544,127 @@ li:focus {
 .footer-links a:hover {
     color: var(--color-secondary);
     text-decoration: underline;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+   ============================== */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 768px) {
+    .header-banner {
+        padding: 10px 0;
+        min-height: 60px;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .header-banner img {
+        max-width: 150px;
+    }
+    
+    .main-title {
+        font-size: 28px;
+        margin: 0 5px;
+    }
+    
+    .section-title {
+        font-size: 28px;
+        margin: 10px 0 20px 0;
+    }
+    
+    .input-section {
+        padding: 20px 15px;
+        border-radius: 40px 40px 0 0;
+    }
+    
+    .input-wrapper {
+        max-width: 100%;
+        margin: 15px 0 20px 0;
+    }
+    
+    .button-container {
+        width: 100%;
+        max-width: 280px;
+        margin-top: 25px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    .header-banner {
+        padding: 8px 0;
+        min-height: 50px;
+    }
+    
+    .header-banner img {
+        max-width: 120px;
+    }
+    
+    .main-title {
+        font-size: 24px;
+        margin: 0;
+    }
+    
+    .section-title {
+        font-size: 24px;
+        margin: 8px 0 15px 0;
+    }
+    
+    .input-section {
+        padding: 15px 10px;
+        border-radius: 30px 30px 0 0;
+    }
+    
+    .input-wrapper {
+        margin: 10px 0 15px 0;
+    }
+    
+    .input-name {
+        font-size: 14px;
+        padding: 8px;
+    }
+    
+    .button-add {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    
+    .contador-participantes {
+        font-size: 12px;
+        margin: 10px 0 15px 0;
+        padding: 6px 12px;
+    }
+    
+    ul {
+        font-size: 16px;
+        margin: 15px 0 20px 0;
+    }
+    
+    .button-container {
+        width: 100%;
+        max-width: 250px;
+        margin-top: 20px;
+    }
+    
+    .button-draw {
+        font-size: 14px;
+        padding: 8px 30px;
+    }
+    
+    .resultado-simple {
+        padding: 12px 15px;
+        margin: 10px 0 20px 0;
+    }
+    
+    .ganador-mensaje {
+        font-size: 16px;
+        gap: 6px;
+    }
+    
+    .icono-ganador {
+        font-size: 18px;
+    }
 }
 
 .footer-version {
