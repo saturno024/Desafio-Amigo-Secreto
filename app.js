@@ -1,34 +1,9 @@
 // Carlos Fabián Mesa Muñoz 
 let listaDeAmigos = [];
-
-// Cache de elementos DOM para mejor performance
-const DOM_CACHE = {
-    amigo: null,
-    listaAmigos: null,
-    resultado: null,
-    contador: null,
-    anunciador: null,
-    
-    init() {
-        this.amigo = document.getElementById("amigo");
-        this.listaAmigos = document.getElementById("listaAmigos");
-        this.resultado = document.getElementById("resultado");
-        this.contador = document.getElementById("contador");
-        this.anunciador = document.getElementById("anunciador");
-    },
-    
-    get(element) {
-        return this[element];
-    }
-};
-
-// Inicializar cache cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    DOM_CACHE.init();
-});
+let ganadoresAnteriores = []; // Array para rastrear quién ya ganó
 
 function limpiarCampos(){
-    const input = DOM_CACHE.get('amigo') || document.getElementById("amigo");
+    const input = document.getElementById("amigo");
     input.value = "";
     input.focus(); // Mantener foco para mejor UX
 }
@@ -129,7 +104,7 @@ function calcularSimilitud(str1, str2) {
 }
 
 function agregarAmigo() {
-    const input = DOM_CACHE.get('amigo') || document.getElementById("amigo");
+    const input = document.getElementById("amigo");
     let nombre = input.value;
     
     // Validar nombre
@@ -170,7 +145,7 @@ function agregarAmigo() {
 
 // mostrar amigos ingresados en la ListaDeAmigos
 function mostrarAmigos() {
-    const lista = DOM_CACHE.get('listaAmigos') || document.getElementById("listaAmigos");
+    const lista = document.getElementById("listaAmigos");
     lista.innerHTML = ""; // Limpiar la lista antes de mostrar los amigos
     
     // Crear fragmento para mejor performance
@@ -179,12 +154,24 @@ function mostrarAmigos() {
     for (let i = 0; i < listaDeAmigos.length; i++) {
         let amigo = listaDeAmigos[i];
         let listItem = document.createElement("li");
-        listItem.className = "amigo-item";
+        
+        // Verificar si este amigo ya ganó
+        const yaGano = ganadoresAnteriores.includes(amigo);
+        listItem.className = yaGano ? "amigo-item amigo-ganador" : "amigo-item";
         
         // Crear span para el nombre
         let nombreSpan = document.createElement("span");
         nombreSpan.textContent = amigo;
         nombreSpan.className = "amigo-nombre";
+        
+        // Agregar indicador de ganador si corresponde
+        if (yaGano) {
+            let indicadorGanador = document.createElement("span");
+            indicadorGanador.textContent = "🏆";
+            indicadorGanador.className = "indicador-ganador";
+            indicadorGanador.setAttribute('title', 'Ya fue sorteado');
+            nombreSpan.appendChild(indicadorGanador);
+        }
         
         // Crear botón para eliminar
         let botonEliminar = document.createElement("button");
@@ -203,9 +190,21 @@ function mostrarAmigos() {
     actualizarContador();
 }
 
+// Función para actualizar la lista visual sin regenerar todo
+function actualizarListaVisual() {
+    mostrarAmigos(); // Por simplicidad, regeneramos la lista completa
+}
+
 function eliminarAmigo(indice) {
     const nombreEliminado = listaDeAmigos[indice];
     listaDeAmigos.splice(indice, 1);
+    
+    // También eliminar de la lista de ganadores si estaba ahí
+    const indiceGanador = ganadoresAnteriores.indexOf(nombreEliminado);
+    if (indiceGanador !== -1) {
+        ganadoresAnteriores.splice(indiceGanador, 1);
+    }
+    
     mostrarAmigos();
     
     // Anunciar eliminación para accesibilidad
@@ -213,7 +212,7 @@ function eliminarAmigo(indice) {
 }
 
 function actualizarContador() {
-    const contador = DOM_CACHE.get('contador') || document.getElementById("contador");
+    const contador = document.getElementById("contador");
     if (contador) {
         const cantidad = listaDeAmigos.length;
         contador.textContent = `${cantidad} amigo${cantidad !== 1 ? 's' : ''} agregado${cantidad !== 1 ? 's' : ''}`;
@@ -221,7 +220,7 @@ function actualizarContador() {
 }
 
 function anunciarCambio(mensaje) {
-    const anunciador = DOM_CACHE.get('anunciador') || document.getElementById("anunciador");
+    const anunciador = document.getElementById("anunciador");
     if (anunciador) {
         anunciador.textContent = mensaje;
         // Limpiar después de un momento
@@ -232,7 +231,7 @@ function anunciarCambio(mensaje) {
 }
 
 function sortearAmigo() {
-    const resultado = DOM_CACHE.get('resultado') || document.getElementById("resultado");
+    const resultado = document.getElementById("resultado");
     
     if(listaDeAmigos.length < 2){
         alert("Debe haber al menos dos amigos para sortear.");
@@ -240,17 +239,38 @@ function sortearAmigo() {
         return;
     }
 
+    // Obtener lista de candidatos que no han ganado
+    const candidatos = listaDeAmigos.filter(amigo => !ganadoresAnteriores.includes(amigo));
+    
+    // Verificar si todos ya han sido sorteados
+    if (candidatos.length === 0) {
+        resultado.innerHTML = `
+            <div class="resultado-simple">
+                <div class="ganador-mensaje">
+                    <span class="icono-ganador">🏆</span>
+                    <span class="ganador-texto">¡Todos ya han sido sorteados! Reinicia para un nuevo sorteo.</span>
+                    <span class="icono-ganador">🏆</span>
+                </div>
+            </div>
+        `;
+        anunciarCambio("Todos los participantes ya han sido sorteados. Reinicia para continuar.");
+        return;
+    }
+
     // Mostrar animación de sorteo
     resultado.innerHTML = `
         <div class="sorteo-loading">
             <div class="spinner"></div>
-            <p>🎲 Sorteando...</p>
+            <p>🎲 Sorteando entre ${candidatos.length} candidato${candidatos.length > 1 ? 's' : ''}...</p>
         </div>
     `;
     
     // Simular tiempo de sorteo para crear suspense
     setTimeout(() => {
-        let amigoGanador = listaDeAmigos[Math.floor(Math.random() * listaDeAmigos.length)];
+        let amigoGanador = candidatos[Math.floor(Math.random() * candidatos.length)];
+        
+        // Agregar al array de ganadores anteriores
+        ganadoresAnteriores.push(amigoGanador);
         
         // Crear resultado simple y limpio
         resultado.innerHTML = `
@@ -262,6 +282,9 @@ function sortearAmigo() {
                 </div>
             </div>
         `;
+        
+        // Actualizar la lista visual para mostrar quién ya ganó
+        actualizarListaVisual();
         
         // Anunciar resultado
         anunciarCambio(`¡Sorteo realizado! El ganador es ${amigoGanador}.`);
@@ -277,8 +300,9 @@ function reiniciar() {
     }
     
     listaDeAmigos = [];
-    const lista = DOM_CACHE.get('listaAmigos') || document.getElementById("listaAmigos");
-    const resultado = DOM_CACHE.get('resultado') || document.getElementById("resultado");
+    ganadoresAnteriores = []; // Limpiar también la lista de ganadores
+    const lista = document.getElementById("listaAmigos");
+    const resultado = document.getElementById("resultado");
     
     lista.innerHTML = "";
     resultado.textContent = "";

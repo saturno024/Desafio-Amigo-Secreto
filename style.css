@@ -509,6 +509,34 @@ li:focus {
     transform: scale(0.95);
 }
 
+/* Estilos para amigos que ya ganaron */
+.amigo-ganador {
+    background-color: rgba(40, 167, 69, 0.1) !important;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    opacity: 0.8;
+}
+
+.amigo-ganador:hover {
+    background-color: rgba(40, 167, 69, 0.15) !important;
+}
+
+.indicador-ganador {
+    margin-left: 8px;
+    font-size: 16px;
+    animation: ganadorPulso 2s ease-in-out infinite;
+}
+
+@keyframes ganadorPulso {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.1); 
+        opacity: 0.8;
+    }
+}
+
 /* Footer */
 .footer {
     background-color: var(--color-primary);

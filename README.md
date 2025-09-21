@@ -10,7 +10,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-saturno024-black?style=for-the-badge&logo=github)](https://github.com/saturno024)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Carlos_Mesa-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/carlos-mesa)
-[![Email](https://img.shields.io/badge/Email-contacto-red?style=for-the-badge&logo=gmail)](mailto:contacto@carlosmesa.dev)
+[![Email](https://img.shields.io/badge/Email-contacto-red?style=for-the-badge&logo=gmail)](mailto:fabianmesa24@hotmail.com)
 
 </div>
 
@@ -59,8 +59,11 @@
 - **Indicadores visuales** para validación en tiempo real
 - **Notificaciones elegantes** para feedback del usuario
 
-### 🎪 **Sorteo Simple y Efectivo**
+### 🎪 **Sorteo Inteligente y Justo**
 - **Algoritmo de sorteo verdaderamente aleatorio**
+- **Sistema de seguimiento de ganadores** - evita repetir ganadores
+- **Exclusión automática** de participantes ya sorteados
+- **Indicadores visuales** para mostrar quién ya ganó (🏆)
 - **Tiempo de suspense** optimizado para mejor experiencia
 - **Alerta verde elegante** al revelar el resultado
 - **Mensaje claro y directo** del ganador seleccionado
@@ -72,6 +75,37 @@
 - **Manipulación eficiente del DOM**
 - **Carga instantánea** sin dependencias externas
 - **Código JavaScript** optimizado
+
+---
+
+## 🧠 **Lógica de Sorteo sin reiniciar el juego**
+
+### 🎯 **Sistema de Doble Array**
+La aplicación utiliza una lógica con **dos arrays independientes** para garantizar sorteos justos:
+
+#### **Array 1: `listaDeAmigos`**
+```javascript
+["FABIAN", "nicolas", "andres", "monica"] // Todos los participantes
+```
+
+#### **Array 2: `ganadoresAnteriores`** 
+```javascript
+["andres"] // Solo los que ya ganaron
+```
+
+### 🔍 **Proceso de Exclusión**
+```javascript
+// Obtener candidatos válidos (que NO han ganado)
+const candidatos = listaDeAmigos.filter(amigo => !ganadoresAnteriores.includes(amigo));
+// Resultado: ["FABIAN", "nicolas", "monica"]
+```
+
+### ✨ **Características del Sistema:**
+- 🚫 **Previene repeticiones** - Un ganador no puede ganar dos veces
+- 👑 **Indicador visual** - Los ganadores se marcan con corona (🏆)
+- 🔄 **Reinicio limpio** - Al reiniciar se limpian ambos arrays
+- ⚖️ **Sorteos justos** - Solo sortea entre quienes no han ganado
+- 🎯 **Mensaje final** - Avisa cuando todos han sido sorteados
 
 ---
 
@@ -142,19 +176,24 @@ DESAFIO-AMIGO-SECRETO/
 4️⃣ Repite para todos los participantes
 ```
 
-### **2. Realizar el Sorteo**
+### **2. Realizar Sorteos Inteligentes**
 ```
 1️⃣ Asegúrate de tener al menos 2 participantes
 2️⃣ Click en "Sortear Amigo"
-3️⃣ Espera un momento de suspense
-4️⃣ ¡Ve el resultado en una alerta verde elegante!
+3️⃣ El sistema excluye automáticamente a ganadores anteriores
+4️⃣ Espera un momento de suspense
+5️⃣ ¡Ve el resultado en una alerta verde elegante!
+6️⃣ El ganador se marca con corona (🏆) en la lista
 ```
 
-### **3. Gestionar la Lista**
+### **3. Gestionar Ganadores y Lista**
 ```
-1️⃣ Elimina participantes individualmente con ❌
-2️⃣ Reinicia toda la lista con "Reiniciar"
-
+1️⃣ Los ganadores aparecen marcados con 🏆
+2️⃣ Sorteos subsecuentes excluyen a ganadores anteriores  
+3️⃣ Elimina participantes individualmente con ❌
+4️⃣ Al eliminar un ganador, se remueve del historial
+5️⃣ Reinicia toda la lista con "Reiniciar" (limpia todo)
+6️⃣ Mensaje especial cuando todos han sido sorteados
 ```
 
 ---
@@ -188,11 +227,13 @@ DESAFIO-AMIGO-SECRETO/
 
 | Métrica | Valor |
 |---------|-------|
-| 📁 **Líneas de Código** | ~800 líneas |
-| 🎯 **Funciones** | 15+ funciones |
+| 📁 **Líneas de Código** | ~900 líneas |
+| 🎯 **Funciones** | 18+ funciones |
 | 🛡️ **Validaciones** | 8 tipos diferentes |
-| 🎨 **Animaciones CSS** | 8 animaciones |
+| 🎨 **Animaciones CSS** | 10 animaciones |
 | 📱 **Breakpoints** | 3 responsive |
+| 🔄 **Arrays de Control** | 2 (participantes + ganadores) |
+| 🏆 **Sistema Ganadores** | Seguimiento completo |
 | ⚡ **Tiempo de Carga** | <100ms |
 | 🌐 **Compatibilidad** | 98% navegadores |
 
@@ -222,6 +263,13 @@ DESAFIO-AMIGO-SECRETO/
 ✅ Solución: Verifica que CSS esté habilitado correctamente
 ```
 
+**❓ Dice que todos ya fueron sorteados**
+```
+✅ Solución: Esto es normal, significa que todos han ganado una vez
+✅ Solución: Usa "Reiniciar" para comenzar un nuevo ciclo de sorteos
+✅ Solución: Agrega más participantes para tener más opciones
+```
+
 ---
 
 ## 📄 **Licencia**
@@ -236,7 +284,7 @@ MIT License - Puedes usar, modificar y distribuir libremente
 
 ##  **Agradecimientos**
 
-- 🎨 **Diseño original de:**: Alura latam
+- 🎨 **Diseño original de**: Alura latam
 - 🛠️ **Herramientas de desarrollo**: VS Code, Git, GitHub
 - 🎯 **Metodología**: Agile, Test-Driven Development
 - 📚 **Recursos de aprendizaje**: MDN Web Docs, JavaScript.info, Alura latam 
