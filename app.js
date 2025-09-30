@@ -612,7 +612,7 @@ function agregarAmigo() {
     const similitud = detectarNombresSimilares(validacion.nombre);
     if (similitud.similar) {
         if (similitud.tipo === 'idéntico') {
-            mostrarNotificacion('⚠️ Este nombre ya está en la lista', 'warning');
+            mostrarNotificacion('❌ Este nombre ya está en la lista', 'error');
             limpiarCampos();
             return;
         } else {

@@ -1882,26 +1882,12 @@ body { /* selector global del documento */
     font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; /* stack de fuentes emoji */
 } /* fin de pseudo-elemento error before */
 
-/* seccion de estilos para notificaciones de advertencia con tema naranja */
-/* comunicacion visual de precaucion para situaciones que requieren atencion */
-.notification.warning { /* clase modificadora para notificaciones de advertencia */
-    /* gradiente naranja para comunicar advertencia y precaucion */
-    background: linear-gradient(135deg, /* gradiente diagonal de 135 grados */
-        rgba(245, 158, 11, 0.9) 0%, /* naranja claro semi-transparente al inicio */
-        rgba(217, 119, 6, 0.9) 100%); /* naranja oscuro semi-transparente al final */
-    color: white; /* texto blanco para contraste optimo con fondo naranja */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* borde blanco sutil para definicion */
-} /* fin de estilos notificacion warning */
-
-/* pseudo-elemento para icono de advertencia en notificaciones warning */
-/* agrega elemento visual que refuerza el mensaje de precaucion */
-.notification.warning::before { /* pseudo-elemento before para icono de advertencia */
-    content: '⚠️'; /* emoji de triangulo de advertencia como contenido */
-    margin-right: 8px; /* margen derecho de 8px para separar del texto */
-    font-size: 16px; /* tamaño del emoji consistente con otras notificaciones */
-    /* especificar fuentes de emoji para garantizar renderizado correcto multiplataforma */
-    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; /* stack de fuentes emoji */
-} /* fin de pseudo-elemento warning before */
+/* 
+ * NOTA: Los estilos de .notification.warning fueron removidos
+ * ya que no se utilizan en la aplicación actual.
+ * Solo se mantienen los estilos para 'success' y 'error' 
+ * siguiendo el principio DRY y optimización de CSS.
+ */
 
 /* seccion de animacion de salida para notificaciones que se ocultan */
 /* proporciona transicion suave cuando las notificaciones desaparecen automaticamente */
