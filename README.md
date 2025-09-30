@@ -20,11 +20,11 @@
 **🏆 Esta es la versión 2.0 con todas las funcionalidades y validaciones completas, optimizaciones y mejoras implementadas.**
 
 ### 🚀 **Demo en Vivo Oficial**
-<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
+<a href="https://desafio-amigo-secretov1.vercel.app/" target="_blank">
   <img src="https://img.shields.io/badge/🌐_Demo_Oficial_v2.0-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
 </a>
 
-**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 Ver Demo en Vivo</a>** - Versión definitiva 2.0
+**<a href="https://desafio-amigo-secretov1.vercel.app/" target="_blank">🚀 Ver Demo en Vivo</a>** - Versión 2.0
 
 </div>
 
@@ -53,7 +53,7 @@
 
 <div align="center">
 
-<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 **Demo en Vivo**</a> • [📖 **Documentación**](#-características-principales) • [🛠️ **Instalación**](#-instalación) • [🎯 **Guía de Uso**](#-guía-de-uso)
+<a href="https://desafio-amigo-secretov1.vercel.app/" target="_blank">🚀 **Demo en Vivo**</a> • [📖 **Documentación**](#-características-principales) • [🛠️ **Instalación**](#-instalación) • [🎯 **Guía de Uso**](#-guía-de-uso)
 
 </div>
 
@@ -195,9 +195,9 @@ Puedes usar, modificar y distribuir libremente
 
 <div align="center">
 
-**🎉 Versión Definitiva 2.0 - Completada ✨**
+**🎉 Versión 2.0 ✨**
 
-<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 **Demo en Vivo**</a> | [📋 Ver Issues](https://github.com/saturno024/Desafio-Amigo-Secreto/issues) | [🔀 Pull Requests](https://github.com/saturno024/Desafio-Amigo-Secreto/pulls)
+<a href="https://desafio-amigo-secretov1.vercel.app/" target="_blank">🚀 **Demo en Vivo**</a> | [📋 Ver Issues](https://github.com/saturno024/Desafio-Amigo-Secreto/issues) | [🔀 Pull Requests](https://github.com/saturno024/Desafio-Amigo-Secreto/pulls)
 
 **⭐ Realizado por Carlos Fabián Mesa Muñoz ⭐**
 
