@@ -2,9 +2,7 @@
 
 # 🎁 Desafío Amigo Secreto - Versión 2.0 🎁
 
-## 🎓 Oracle Next Education - Alu**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 Ver Demo en Vivo</a>** - Versión definitiva 2.0
-
-</div>
+## 🎓 Oracle Next Education - Alura Latam - G9 🎓
 
 </div>
 
@@ -21,16 +19,19 @@
 
 **🏆 Esta es la versión oficial 2.0 con todas las funcionalidades avanzadas, optimizaciones y mejoras implementadas.**
 
-### � **Demo en Vivo Oficial**
+### 🚀 **Demo en Vivo Oficial**
 <a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
   <img src="https://img.shields.io/badge/🌐_Demo_Oficial_v2.0-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
 </a>
 
+**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 Ver Demo en Vivo</a>** - Versión definitiva 2.0
+
+</div>
+
 ---
-<div align="center">
 
 ## 👨‍💻 **Autor**
-</div>
+
 <div align="center">
 
 **Carlos Fabián Mesa Muñoz**
@@ -41,9 +42,9 @@
 
 </div>
 
-<div align="center">
-
 ### *Aplicación web moderna para sorteos de Amigo Secreto*
+
+<div align="center">
 
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -96,42 +97,6 @@
 
 ---
 
-<div align="center">
-
-![Amigo Secreto Logo](./assets/amigo-secreto.png)
-
-✨ **VERSIÓN DEFINITIVA 2.0 - OFICIAL** ✨
-
-[![Status](https://img.shields.io/badge/Status-Estable-brightgreen.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
-[![Version](https://img.shields.io/badge/Version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
-[![Stability](https://img.shields.io/badge/Stability-Stable-green.svg)](#)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-
-**🏆 Esta es la versión oficial 2.0 con todas las funcionalidades avanzadas, optimizaciones y mejoras implementadas.**
-
-### 🚀 **Demo en Vivo Oficial**
-<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
-  <img src="https://img.shields.io/badge/🌐_Demo_Oficial_v2.0-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
-</a>
-
-**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">� Ver Demo en Vivo</a>** - Versión definitiva 2.0
-
-### 📸 **Capturas de Pantalla**
-
-<div align="center">
-
-![Captura 1](./assets/Capturas/img1.png)
-*Interfaz principal de la versión 2.0*
-
-![Captura 2](./assets/Capturas/img2.png)
-*Vista de funcionalidades versión 2.0*
-
-</div>
-
-</div>
-
----
-
 ## 🎯 **Características Principales - Versión 2.0**
 
 ### 🛡️ **Sistema de Validación Avanzado**
@@ -168,29 +133,7 @@
 
 ---
 
-## 🚧 **¿Qué hay en esta rama?**
-
-Esta rama que contiene un diseño alternativo:
-
-- **🎨 Diseño UI/UX alternativo** - Nueva interfaz moderna y funcional
-- **⚡ Funcionalidades básicas** - Sorteo y validaciones funcionando
-- **🔬 Mejoras experimentales** - Nuevas características en desarrollo
-- **⚗️ Código optimizado** - Refactoring y mejores prácticas
-- **🧪 Features avanzadas** - Funcionalidades adicionales en progreso
-- **🎯 Experiencia mejorada** - UX más intuitiva y responsive
-
----
-
-
-## 🔄 **Estado de esta rama es en Desarrollo**
-
-### 📅 **Última Actualización:** Septiembre 2025
-
-
-
----
-
-## � **Instalación y Uso**
+## 🛠️ **Instalación y Uso**
 
 ### **Instalación Rápida**
 
@@ -215,7 +158,7 @@ open index.html
 
 ---
 
-## � **Estadísticas del Proyecto**
+## 📊 **Estadísticas del Proyecto**
 
 <div align="center">
 
@@ -248,7 +191,7 @@ Puedes usar, modificar y distribuir libremente
 ## 🎓 **Agradecimientos**
 
 - 🎨 **Programa de Formación**: Oracle Next Education - Alura Latam
-- �️ **Herramientas de desarrollo**: VS Code, Git, GitHub
+- 🛠️ **Herramientas de desarrollo**: VS Code, Git, GitHub
 - 🎯 **Metodología**: Desarrollo iterativo y mejora continua
 - 📚 **Recursos de aprendizaje**: MDN Web Docs, JavaScript.info, Alura Latam
 
