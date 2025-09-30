@@ -2,7 +2,9 @@
 
 # 🎁 Desafío Amigo Secreto - Versión 2.0 🎁
 
-## 🎓 Oracle Next Education - Alura Latam - G9 🎓
+## 🎓 Oracle Next Education - Alu**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 Ver Demo en Vivo</a>** - Versión definitiva 2.0
+
+</div>
 
 </div>
 
@@ -23,10 +25,6 @@
 <a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
   <img src="https://img.shields.io/badge/🌐_Demo_Oficial_v2.0-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
 </a>
-
-**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 Ver Demo en Vivo</a>** - Versión definitiva 2.0
-
-</div>
 
 ---
 <div align="center">
@@ -81,6 +79,20 @@
 - ✅ **Accesibilidad completa** con soporte para lectores de pantalla
 - ✅ **Documentación extensa** del código fuente
 - ✅ **Diseño responsive** y UX optimizada
+
+---
+
+## 📸 **Capturas de Pantalla**
+
+<div align="center">
+
+![Captura 1](./assets/Capturas/img1.png)
+*Interfaz principal de la versión 2.0*
+
+![Captura 2](./assets/Capturas/img2.png)
+*Vista de funcionalidades avanzadas v2.0*
+
+</div>
 
 ---
 
