@@ -1,702 +1,1863 @@
-:root {
-    --color-primary: #4B69FD;
-    --color-secondary: #FFF9EB;
-    --color-tertiary: #C4C4C4;
-    --color-button: #fe652b;
-    --color-button-hover: #e55720;
-    --color-text: #444444;
-    --color-white: #FFFFFF;
-}
+/*******************************************************************************
+ * PROYECTO: Amigo Secreto - Aplicación Web de Sorteo Navideño
+ * 
+ * ARCHIVO: style.css
+ * PROPOSITO: Hoja de estilos principal que implementa diseño moderno con
+ *           glassmorphism, animaciones fluidas, responsive design y sistema
+ *           de variables CSS para mantenibilidad y consistencia visual.
+ * 
+ * AUTOR: [Tu Nombre Aquí]
+ * EMAIL: [tu.email@dominio.com]
+ * FECHA CREACION: [DD/MM/AAAA]
+ * ULTIMA MODIFICACION: [DD/MM/AAAA]
+ * VERSION: 1.0.0
+ * 
+ * TECNOLOGIAS UTILIZADAS:
+ * - CSS3 (Custom Properties, Grid, Flexbox, Animations)
+ * - CSS Variables (sistema de design tokens)
+ * - Glassmorphism (backdrop-filter, transparencias)
+ * - CSS Grid Layout (responsive design)
+ * - CSS Animations (keyframes, transitions)
+ * - Media Queries (breakpoints responsivos)
+ * - CSS Containment (performance optimization)
+ * - GPU Acceleration (transform3d, will-change)
+ * 
+ * ARQUITECTURA CSS:
+ * 1. Variables globales y design tokens
+ * 2. Reset CSS universal
+ * 3. Tipografía y fuentes base
+ * 4. Layout principal y estructuras
+ * 5. Componentes reutilizables
+ * 6. Estados y animaciones
+ * 7. Responsive design y media queries
+ * 8. Utilidades y helpers
+ * 9. Performance optimizations
+ * 
+ * SISTEMA DE COLORES:
+ * - Gradientes primarios: #667eea → #764ba2
+ * - Gradientes secundarios: #f093fb → #f5576c
+ * - Glassmorphism: rgba(255,255,255,0.95)
+ * - Texto principal: #2c3e50
+ * - Sistema de sombras en capas
+ * 
+ * RESPONSIVE BREAKPOINTS:
+ * - Mobile: < 768px
+ * - Tablet: 768px - 1024px
+ * - Desktop: > 1024px
+ * 
+ * DEPENDENCIAS:
+ * - Google Fonts (Inter, Merriweather)
+ * - CSS3 Backdrop Filter Support
+ * - Modern Browser Features
+ * 
+ * PERFORMANCE OPTIMIZATIONS:
+ * - CSS Containment para aislamiento de layout
+ * - GPU acceleration con transform3d()
+ * - will-change para preparación de animaciones
+ * - Subpixel antialiasing optimizado
+ * 
+ * NOTAS IMPORTANTES:
+ * - Utiliza CSS Custom Properties para theming
+ * - Implementa glassmorphism con backdrop-filter
+ * - Sistema modular de spacing basado en 12px
+ * - Z-index organizado por capas semánticas
+ * - Transiciones con cubic-bezier para naturalidad
+ * 
+ * COMPATIBILIDAD:
+ * - Chrome 76+ (backdrop-filter)
+ * - Firefox 70+ (backdrop-filter con flag)
+ * - Safari 9+ (webkit-backdrop-filter)
+ * - Edge 79+ (chromium-based)
+ * 
+ * LICENCIA: [Especificar licencia del proyecto]
+ * COPYRIGHT: © [Año] [Tu Nombre]. Todos los derechos reservados.
+ ******************************************************************************/
 
-/* Estilos generales */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* seccion de variables css globales - definicion centralizada de design tokens */
+/* utilizacion de custom properties para crear sistema de diseño escalable y mantenible */
+:root { /* selector raiz que permite acceso global a las variables desde cualquier elemento */
+    /* seccion de paleta de colores principal basada en gradientes lineales */
+    /* gradientes con direccion diagonal de 135 grados para mayor dinamismo visual */
+    --color-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* gradiente principal azul a purpura para elementos destacados */
+    --color-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); /* gradiente secundario rosa a coral para acentos */
+    --color-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* gradiente de fondo igual al primario para coherencia */
+    
+    /* seccion de colores solidos con transparencias para glassmorphism */
+    /* utilizacion de rgba para controlar opacidad y crear efectos de profundidad */
+    --color-card: rgba(255, 255, 255, 0.95); /* fondo semi-transparente blanco para tarjetas con efecto cristal */
+    --color-text: #2c3e50; /* color principal de texto gris oscuro para legibilidad optima */
+    --color-text-light: #7f8c8d; /* color secundario de texto gris claro para informacion menos importante */
+    --color-white: #ffffff; /* blanco puro para contraste maximo y elementos destacados */
+    
+    /* seccion de gradientes especificos para botones con estados interactivos */
+    /* colores que cambian sutilmente en hover para feedback visual inmediato */
+    --color-button: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); /* gradiente normal de boton purpura a lavanda */
+    --color-button-hover: linear-gradient(135deg, #5f3dc4 0%, #9775fa 100%); /* gradiente hover mas saturado para retroalimentacion */
+    
+    /* seccion de sistema de sombras con diferentes intensidades para crear profundidad */
+    /* sombras basadas en rgba negro con opacidades variables segun importancia del elemento */
+    --color-shadow: rgba(0, 0, 0, 0.1); /* sombra sutil con 10% opacidad para elementos normales */
+    --color-shadow-hover: rgba(0, 0, 0, 0.2); /* sombra intensa con 20% opacidad para estados hover */
+    --shadow-magic: 0 8px 32px rgba(0, 0, 0, 0.1); /* sombra principal con blur alto para efecto flotante */
+    
+    /* seccion de sistema de border-radius consistente para unidad visual */
+    /* valores modulares que mantienen coherencia en toda la interfaz */
+    --border-radius: 20px; /* radio grande para elementos principales como tarjetas y botones */
+    --border-radius-small: 12px; /* radio pequeno para elementos secundarios y detalles */
+    
+    /* seccion de sistema de espaciado modular basado en multiplos de 12px */
+    /* grid base de 12px permite espaciado armonico y escalable */
+    --spacing-small: 12px; /* espaciado minimo para elementos compactos */
+    --spacing-medium: 24px; /* espaciado intermedio para separacion estandar */
+    --spacing-large: 48px; /* espaciado amplio para separacion de secciones */
+    
+    /* seccion de sistema z-index organizado semanticamente para control de capas */
+    /* jerarquia numerica clara que evita conflictos de apilamiento entre elementos */
+    --z-background: -2; /* elementos decorativos que deben quedar detras de todo el contenido */
+    --z-behind: -1; /* pseudo-elementos que van detras de su contenedor padre */
+    --z-normal: 1; /* elementos normales en flujo natural del documento */
+    --z-content: 2; /* contenido importante que debe sobresalir sobre elementos normales */
+    --z-overlay: 100; /* overlays y elementos flotantes como dropdowns */
+    --z-modal: 1000; /* modales y elementos criticos que bloquean interaccion */
+    --z-notification: 9999; /* notificaciones con maxima prioridad visual sobre todo */
+    
+    /* seccion de transiciones globales con curva de bezier para animaciones naturales */
+    /* curva cubic-bezier que simula movimiento fisico real para mejor experiencia */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* transicion suave de 300ms con aceleracion/desaceleracion */
+} /* fin de declaracion de variables globales */
 
-body {
-    height: 100vh;
-    background-color: var(--color-primary);
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    /* Optimizaciones de performance */
-    contain: layout style;
-}
-
-.main-content {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100%;
-    /* Optimización para contenido dinámico */
-    contain: layout;
-}
-
-/* Clase para screen readers */
+/* OPTIMIZACIÓN: Clase para elementos de accesibilidad (screen readers) */
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
-/* Banner */
-.header-banner {
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px 0;
-    min-height: 80px;
+/* seccion de reset css universal para normalizar estilos entre navegadores */
+/* selector universal que afecta a todos los elementos del dom */
+* { /* asterisco aplica estilos a todos los elementos sin excepcion */
+    margin: 0; /* eliminar margenes por defecto que agregan los navegadores */
+    padding: 0; /* eliminar paddings por defecto para control total del espaciado */
+    box-sizing: border-box; /* incluir padding y border en el calculo del width total para layout predecible */
+} /* fin del reset universal */
+
+/* clase de utilidad para accesibilidad - screen reader only */
+/* tecnica para ocultar elementos visualmente pero mantenerlos accesibles para tecnologias asistivas */
+.sr-only { /* clase que oculta contenido solo de la vista pero no de lectores de pantalla */
+    position: absolute; /* sacar del flujo normal del documento sin afectar layout */
+    width: 1px; /* ancho minimo que resulta practicamente invisible */
+    height: 1px; /* altura minima que resulta practicamente invisible */
+    padding: 0; /* eliminar padding para mantener tamaño minimo */
+    margin: -1px; /* margen negativo para posicionar fuera del viewport visible */
+    overflow: hidden; /* ocultar cualquier contenido que pueda sobresalir del contenedor */
+    clip: rect(0, 0, 0, 0); /* recorte rectangular que hace completamente invisible el elemento */
+    white-space: nowrap; /* evitar que el texto se ajuste a nuevas lineas */
+} /* fin de clase de accesibilidad */
+
+/* seccion de configuracion del elemento body - contenedor raiz de la aplicacion */
+/* estilos fundamentales que establecen el layout base y comportamiento general */
+body { /* selector de elemento body que contiene toda la aplicacion visible */
+    min-height: 100vh; /* altura minima igual al viewport height para ocupar pantalla completa */
+    background: var(--color-background); /* aplicar gradiente de fondo definido en variables css */
+    background-attachment: fixed; /* mantener el fondo fijo durante scroll para efecto inmersivo */
+    display: flex; /* activar flexbox layout para control avanzado de alineacion */
+    flex-direction: column; /* elementos hijos apilados verticalmente en columna */
+    align-items: center; /* centrado horizontal de todos los elementos hijos */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* stack de fuentes con fallbacks nativos del sistema */
+    overflow-x: hidden; /* ocultar scroll horizontal para evitar desbordamiento lateral */
+    margin: 0; /* eliminar margenes del body para control total */
+    padding: 0 0 20px 0; /* padding solo en bottom para separacion del footer */
+    position: relative; /* establecer contexto de posicion para pseudo-elementos absolutos */
+} /* fin de estilos del body */
+
+/* pseudo-elemento decorativo para efectos luminosos animados en el fondo */
+/* crea capa de efectos visuales superpuesta que no interfiere con la interaccion */
+body::before { /* pseudo-elemento before que se genera automaticamente dentro del body */
+    content: ''; /* contenido vacio obligatorio para que el pseudo-elemento sea visible */
+    position: absolute; /* posicionamiento absoluto respecto al contenedor padre (body) */
+    top: 0; /* alineado al borde superior del body */
+    left: 0; /* alineado al borde izquierdo del body */
+    width: 100%; /* ocupar todo el ancho disponible del contenedor padre */
+    height: 100%; /* ocupar toda la altura disponible del contenedor padre */
+    /* creacion de multiples gradientes radiales superpuestos para simular particulas luminosas */
+    background-image: /* propiedad que permite multiples backgrounds en capas */
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%), /* gradiente circular en esquina inferior izquierda */
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%), /* gradiente circular en esquina superior derecha */
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%); /* gradiente circular central mas sutil */
+    animation: float 6s ease-in-out infinite; /* aplicar animacion de flotacion suave e infinita */
+    pointer-events: none; /* desactivar eventos de mouse para permitir interaccion con elementos debajo */
+    z-index: var(--z-background); /* posicionar en capa de fondo segun sistema de z-index */
+} /* fin de pseudo-elemento decorativo */
+
+/* definicion de keyframe para animacion de flotacion suave con micro-rotacion */
+/* animacion que simula movimiento organico flotante para dar vida al fondo */
+@keyframes float { /* nombre de la animacion que se puede reutilizar */
+    0%, 100% { transform: translateY(0px) rotate(0deg); } /* estado inicial y final en posicion base sin transformacion */
+    50% { transform: translateY(-20px) rotate(5deg); } /* punto medio con desplazamiento vertical y rotacion sutil */
+} /* fin de definicion de keyframe */
+
+/* seccion de contenedor principal con implementacion de glassmorphism avanzado */
+/* componente clave que encapsula toda la funcionalidad de la aplicacion */
+.main-content { /* clase principal que define el contenedor central de la app */
+    display: flex; /* activar flexbox layout para control preciso de elementos hijos */
+    flex-direction: column; /* apilar elementos verticalmente en columna */
+    width: 95%; /* ancho responsivo que se adapta al contenedor con margenes minimos */
+    max-width: 600px; /* restriccion de ancho maximo para legibilidad optima en pantallas grandes */
+    background: var(--color-card); /* aplicar fondo semi-transparente base definido en variables */
+    backdrop-filter: blur(20px); /* efecto de desenfoque aplicado al contenido detras del elemento */
+    
+    /* OPTIMIZACIÓN: CSS Containment para mejor performance */
+    contain: layout style paint; /* aislar el elemento para evitar recálculos innecesarios */
+    
+    /* OPTIMIZACIÓN: Preparar GPU para animaciones */
+    will-change: transform, opacity; /* avisar al navegador que estas propiedades cambiarán */
+    
+    /* OPTIMIZACIÓN: Forzar capa compuesta para aceleración GPU */
+    transform: translate3d(0, 0, 0); /* crear contexto 3D para aceleración hardware */
+    border-radius: var(--border-radius); /* aplicar bordes redondeados segun variable global */
+    box-shadow: var(--shadow-magic); /* sombra principal difusa para crear sensacion de profundidad */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* borde sutil semi-transparente que simula cristal */
+    position: relative; /* establecer contexto de posicion para elementos hijos absolutos */
+    margin: 10px auto 5px auto; /* centrado horizontal con margenes minimos verticales */
+    
+    /* gradiente superpuesto para intensificar efecto cristal glassmorphism */
+    background: linear-gradient(145deg, /* gradiente diagonal de 145 grados */
+        rgba(255, 255, 255, 0.95) 0%, /* blanco casi opaco en inicio para reflejos */
+        rgba(255, 255, 255, 0.85) 100%); /* blanco mas transparente al final para profundidad */
+    
+    transition: var(--transition); /* aplicar transicion suave global para animaciones hover */
+    
+    /* seccion de optimizaciones de performance para rendering eficiente */
+    contain: layout style; /* aislamiento de layout y estilos para mejor performance del navegador */
+    will-change: auto; /* preparacion automatica para animaciones futuras sin forzar capas */
+} /* fin de estilos del contenedor principal */
+
+/* estado hover para interactividad avanzada del contenedor principal */
+/* efecto que responde a la interaccion del usuario proporcionando feedback visual */
+.main-content:hover { /* pseudo-clase que se activa cuando el cursor esta sobre el elemento */
+    transform: translateY(-5px); /* elevacion sutil del elemento 5px hacia arriba */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); /* sombra mas intensa y difusa para mayor profundidad */
+} /* fin de efecto hover del contenedor principal */
+
+/* seccion de banner header principal con implementacion completa de glassmorphism */
+/* componente visual destacado que contiene el titulo y la imagen representativa */
+.header-banner { /* clase que define el contenedor superior de la aplicacion */
+    display: flex; /* activar sistema de layout flexbox para control total de alineacion */
+    flex-direction: column; /* organizar elementos hijos en columna vertical */
+    justify-content: center; /* centrar contenido verticalmente dentro del contenedor */
+    align-items: center; /* centrar contenido horizontalmente dentro del contenedor */
+    width: calc(100% - 40px); /* ancho dinamico restando 40px totales (20px por cada lado) */
+    max-width: 600px; /* restriccion de ancho maximo para consistencia con main-content */
+    height: 220px; /* altura fija definida para mantener proporciones visuales consistentes */
+    margin: 20px auto 10px auto; /* centrado horizontal con 20px arriba y 10px abajo */
+    
+    /* implementacion completa de efecto glassmorphism con gradientes y filtros */
+    background: linear-gradient(135deg, /* gradiente diagonal de 135 grados */
+        rgba(255, 255, 255, 0.2) 0%, /* transparencia del 20% en esquina superior izquierda */
+        rgba(255, 255, 255, 0.1) 100%); /* transparencia del 10% en esquina inferior derecha */
+    backdrop-filter: blur(20px) saturate(180%); /* desenfoque de 20px y saturacion aumentada 80% */
+    -webkit-backdrop-filter: blur(20px) saturate(180%); /* prefijo webkit para compatibilidad Safari */
+    border-radius: 20px; /* bordes redondeados de 20px para consistencia con variables globales */
+    /* sistema de sombras multiples para efecto cristalino tridimensional */
+    box-shadow: /* declaracion de sombras multiples separadas por comas */
+        0 8px 32px rgba(0, 0, 0, 0.1), /* sombra externa difusa con blur de 32px y opacidad 10% */
+        inset 0 1px 0 rgba(255, 255, 255, 0.4); /* reflejo interno superior con opacidad 40% */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* borde semi-transparente de 1px para definicion */
+    
+    /* configuracion de posicion y contenido para elementos internos */
+    position: relative; /* establecer contexto de posicion para pseudo-elementos y elementos absolutos */
+    overflow: hidden; /* ocultar cualquier contenido que desborde los limites del contenedor */
+    padding: 20px; /* espaciado interno uniforme de 20px en todos los lados */
+    gap: 15px; /* separacion automatica de 15px entre elementos flexbox internos */
+} /* fin de estilos del banner header */
+
+/* pseudo-elemento para capa de color de fondo del header */
+/* pseudo-elemento before para capa de color de fondo del header */
+/* esta capa proporciona el color base sobre el cual se superpone el contenido */
+.header-banner::before { /* pseudo-elemento generado automaticamente antes del contenido */
+    content: ''; /* contenido vacio obligatorio para que el pseudo-elemento sea visible */
+    position: absolute; /* posicionamiento absoluto respecto al contenedor padre header-banner */
+    top: 0; /* alineado al borde superior del contenedor padre */
+    left: 0; /* alineado al borde izquierdo del contenedor padre */
+    right: 0; /* alineado al borde derecho del contenedor padre */
+    bottom: 0; /* alineado al borde inferior del contenedor padre - cubre completamente */
+    /* gradiente de colores principales que define la identidad visual del tema */
+    background: linear-gradient(135deg, /* gradiente diagonal de 135 grados */
+        rgba(102, 126, 234, 0.85) 0%, /* azul principal con 85% opacidad en el inicio */
+        rgba(118, 75, 162, 0.85) 100%); /* purpura principal con 85% opacidad al final */
+    z-index: var(--z-behind); /* posicionar en capa detras del contenido usando variable z-index */
+    border-radius: 20px; /* mantener bordes redondeados consistentes con el contenedor padre */
+} /* fin de pseudo-elemento de fondo del header */
+
+/* estilos para imagen dentro del header con efectos visuales y animacion */
+/* imagen principal que representa visualmente la aplicacion de amigo secreto */
+.header-banner img { /* selector para elemento img dentro del header-banner */
+    position: relative; /* posicionamiento relativo que permite uso de z-index */
+    z-index: var(--z-content); /* posicionar sobre el pseudo-elemento de fondo usando variable */
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2)); /* sombra proyectada directamente en la imagen */
+    animation: bounce 2s ease-in-out infinite; /* aplicar animacion de rebote continua de 2 segundos */
+    max-width: 150px; /* ancho maximo de 150px para mantener proporciones responsivas */
+    height: auto; /* altura automatica para preservar aspect ratio original de la imagen */
+} /* fin de estilos de imagen del header */
+
+/* definicion de keyframe para animacion de rebote vertical suave y continua */
+/* OPTIMIZACIÓN: Animación optimizada usando solo transform para mejor performance */
+@keyframes bounce { /* nombre de animacion que puede ser referenciada desde cualquier elemento */
+    0%, 100% { transform: translate3d(0, 0, 0); } /* usar translate3d para aceleración GPU */
+    50% { transform: translate3d(0, -10px, 0); } /* mantener contexto 3D para mejor performance */
+} /* fin de definicion de keyframe de rebote optimizado */
+
+/* seccion principal que contiene todos los inputs y controles interactivos de la aplicacion */
+/* componente central donde el usuario interactua para agregar nombres y realizar sorteos */
+.input-section { /* clase que define el area principal de funcionalidad */
+    flex: 1; /* propiedad flex que hace que ocupe todo el espacio disponible en contenedor flex padre */
+    /* gradiente sutil de fondo para diferenciacion visual del header */
+    background: linear-gradient(145deg, /* gradiente diagonal de 145 grados */
+        rgba(255, 255, 255, 0.9) 0%, /* blanco con 90% opacidad en el inicio */
+        rgba(240, 248, 255, 0.95) 100%); /* azul muy claro con 95% opacidad al final */
+    backdrop-filter: blur(10px); /* desenfoque de 10px aplicado al contenido detras */
+    border-radius: var(--border-radius); /* aplicar bordes redondeados usando variable global */
+    display: flex; /* activar layout flexbox para organizacion de elementos hijos */
+    flex-direction: column; /* organizar elementos hijos en columna vertical */
+    align-items: center; /* centrar elementos hijos horizontalmente */
+    padding: 15px 20px; /* espaciado interno de 15px arriba/abajo y 20px izquierda/derecha */
+    position: relative; /* establecer contexto de posicion para pseudo-elementos */
+    border-top: 1px solid rgba(255, 255, 255, 0.3); /* borde superior sutil semi-transparente */
+} /* fin de estilos de seccion principal */
+
+/* pseudo-elemento before para linea decorativa superior en la seccion de input */
+/* crea una linea colorida sutil en la parte superior como elemento visual */
+.input-section::before { /* pseudo-elemento generado antes del contenido de input-section */
+    content: ''; /* contenido vacio obligatorio para generar el pseudo-elemento */
+    position: absolute; /* posicionamiento absoluto respecto al contenedor padre */
+    top: 0; /* posicionado en el borde superior del contenedor */
+    left: 0; /* alineado al borde izquierdo del contenedor */
+    right: 0; /* alineado al borde derecho del contenedor */
+    height: 2px; /* altura fija de 2px para crear linea delgada */
+    background: var(--color-secondary); /* aplicar gradiente secundario definido en variables */
+    opacity: 0.6; /* transparencia del 60% para efecto sutil */
+} /* fin de pseudo-elemento decorativo superior */
+
+/* estilos para titulo de seccion con efecto de gradiente en el texto */
+/* titulo secundario que aparece en las secciones de la aplicacion */
+.input-title { /* clase para titulos de seccion con efectos visuales avanzados */
+    font-size: 1.8rem; /* tamaño de fuente grande de 1.8 rem (aproximadamente 28.8px) */
+    font-weight: 600; /* peso de fuente semi-bold para destacar importancia */
+    background: var(--color-primary); /* aplicar gradiente primario como fondo para cliping de texto */
+    -webkit-background-clip: text; /* clipear fondo solo al area del texto (webkit) */
+    -webkit-text-fill-color: transparent; /* hacer el texto transparente para mostrar el fondo */
+    background-clip: text; /* clipear fondo solo al area del texto (estandar) */
+    margin-bottom: var(--spacing-medium); /* margen inferior usando variable de espaciado medio */
+    text-align: center; /* alineacion centrada del texto */
+} /* fin de estilos del titulo de seccion */
+
+/* titulo principal con efectos visuales llamativos y animaciones energeticas */
+/* elemento mas prominente de la aplicacion que establece la identidad visual */
+.main-title { /* clase para el titulo principal "Amigo Secreto" */
+    font-size: 48px; /* tamaño de fuente extra grande de 48px para maxima visibilidad */
+    font-family: "Merriweather", serif; /* fuente serif elegante con fallback de sistema */
+    font-weight: 900; /* peso de fuente ultra-bold para maxima prominencia */
+    color: white; /* color de texto blanco para contraste sobre fondo colorido */
+    text-align: center; /* alineacion centrada del texto */
+    margin: 0; /* eliminar margenes por defecto */
+    position: relative; /* posicionamiento relativo para permitir z-index */
+    z-index: 2; /* posicionar por encima de elementos de fondo */
+    
+    /* sistema de sombras de texto multiples para efecto luminoso intenso */
+    text-shadow: /* declaracion de multiples sombras separadas por comas */
+        2px 2px 4px rgba(0, 0, 0, 0.8), /* sombra base oscura para legibilidad con desplazamiento */
+        0 0 20px rgba(102, 126, 234, 0.8), /* halo azul con 20px de difusion y 80% opacidad */
+        0 0 40px rgba(118, 75, 162, 0.6), /* halo purpura con 40px de difusion y 60% opacidad */
+        0 0 60px rgba(255, 255, 255, 0.4); /* halo blanco exterior con 60px de difusion y 40% opacidad */
+    
+    /* aplicacion de animacion energetica continua para llamar atencion */
+    animation: energyPulse 2s ease-in-out infinite; /* animacion de pulso energetico de 2 segundos infinita */
+    
+    /* optimizaciones de performance para animaciones fluidas */
+    will-change: transform, text-shadow; /* preparar para cambios en transformacion y sombra de texto */
+} /* fin de estilos del titulo principal */
+
+/* pseudo-elemento before para crear ondas de energia detras del titulo principal */
+/* efecto visual que simula emanacion de energia desde el texto */
+.main-title::before { /* pseudo-elemento generado antes del contenido del titulo */
+    content: ''; /* contenido vacio obligatorio para generar el pseudo-elemento */
+    position: absolute; /* posicionamiento absoluto respecto al titulo padre */
+    top: -20px; /* expandir 20px por encima del titulo */
+    left: -25px; /* expandir 25px a la izquierda del titulo */
+    right: -25px; /* expandir 25px a la derecha del titulo */
+    bottom: -20px; /* expandir 20px por debajo del titulo */
+    /* gradientes radiales superpuestos para crear efecto de ondas concentricas */
+    background: /* declaracion de multiples backgrounds en capas */
+        radial-gradient(ellipse, rgba(102, 126, 234, 0.6) 0%, transparent 70%), /* elipse azul central */
+        radial-gradient(ellipse, rgba(118, 75, 162, 0.5) 20%, transparent 80%); /* elipse purpura exterior */
+    border-radius: 50%; /* forma circular completa para simular ondas */
+    z-index: -1; /* posicionar detras del titulo pero delante del fondo */
+    animation: energyWaves 2.5s ease-in-out infinite; /* animacion de ondas de energia de 2.5 segundos */
+    filter: blur(5px); /* desenfoque de 5px para suavizar bordes y crear efecto difuso */
+} /* fin de pseudo-elemento de ondas de energia */
+
+/* pseudo-elemento after para crear anillos de energia expansivos adicionales */
+/* segunda capa de efectos que complementa las ondas internas */
+.main-title::after { /* pseudo-elemento generado despues del contenido del titulo */
+    content: ''; /* contenido vacio obligatorio para generar el pseudo-elemento */
+    position: absolute; /* posicionamiento absoluto respecto al titulo padre */
+    top: -30px; /* expansion mas amplia de 30px por encima */
+    left: -35px; /* expansion mas amplia de 35px a la izquierda */
+    right: -35px; /* expansion mas amplia de 35px a la derecha */
+    bottom: -30px; /* expansion mas amplia de 30px por debajo */
+    /* anillos concentricos multiples con gradientes radiales circulares */
+    background: /* declaracion de multiples anillos superpuestos */
+        radial-gradient(circle, transparent 40%, rgba(255, 255, 255, 0.3) 42%, transparent 44%), /* anillo blanco interior */
+        radial-gradient(circle, transparent 60%, rgba(102, 126, 234, 0.4) 62%, transparent 64%), /* anillo azul medio */
+        radial-gradient(circle, transparent 80%, rgba(118, 75, 162, 0.3) 82%, transparent 84%); /* anillo purpura exterior */
+    border-radius: 50%; /* forma circular completa para todos los anillos */
+    z-index: -2; /* posicionar detras de las ondas internas y del titulo */
+    animation: expandingRings 3s ease-out infinite; /* animacion de expansion de anillos de 3 segundos */
+} /* fin de pseudo-elemento de anillos expansivos */
+
+/* definicion de keyframe para animacion de pulso energetico del titulo principal */
+/* animacion compleja que combina escalado y cambios de intensidad de sombras */
+@keyframes energyPulse { /* nombre de animacion para efecto de pulsacion energetica */
+    0% { /* estado inicial de la animacion (0% del tiempo) */
+        /* configuracion de sombras base con intensidades normales */
+        text-shadow: /* declaracion de sombras multiples para efecto luminoso base */
+            2px 2px 4px rgba(0, 0, 0, 0.8), /* sombra base oscura para legibilidad */
+            0 0 20px rgba(102, 126, 234, 0.8), /* halo azul con intensidad base */
+            0 0 40px rgba(118, 75, 162, 0.6), /* halo purpura con intensidad media */
+            0 0 60px rgba(255, 255, 255, 0.4); /* halo blanco exterior con intensidad baja */
+        transform: scale(1); /* escala normal del elemento sin transformacion */
+    } /* fin del estado inicial */
+    50% { /* punto medio de la animacion (50% del tiempo) - maxima intensidad */
+        /* configuracion de sombras intensificadas para efecto de pulso maximo */
+        text-shadow: /* sombras con mayor intensidad y expansion */
+            2px 2px 4px rgba(0, 0, 0, 0.8), /* sombra base mantenida para legibilidad */
+            0 0 30px rgba(102, 126, 234, 1), /* halo azul con expansion y opacidad maxima */
+            0 0 60px rgba(118, 75, 162, 0.8), /* halo purpura expandido con mayor intensidad */
+            0 0 80px rgba(255, 255, 255, 0.6), /* halo blanco mas amplio con mayor opacidad */
+            0 0 100px rgba(102, 126, 234, 0.4); /* halo azul exterior adicional para mayor impacto */
+        transform: scale(1.02); /* escalado sutil del 102% para efecto de crecimiento */
+    } /* fin del punto medio de maxima intensidad */
+    100% { /* estado final de la animacion (100% del tiempo) - retorno al estado base */
+        /* retorno a configuracion de sombras base identica al estado inicial */
+        text-shadow: /* sombras con intensidades normales para completar el ciclo */
+            2px 2px 4px rgba(0, 0, 0, 0.8), /* sombra base oscura restaurada */
+            0 0 20px rgba(102, 126, 234, 0.8), /* halo azul con intensidad base restaurada */
+            0 0 40px rgba(118, 75, 162, 0.6), /* halo purpura con intensidad media restaurada */
+            0 0 60px rgba(255, 255, 255, 0.4); /* halo blanco exterior con intensidad baja restaurada */
+        transform: scale(1); /* retorno a escala normal para completar el ciclo */
+    } /* fin del estado final */
+} /* fin de definicion de keyframe energyPulse */
+
+/* definicion de keyframe para animacion de ondas de energia del pseudo-elemento before */
+/* animacion que simula pulsacion organica de ondas emanando del titulo */
+@keyframes energyWaves { /* nombre de animacion para efecto de ondas energeticas */
+    0% { /* estado inicial de las ondas (0% del tiempo) */
+        transform: scale(0.9); /* escala reducida al 90% para inicio de onda */
+        opacity: 0.8; /* opacidad del 80% para visibilidad moderada inicial */
+    } /* fin del estado inicial de ondas */
+    50% { /* punto medio de expansion maxima (50% del tiempo) */
+        transform: scale(1.1); /* expansion maxima al 110% de escala original */
+        opacity: 1; /* opacidad maxima del 100% para mayor visibilidad */
+    } /* fin del punto medio de expansion */
+    100% { /* estado final de contraccion (100% del tiempo) */
+        transform: scale(0.9); /* retorno a escala reducida del 90% */
+        opacity: 0.8; /* retorno a opacidad del 80% para completar ciclo */
+    } /* fin del estado final de ondas */
+} /* fin de definicion de keyframe energyWaves */
+
+/* definicion de keyframe para animacion de anillos expansivos del pseudo-elemento after */
+/* animacion que crea efecto de anillos que se expanden desde el centro hacia afuera */
+@keyframes expandingRings { /* nombre de animacion para efecto de anillos expansivos */
+    0% { /* estado inicial de los anillos (0% del tiempo) */
+        transform: scale(0.8); /* escala inicial reducida al 80% */
+        opacity: 0; /* completamente transparente al inicio para aparicion gradual */
+    } /* fin del estado inicial de anillos */
+    30% { /* primer punto de control (30% del tiempo) - aparicion visible */
+        opacity: 0.8; /* aparicion gradual hasta 80% de opacidad */
+    } /* fin del punto de aparicion */
+    70% { /* segundo punto de control (70% del tiempo) - expansion activa */
+        transform: scale(1.2); /* expansion significativa al 120% de escala */
+        opacity: 0.6; /* reduccion de opacidad a 60% durante expansion */
+    } /* fin del punto de expansion activa */
+    100% { /* estado final de maxima expansion (100% del tiempo) */
+        transform: scale(1.4); /* expansion maxima al 140% de escala original */
+        opacity: 0; /* desvanecimiento completo a transparencia total para terminar ciclo */
+    } /* fin del estado final de maxima expansion */
+} /* fin de definicion de keyframe expandingRings */
+
+/* seccion de estilos para titulos secundarios dentro de las secciones de contenido */
+/* estos titulos proporcionan jerarquia visual y organizacion del contenido */
+.section-title { /* clase para titulos de nivel secundario */
+    font-family: "Inter", serif; /* fuente moderna Inter con fallback serif para legibilidad */
+    font-size: 28px; /* tamaño mediano de 28px que destaca sin ser abrumador */
+    font-weight: 700; /* peso bold (700) para dar importancia visual significativa */
+    background: var(--color-primary); /* aplicar gradiente de colores principales como fondo de texto */
+    -webkit-background-clip: text; /* recortar fondo solo al area del texto (prefijo webkit) */
+    -webkit-text-fill-color: transparent; /* hacer texto transparente para mostrar fondo (webkit) */
+    background-clip: text; /* version estandar CSS del recorte de fondo al texto */
+    margin: 10px 0; /* espaciado vertical compacto de 10px arriba y abajo */
+    text-align: center; /* alineacion centrada horizontal del texto */
+    
+    /* efectos visuales adicionales para mejorar la presentacion */
+    text-shadow: 0 2px 10px rgba(102, 126, 234, 0.3); /* sombra sutil azul que da profundidad */
+    animation: fadeInUp 1s ease-out; /* animacion de entrada desde abajo con duracion de 1 segundo */
+    position: relative; /* posicionamiento relativo para contexto de pseudo-elementos */
+} /* fin de estilos del titulo de seccion */
+
+/* definicion de keyframe para animacion de entrada elegante desde abajo */
+/* OPTIMIZACIÓN: Animación optimizada usando transform3d para aceleración GPU */
+@keyframes fadeInUp { /* nombre de animacion para aparicion desde abajo */
+    0% { /* estado inicial de la animacion (0% del tiempo) */
+        opacity: 0; /* elemento completamente transparente al inicio */
+        transform: translate3d(0, 20px, 0); /* usar translate3d para mejor performance */
+    } /* fin del estado inicial */
+    100% { /* estado final de la animacion (100% del tiempo) */
+        opacity: 1; /* elemento completamente opaco y visible */
+        transform: translate3d(0, 0, 0); /* mantener contexto 3D */
+    } /* fin del estado final */
+} /* fin de definicion de keyframe fadeInUp optimizado */
+
+/* seccion de contenedor para input y boton - organizacion horizontal */
+/* componente que agrupa el campo de entrada y boton de agregar en una linea */
+.input-wrapper { /* clase que define el contenedor flexbox para controles de entrada */
+    display: flex; /* activar layout flexbox para disposicion horizontal de elementos */
+    justify-content: center; /* centrar elementos horizontalmente dentro del contenedor */
+    align-items: center; /* alinear elementos hijos en el centro verticalmente */
+    width: 100%; /* ocupar todo el ancho disponible del contenedor padre */
+    max-width: 600px; /* establecer limite maximo de ancho para mantener proporciones en pantallas grandes */
+    margin-top: 20px; /* agregar espacio superior de 20px para separar del elemento anterior */
+} /* fin de estilos del contenedor input-wrapper */
+
+/* seccion de estilos para campo de entrada de texto principal con efectos glassmorphism */
+/* input donde los usuarios escriben los nombres de sus amigos para el sorteo */
+.input-name { /* clase para el campo de entrada principal */
+    width: 100%; /* ocupar todo el ancho disponible del contenedor padre */
+    padding: 18px 24px; /* espaciado interno comodo de 18px vertical y 24px horizontal */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* borde de 2px semi-transparente blanco */
+    border-radius: var(--border-radius-small) 0 0 var(--border-radius-small); /* bordes redondeados solo en esquinas izquierdas para conectar con boton */
+    font-size: 16px; /* tamaño de fuente de 16px para legibilidad optima y accesibilidad */
+    font-family: "Inter", sans-serif; /* fuente Inter moderna sin serifs para buena legibilidad */
+    background: rgba(255, 255, 255, 0.8); /* fondo blanco con 80% opacidad para efecto glassmorphism */
+    backdrop-filter: blur(10px); /* desenfoque de 10px del contenido detras para efecto cristal */
+    transition: var(--transition); /* aplicar transicion suave global definida en variables */
+    outline: none; /* eliminar outline por defecto del navegador para control personalizado */
+    
+    /* implementacion de sombras multiples para efecto glassmorphism tridimensional */
+    box-shadow: /* declaracion de sombras internas y externas */
+        inset 0 2px 10px rgba(0, 0, 0, 0.1), /* sombra interna sutil en parte superior para profundidad */
+        0 4px 20px rgba(0, 0, 0, 0.05); /* sombra externa difusa para elevar elemento sobre el fondo */
+} /* fin de estilos base del input */
+
+/* estado focus del input - activado cuando el usuario hace click o navega hasta el campo */
+/* proporciona feedback visual claro de que el campo esta activo para recibir entrada */
+.input-name:focus { /* pseudo-clase que se activa cuando el input tiene foco */
+    border-color: rgba(102, 126, 234, 0.6); /* cambio de color del borde al azul principal del tema */
+    background: rgba(255, 255, 255, 0.95); /* incrementar opacidad del fondo para mayor contraste */
+    transform: translateY(-2px); /* elevacion sutil de 2px del campo para feedback visual inmediato */
+    /* sistema de sombras intensificadas para enfatizar el estado activo */
+    box-shadow: /* sombras mas prominentes durante estado focus */
+        inset 0 2px 10px rgba(102, 126, 234, 0.1), /* sombra interna teñida con color del tema */
+        0 8px 30px rgba(102, 126, 234, 0.2); /* sombra externa mas grande y colorida con azul del tema */
+} /* fin de estado focus del input */
+
+/* 🔍 ESTILOS PARA VALIDACIÓN EN TIEMPO REAL */
+/* feedback visual inmediato durante la escritura - mejora la experiencia de usuario */
+.input-name.valid {
+    border-color: #4CAF50; /* verde para indicar validez */
+    box-shadow: 
+        inset 0 2px 10px rgba(76, 175, 80, 0.1),
+        0 8px 30px rgba(76, 175, 80, 0.2),
+        0 0 5px rgba(76, 175, 80, 0.3); /* resplandor verde sutil */
 }
 
-.header-banner img {
-    max-width: 200px;
-    height: auto;
+.input-name.invalid {
+    border-color: #f44336; /* rojo para indicar invalidez */
+    box-shadow: 
+        inset 0 2px 10px rgba(244, 67, 54, 0.1),
+        0 8px 30px rgba(244, 67, 54, 0.2),
+        0 0 5px rgba(244, 67, 54, 0.3); /* resplandor rojo sutil */
 }
 
-/* Sección de entrada */
-.input-section {
-    flex: 1;
-    background-color: var(--color-secondary);
-    border: 1px solid #000;
-    border-radius: 64px 64px 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px 25px;
-    width: 100%;
-    overflow-y: auto;
-}
-
-/* Títulos */
-.main-title {
-    font-size: 36px;
-    font-family: "Merriweather", serif;
-    font-weight: 900;
-    font-style: italic;
-    color: var(--color-white);
-    margin: 0 10px;
-    text-align: center;
-}
-
-.section-title {
-    font-family: "Inter", serif;
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--color-primary);
-    margin: 15px 0 25px 0;
-    text-align: center;
-}
-
-/* Contenedores de entrada y botón */
-.input-wrapper {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 600px;
-    margin: 20px 0 25px 0;
-}
-
+/* transición suave para cambios de estado de validación */
 .input-name {
-    width: 100%;
-    padding: 10px;
-    border: 2px solid #000;
-    border-radius: 25px 0 0 25px;
-    font-size: 16px;
+    transition: 
+        var(--transition), 
+        border-color 0.3s ease,
+        box-shadow 0.3s ease; /* transiciones específicas para validación */
 }
 
-.button-container {
-    width: 300px;
-    justify-content: center;
-    margin-top: 30px;
-}
+/* estilos para texto placeholder - texto de ayuda que aparece dentro del input vacio */
+/* proporciona orientacion al usuario sobre que tipo de contenido ingresar */
+.input-name::placeholder { /* pseudo-elemento para el texto placeholder */
+    color: var(--color-text-light); /* aplicar color gris claro definido en variables globales */
+    font-style: italic; /* aplicar estilo cursiva para diferenciarlo visualmente del texto real */
+} /* fin de estilos del placeholder */
 
-/* Estilos de entrada de texto */
-.input-title {
-    flex: 1;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 2px solid #333;
-    border-right: none;
-    border-radius: 25px 0 0 25px;
-    font-family: "Merriweather", serif;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
+/* seccion de contenedor para organizar botones principales de la aplicacion */
+/* agrupa los botones de sortear y reiniciar manteniendo layout consistente */
+.button-container { /* clase que define el contenedor para botones principales */
+    display: flex; /* activar layout flexbox para control de disposicion */
+    flex-direction: column; /* apilar botones verticalmente uno debajo del otro */
+    gap: 12px; /* separacion compacta de 12px entre botones para mantener elementos unidos */
+    width: 100%; /* ocupar todo el ancho disponible del contenedor padre */
+    max-width: 300px; /* establecer limite de ancho para mantener botones proporcionales */
+    align-items: center; /* centrar botones horizontalmente dentro del contenedor */
+    margin-top: 15px; /* espacio superior reducido de 15px para compactar el diseño */
+    margin-bottom: 10px; /* espacio inferior minimo de 10px antes del siguiente elemento */
+} /* fin de estilos del contenedor de botones */
 
-/* Mejorar focus para accesibilidad */
-.input-name:focus,
-.input-title:focus {
-    outline: 3px solid #4B69FD;
-    outline-offset: 2px;
-}
+/* seccion de estilos alternativos para inputs - posiblemente para uso futuro */
+/* estos estilos proporcionan una variante diferente del campo de entrada */
+.input-title { /* clase alternativa para campos de entrada con estilo diferente */
+    flex: 1; /* usar propiedad flex para ocupar todo el espacio disponible en contenedor flex */
+    padding: 10px 15px; /* espaciado interno de 10px vertical y 15px horizontal */
+    font-size: 16px; /* tamaño de fuente estandar de 16px para legibilidad */
+    border: 2px solid #333; /* borde solido de 2px en color gris oscuro */
+    border-right: none; /* eliminar borde derecho para unir seamlessly con boton */
+    border-radius: 25px 0 0 25px; /* bordes redondeados de 25px solo en esquinas izquierdas */
+    font-family: "Merriweather", serif; /* fuente serif elegante Merriweather */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* sombra difusa para dar profundidad visual */
+} /* fin de estilos del input alternativo */
 
 /* Estilos de botón */
+/* 🔮 BOTONES MÁGICOS CON SÚPER PODERES */
+/* estilos base que se aplican a todos los botones de la aplicacion */
 button {
-    padding: 15px 30px;
-    font-family: "Inter", sans-serif;
-    font-size: 16px;
-    border: 2px solid #000;
-    border-radius: 25px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    /* Optimización para animaciones */
-    will-change: transform, background-color;
-    transition: all 0.2s ease;
+    padding: 16px 32px; /* espaciado interno comodo para hacer click */
+    font-family: "Inter", sans-serif; /* fuente moderna sin serifs */
+    font-size: 16px; /* tamaño de letra legible */
+    font-weight: 600; /* peso semi-bold para destacar texto */
+    border: none; /* elimina borde por defecto de los botones */
+    border-radius: var(--border-radius-small); /* bordes redondeados segun variable global */
+    cursor: pointer; /* cambia cursor a mano al pasar sobre el boton */
+    transition: var(--transition); /* transicion suave para todos los cambios */
+    position: relative; /* contexto de posicion para pseudo-elementos */
+    overflow: hidden; /* oculta contenido que sobresalga (para efectos) */
+    text-transform: uppercase; /* texto en mayusculas para impacto visual */
+    letter-spacing: 1px; /* espaciado entre letras para elegancia */
+    
+    /* ⚡ OPTIMIZACIÓN DE PERFORMANCE */
+    will-change: transform, box-shadow; /* prepara el navegador para animaciones */
+    
+    /* ✨ EFECTO GLASSMORPHISM */
+    backdrop-filter: blur(10px); /* desenfoque del fondo detras del boton */
+    /* sombras multiples para profundidad y reflejo cristalino */
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1), /* sombra externa principal */
+        inset 0 1px 0 rgba(255, 255, 255, 0.2); /* reflejo interno en la parte superior */
 }
 
-/* Mejorar focus para botones */
+/* 🌟 EFECTO PARTÍCULAS EN HOVER */
+/* pseudo-elemento que crea un efecto de brillo que pasa por encima del boton */
+button::before {
+    content: ''; /* contenido vacio requerido para pseudo-elementos */
+    position: absolute; /* posicion absoluta dentro del boton */
+    top: 0; /* cubre toda la altura del boton */
+    left: -100%; /* inicialmente posicionado fuera del lado izquierdo */
+    width: 100%; /* mismo ancho que el boton */
+    height: 100%; /* misma altura que el boton */
+    /* gradiente lineal que simula una onda de luz */
+    background: linear-gradient(90deg, 
+        transparent, /* transparente al inicio */
+        rgba(255, 255, 255, 0.4), /* blanco semi-transparente en el centro */
+        transparent); /* transparente al final */
+    transition: left 0.5s; /* transicion suave del movimiento horizontal */
+}
+
+/* efecto que se activa al pasar el cursor sobre el boton */
+button:hover::before {
+    left: 100%; /* mueve el efecto de brillo hacia el lado derecho */
+}
+
+/* ♿ ESTILOS DE ACCESIBILIDAD PARA BOTONES */
+/* estilos especiales que mejoran la navegacion por teclado y accesibilidad */
 button:focus {
-    outline: 3px solid #4B69FD;
-    outline-offset: 3px;
+    outline: 3px solid rgba(102, 126, 234, 0.6); /* borde visible para navegacion por teclado */
+    outline-offset: 2px; /* separacion entre el boton y el borde de enfoque */
+    transform: translateY(-2px); /* elevacion visual para indicar estado activo */
+    /* sombras mejoradas para enfatizar el elemento enfocado */
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.15), /* sombra principal mas intensa */
+        0 0 0 3px rgba(102, 126, 234, 0.3); /* anillo de enfoque adicional */
 }
 
-/* Mejorar hover y active states */
-button:active {
-    transform: translateY(1px);
+/* estado focus-visible - solo cuando navegacion por teclado es detectada */
+button:focus-visible {
+    outline: 3px solid rgba(102, 126, 234, 0.8); /* outline mas intenso para teclado */
+    outline-offset: 2px; /* mantiene separacion consistente */
 }
 
-.button-add {
-    background-color: var(--color-tertiary);
-    color: var(--color-text);
-    border-radius: 0 25px 25px 0;
+/* ♿ SOPORTE PARA ALTO CONTRASTE */
+/* media query que detecta cuando el usuario prefiere alto contraste en el sistema */
+@media (prefers-contrast: high) {
+    /* redefinicion de variables para usuarios con necesidades de alto contraste */
+    :root {
+        --color-text: #000000; /* texto negro puro para maximo contraste */
+        --color-background: linear-gradient(135deg, #000080 0%, #4B0082 100%); /* fondo oscuro intenso */
+        --color-card: rgba(255, 255, 255, 1); /* fondo blanco opaco para contenido */
+    }
+    
+    /* estilos especiales para botones en modo alto contraste */
+    button:focus {
+        outline: 4px solid #000000; /* outline mas grueso y negro puro */
+        background: #ffffff; /* fondo blanco puro */
+        color: #000000; /* texto negro puro */
+    }
+    
+    /* estilos especiales para inputs en modo alto contraste */
+    .input-name:focus {
+        border: 4px solid #000000; /* borde mas grueso y negro puro */
+        background: #ffffff; /* fondo blanco puro para maximo contraste */
+    }
 }
 
-.button-add:hover {
-    background-color: #a1a1a1;
+/* ♿ SOPORTE PARA MOTION REDUCIDO */
+/* media query que detecta cuando el usuario prefiere animaciones reducidas */
+@media (prefers-reduced-motion: reduce) {
+    /* elimina todas las animaciones para usuarios sensibles al movimiento */
+    * {
+        animation-duration: 0.01ms !important; /* duracion casi instantanea */
+        animation-iteration-count: 1 !important; /* solo una repeticion */
+        transition-duration: 0.01ms !important; /* transiciones casi instantaneas */
+    }
+    
+    /* desactiva animaciones especificas que pueden causar problemas */
+    .main-title {
+        animation: none; /* elimina animacion del titulo principal */
+    }
+    
+    .header-banner img {
+        animation: none; /* elimina animacion de rebote de la imagen */
+    }
 }
 
-/* Listas */
+/* seccion de estilos especificos para el boton "Añadir" */
+/* boton que permite agregar nombres a la lista de participantes del sorteo */
+.button-add { /* clase que define el boton de agregar nombres */
+    background: var(--color-button); /* aplicar gradiente de colores principales definido en variables */
+    color: var(--color-white); /* establecer texto en color blanco para contraste optimo */
+    border-radius: 0 var(--border-radius-small) var(--border-radius-small) 0; /* bordes redondeados solo en esquinas derechas */
+    transform: translateY(0); /* posicion inicial normal sin elevacion en eje Y */
+} /* fin de estilos base del boton añadir */
+
+/* estado hover para el boton añadir - activado cuando el cursor pasa encima */
+/* proporciona feedback visual inmediato de interactividad */
+.button-add:hover { /* pseudo-clase que se activa al hacer hover sobre el boton */
+    background: var(--color-button-hover); /* cambiar a gradiente mas intenso definido en variables */
+    transform: translateY(-2px); /* elevar ligeramente el boton 2px para efecto flotante */
+    /* sistema de sombras intensificadas para enfatizar el estado hover */
+    box-shadow: /* declaracion de sombras multiples para efecto tridimensional */
+        0 12px 40px rgba(255, 107, 107, 0.3), /* sombra principal mas grande y difusa en tono rojizo */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3); /* reflejo interno en la parte superior para brillo */
+} /* fin de estado hover del boton añadir */
+
+/* estado active - activado cuando se presiona fisicamente el boton */
+/* simula comportamiento de boton fisico que se hunde al presionar */
+.button-add:active { /* pseudo-clase que se activa durante el click del boton */
+    transform: translateY(0) scale(0.98); /* retornar a posicion normal y encoger ligeramente al 98% */
+    transition: transform 0.1s ease; /* transicion rapida de 0.1 segundos para feedback inmediato */
+} /* fin de estado active del boton añadir */
+
+/* 📋 LISTAS MÁGICAS */
+/* estilos base para listas que muestran los nombres de amigos agregados */
 ul {
-    list-style-type: none;
-    color: var(--color-text);
-    font-family: "Inter", sans-serif;
-    font-size: 18px;
-    margin: 25px 0 30px 0;
-    /* Optimización para listas dinámicas */
-    contain: layout;
+    list-style-type: none; /* elimina viñetas por defecto de las listas */
+    color: var(--color-text); /* color de texto principal definido en variables */
+    font-family: "Inter", sans-serif; /* fuente moderna sin serifs para legibilidad */
+    font-size: 18px; /* tamaño de letra mediano para buena legibilidad */
+    margin: 20px 0; /* espacio vertical arriba y abajo de la lista */
+    padding: 0; /* elimina padding interno por defecto */
 }
 
-/* Mejorar accesibilidad de elementos de lista */
-li:focus {
-    outline: 2px solid #4B69FD;
-    outline-offset: 2px;
-    background-color: rgba(75, 105, 253, 0.1);
-    border-radius: 4px;
-    padding: 2px 4px;
+/* 🌟 ELEMENTOS DE LISTA CON SÚPER EFECTOS */
+/* estilos para cada elemento individual de la lista (cada nombre) */
+ul li {
+    padding: 12px 20px; /* espaciado interno comodo para el contenido */
+    margin: 8px 0; /* separacion vertical entre elementos */
+    /* gradiente sutil para fondo de cada elemento de lista */
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.8) 0%, /* blanco semi-transparente arriba */
+        rgba(240, 248, 255, 0.9) 100%); /* azul muy claro abajo */
+    border-radius: var(--border-radius-small); /* bordes redondeados consistentes */
+    border: 1px solid rgba(102, 126, 234, 0.1); /* borde sutil del color principal */
+    transition: var(--transition); /* transicion suave para efectos hover */
+    position: relative; /* contexto para pseudo-elementos */
+    overflow: hidden; /* oculta efectos que desborden */
+    
+    /* ✨ EFECTOS GLASSMORPHISM */
+    backdrop-filter: blur(10px); /* desenfoque del fondo para efecto cristal */
+    /* sombras multiples para profundidad y reflejos */
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.1), /* sombra externa sutil */
+        inset 0 1px 0 rgba(255, 255, 255, 0.5); /* reflejo interno superior */
+    
+    /* 🎭 ANIMACIÓN DE ENTRADA */
+    animation: slideInLeft 0.5s ease-out; /* animacion desde la izquierda */
+    animation-fill-mode: both; /* mantiene el estado inicial y final */
 }
 
+/* 🚀 OPTIMIZACIÓN: CLASE ESPECÍFICA PARA ELEMENTOS DE AMIGOS */
+/* mejora la performance al tener selectores más específicos y evita recalculos CSS innecesarios */
+.amigo-item {
+    /* heredar todos los estilos de ul li pero con mayor especificidad */
+    padding: 12px 20px;
+    margin: 8px 0;
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(240, 248, 255, 0.9) 100%);
+    border-radius: var(--border-radius-small);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    
+    /* 🎭 ANIMACIÓN OPTIMIZADA CON ACELERACIÓN GPU */
+    animation: slideInLeftOptimized 0.6s ease-out forwards;
+    /* estado inicial para animación */
+    transform: translate3d(-20px, 0, 0); /* usar transform3d para aceleración hardware */
+    opacity: 0;
+    /* preparar para animaciones con aceleración hardware */
+    will-change: transform, opacity;
+}
+
+/* estado activo optimizado para elementos de amigos */
+.amigo-item.active {
+    transform: translate3d(0, 0, 0); /* posición final con aceleración GPU */
+    opacity: 1;
+}
+
+/* 🎊 EFECTO HOVER ESPECTACULAR */
+/* efectos visuales cuando el usuario pasa el cursor sobre un elemento de lista */
+ul li:hover {
+    transform: translateX(5px) scale(1.02); /* desplaza a la derecha y agranda ligeramente */
+    /* cambia el gradiente de fondo para resaltar el elemento */
+    background: linear-gradient(145deg, 
+        rgba(102, 126, 234, 0.1) 0%, /* azul principal muy sutil arriba */
+        rgba(162, 155, 254, 0.1) 100%); /* purpura muy sutil abajo */
+    border-color: rgba(102, 126, 234, 0.3); /* intensifica el color del borde */
+    /* sombras mejoradas para enfatizar el estado hover */
+    box-shadow: 
+        0 8px 25px rgba(102, 126, 234, 0.2), /* sombra externa mas grande y colorida */
+        inset 0 1px 0 rgba(255, 255, 255, 0.7); /* reflejo interno mas intenso */
+}
+
+/* 🌈 EFECTO BRILLANTE QUE PASA */
+/* pseudo-elemento que crea un destello de luz que atraviesa el elemento */
+ul li::before {
+    content: ''; /* contenido vacio requerido para pseudo-elementos */
+    position: absolute; /* posicion absoluta dentro del elemento de lista */
+    top: 0; /* cubre toda la altura */
+    left: -100%; /* inicia fuera del lado izquierdo */
+    width: 100%; /* mismo ancho que el elemento padre */
+    height: 100%; /* misma altura que el elemento padre */
+    /* gradiente que simula una onda de luz brillante */
+    background: linear-gradient(90deg, 
+        transparent, /* transparente al inicio */
+        rgba(255, 255, 255, 0.6), /* blanco semi-transparente en el centro */
+        transparent); /* transparente al final */
+    transition: left 0.6s; /* transicion del movimiento horizontal */
+}
+
+/* activa el efecto de brillo cuando se hace hover */
+ul li:hover::before {
+    left: 100%; /* mueve el destello hacia el lado derecho */
+}
+
+/* 🎯 ANIMACIÓN DE ENTRADA ESCALONADA */
+/* keyframe que define como aparecen los elementos de lista desde la izquierda */
+@keyframes slideInLeft {
+    0% { /* estado inicial */
+        opacity: 0; /* transparente al inicio */
+        transform: translateX(-30px); /* posicion inicial 30px a la izquierda */
+    }
+    100% { /* estado final */
+        opacity: 1; /* completamente opaco */
+        transform: translateX(0); /* posicion final normal */
+    }
+}
+
+/* ⏰ DELAY ESCALONADO PARA MÚLTIPLES ELEMENTOS */
+/* cada elemento de lista aparece con un retraso ligeramente mayor */
+/* esto crea un efecto de cascada visualmente atractivo */
+ul li:nth-child(1) { animation-delay: 0.1s; } /* primer elemento - retraso minimo */
+ul li:nth-child(2) { animation-delay: 0.2s; } /* segundo elemento */
+ul li:nth-child(3) { animation-delay: 0.3s; } /* tercer elemento */
+ul li:nth-child(4) { animation-delay: 0.4s; } /* cuarto elemento */
+ul li:nth-child(5) { animation-delay: 0.5s; } /* quinto elemento */
+
+/* 🚀 ANIMACIÓN OPTIMIZADA CON ACELERACIÓN GPU */
+/* versión mejorada de slideInLeft que utiliza transform3d para mejor performance */
+@keyframes slideInLeftOptimized {
+    0% {
+        opacity: 0;
+        transform: translate3d(-30px, 0, 0); /* usar translate3d para aceleración hardware */
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0); /* posición final con aceleración GPU */
+    }
+}
+
+/* optimización: reducir repaints en elementos de amigos durante hover */
+.amigo-item:hover {
+    transform: translate3d(2px, -2px, 0); /* usar transform3d para elevación GPU */
+    border-color: rgba(102, 126, 234, 0.3);
+    box-shadow: 
+        0 8px 25px rgba(102, 126, 234, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* seccion de estilos para el contador que muestra cantidad de amigos agregados */
+/* componente visual que proporciona feedback en tiempo real del estado de la aplicacion */
+.friend-counter { /* clase que define el contenedor del contador de amigos */
+    text-align: center; /* centrar el texto horizontalmente dentro del contenedor */
+    margin: 15px 0; /* aplicar espacio vertical de 15px arriba y abajo */
+    padding: 8px 16px; /* espaciado interno de 8px vertical y 16px horizontal */
+    font-family: "Inter", sans-serif; /* fuente Inter moderna para consistencia visual */
+    font-size: 14px; /* tamaño de fuente pequeño de 14px para informacion secundaria */
+    font-weight: 600; /* peso semi-bold para destacar la importancia del numero */
+    color: var(--color-text-light); /* aplicar color gris claro definido en variables globales */
+    /* implementacion de gradiente sutil para el fondo del contador */
+    background: linear-gradient(145deg, /* gradiente diagonal de 145 grados */
+        rgba(255, 255, 255, 0.7) 0%, /* blanco con 70% opacidad en la parte superior */
+        rgba(240, 248, 255, 0.8) 100%); /* azul muy claro con 80% opacidad en la parte inferior */
+    border-radius: var(--border-radius-small); /* aplicar bordes redondeados pequeños usando variable */
+    border: 1px solid rgba(102, 126, 234, 0.1); /* borde sutil de 1px en color principal con 10% opacidad */
+    backdrop-filter: blur(8px); /* efecto glassmorphism con desenfoque de 8px del contenido detras */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* sombra sutil difusa para dar profundidad visual */
+    transition: var(--transition); /* aplicar transicion suave global para efectos interactivos */
+} /* fin de estilos base del contador de amigos */
+
+/* estilos especificos para el elemento numerico dentro del contador */
+/* enfatiza visualmente el numero actual de amigos agregados */
+.friend-counter #numeroAmigos { /* selector especifico para el elemento que contiene el numero */
+    color: var(--color-purple-medium); /* aplicar color distintivo purpura para destacar la cifra */
+    font-weight: 700; /* peso bold para enfatizar fuertemente el numero */
+    font-size: 16px; /* tamaño de fuente ligeramente mayor que el texto circundante */
+    transition: var(--transition); /* transicion suave para cambios de estado y animaciones */
+} /* fin de estilos del numero del contador */
+
+/* clase para animacion de rebote que se aplica temporalmente al numero */
+/* se activa cuando el numero cambia para proporcionar feedback visual dinamico */
+.friend-counter #numeroAmigos.bounce { /* clase combinada que se aplica al numero durante cambios */
+    animation: counterBounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* animacion elastica de 0.4 segundos */
+} /* fin de clase de animacion bounce */
+
+/* definicion de keyframe para la animacion de rebote elastico del contador */
+/* simula un rebote fisico con expansion y contraccion del numero */
+@keyframes counterBounce { /* nombre de animacion para rebote elastico del contador */
+    0% { transform: scale(1); } /* estado inicial con tamaño normal del elemento */
+    50% { transform: scale(1.3); color: var(--color-button); } /* punto medio con expansion al 130% y cambio de color */
+    100% { transform: scale(1); } /* estado final retornando al tamaño normal */
+} /* fin de definicion de keyframe counterBounce */
+
+/* efectos hover para el contador - activados cuando el cursor pasa sobre el elemento */
+/* proporciona interactividad sutil que mejora la experiencia del usuario */
+.friend-counter:hover { /* pseudo-clase que se activa al hacer hover sobre el contador */
+    transform: translateY(-1px); /* elevar ligeramente el contador 1px para efecto flotante */
+    /* intensificacion del gradiente de fondo durante hover */
+    background: linear-gradient(145deg, /* gradiente diagonal manteniendo misma direccion */
+        rgba(255, 255, 255, 0.9) 0%, /* blanco con mayor opacidad (90%) en la parte superior */
+        rgba(240, 248, 255, 0.9) 100%); /* azul claro con mayor opacidad (90%) en la parte inferior */
+    border-color: rgba(102, 126, 234, 0.2); /* intensificar color del borde aumentando opacidad al 20% */
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15); /* sombra mas grande y colorida con tinte azul */
+} /* fin de efectos hover del contador */
+
+/* 📝 ESTADO VACÍO AMIGABLE */
+/* estilos para el mensaje que aparece cuando no hay nombres en la lista */
+.empty-state {
+    text-align: center; /* centra todo el contenido */
+    padding: 40px 20px; /* espaciado interno generoso */
+    margin: 20px 0; /* espacio vertical para separar de otros elementos */
+    /* gradiente sutil para el fondo del estado vacio */
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.6) 0%, /* blanco semi-transparente arriba */
+        rgba(248, 250, 252, 0.7) 100%); /* gris muy claro abajo */
+    border: 2px dashed rgba(102, 126, 234, 0.2); /* borde punteado para indicar area interactiva */
+    border-radius: var(--border-radius-medium); /* bordes redondeados medianos */
+    backdrop-filter: blur(8px); /* efecto glassmorphism */
+    transition: var(--transition); /* transicion suave para efectos hover */
+}
+
+/* clase para ocultar el estado vacio cuando hay elementos */
+.empty-state.hidden {
+    display: none; /* completamente oculto del layout */
+}
+
+/* estilos para el icono emoji dentro del estado vacio */
+.empty-state .empty-icon {
+    font-size: 48px; /* tamaño grande para el emoji */
+    display: block; /* hace que el emoji ocupe su propia linea */
+    margin-bottom: 16px; /* espacio debajo del emoji */
+    opacity: 0.7; /* ligeramente transparente para suavidad visual */
+}
+
+/* estilos para el texto principal del estado vacio */
+.empty-state p {
+    color: var(--color-text); /* color de texto principal */
+    font-family: "Inter", sans-serif; /* fuente consistente */
+    font-size: 18px; /* tamaño mediano para legibilidad */
+    font-weight: 600; /* peso semi-bold para destacar */
+    margin: 0 0 8px 0; /* espacio solo debajo del texto */
+}
+
+/* estilos para el texto secundario (instrucciones adicionales) */
+.empty-state small {
+    color: var(--color-text-light); /* color gris claro para texto secundario */
+    font-family: "Inter", sans-serif; /* fuente consistente */
+    font-size: 14px; /* tamaño pequeño para informacion adicional */
+    font-style: italic; /* cursiva para diferenciarlo del texto principal */
+}
+
+/* efectos hover para el estado vacio */
+.empty-state:hover {
+    /* intensifica el gradiente de fondo al pasar cursor */
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.8) 0%, /* blanco mas opaco arriba */
+        rgba(248, 250, 252, 0.9) 100%); /* gris mas opaco abajo */
+    border-color: rgba(102, 126, 234, 0.3); /* intensifica el color del borde punteado */
+}
+
+/* estilos para mostrar resultados del sorteo (posiblemente no usado actualmente) */
 .result-list {
-    margin-top: 15px;
-    margin-bottom: 30px;
-    color: #05DF05;
-    font-size: 22px;
-    font-weight: bold;
-    text-align: center;
-    /* Optimización para contenido dinámico */
-    contain: layout style;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 15px; /* espacio superior */
+    color: #05DF05; /* verde brillante para indicar exito */
+    font-size: 22px; /* tamaño grande para destacar resultado */
+    font-weight: bold; /* peso bold para enfasis */
+    text-align: center; /* centrado horizontal */
 }
 
-/* Estilos para el sorteo loading */
-.sorteo-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 20px;
+/* 🏆 RESULTADO ÉPICO CON EFECTOS MÁGICOS */
+/* estilos para el contenedor que muestra el resultado del sorteo ganador */
+.result-display {
+    margin-top: 30px; /* espacio superior para separar de elementos anteriores */
+    padding: 25px; /* espaciado interno generoso para destacar contenido */
+    font-size: 24px; /* tamaño grande para enfatizar el resultado */
+    font-weight: 700; /* peso bold para maxima importancia visual */
+    text-align: center; /* centrado horizontal del texto del ganador */
+    border-radius: var(--border-radius-medium); /* bordes redondeados medianos */
+    
+    /* 🌟 DISEÑO ÉPICO */
+    /* gradiente dorado para indicar premio o ganador */
+    background: linear-gradient(135deg, 
+        rgba(255, 215, 0, 0.1) 0%, /* dorado claro arriba */
+        rgba(255, 193, 7, 0.1) 100%); /* amarillo dorado abajo */
+    border: 2px solid rgba(255, 215, 0, 0.3); /* borde dorado para marco especial */
+    color: var(--color-text); /* mantiene color de texto legible */
+    
+    /* ✨ EFECTOS GLASSMORPHISM */
+    backdrop-filter: blur(15px); /* desenfoque intenso para efecto cristal */
+    /* sombras doradas para crear sensacion de premio */
+    box-shadow: 
+        0 8px 32px rgba(255, 215, 0, 0.2), /* sombra externa dorada */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3); /* reflejo interno superior */
+    
+    /* 🎭 ANIMACIÓN DE ENTRADA DRAMÁTICA */
+    animation: resultReveal 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* animacion elastica de entrada */
+    transform: scale(1); /* escala normal final */
+    position: relative; /* contexto para pseudo-elementos decorativos */
+    overflow: hidden; /* oculta elementos decorativos que desborden */
 }
 
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid var(--color-button);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Estilos para resultado simple */
-.resultado-simple {
-    background: linear-gradient(135deg, #28a745, #20c997);
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin: 15px 0 25px 0;
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-    border: 2px solid #20c997;
-    animation: resultadoSlideIn 0.5s ease-out;
-}
-
-.ganador-mensaje {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
-}
-
-.icono-ganador {
-    font-size: 20px;
-    animation: iconoPulso 1.5s ease-in-out infinite;
-}
-
-.ganador-texto {
-    font-family: "Inter", sans-serif;
-}
-
-.ganador-texto strong {
-    font-weight: 800;
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-@keyframes resultadoSlideIn {
-    0% {
-        transform: translateY(-20px);
-        opacity: 0;
+/* 🎊 ANIMACIÓN DE REVELACIÓN DRAMÁTICA */
+@keyframes resultReveal {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.3) rotateY(180deg); 
     }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
+    50% { 
+        opacity: 0.8; 
+        transform: scale(1.1) rotateY(90deg); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1) rotateY(0deg); 
     }
 }
 
-@keyframes iconoPulso {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-.resultado-animado {
-    animation: resultadoEntrada 0.8s ease-out;
-}
-
-@keyframes resultadoEntrada {
-    0% {
-        transform: scale(0.5) rotate(-10deg);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.1) rotate(5deg);
-    }
-    100% {
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
-    }
-}
-
-.confeti {
-    position: absolute;
-    font-size: 30px;
-    animation: flotarConfeti 2s ease-in-out infinite;
-}
-
-.confeti:first-child {
-    top: 10px;
-    left: 10px;
-    animation-delay: 0s;
-}
-
-.confeti:last-child {
-    top: 10px;
-    right: 10px;
-    animation-delay: 0.5s;
-}
-
-@keyframes flotarConfeti {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(180deg); }
-}
-
-.corona {
+/* 🌟 EFECTO DE CONFETI MEJORADO - ¡MÁS DIVERTIDO! */
+.result-display::before {
+    content: '🎉';
     position: absolute;
     top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 40px;
-    animation: coronaPulso 1.5s ease-in-out infinite;
-}
-
-@keyframes coronaPulso {
-    0%, 100% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.2); }
-}
-
-.ganador-container {
-    text-align: center;
-    color: white;
-    margin-top: 15px;
-}
-
-.ganador-titulo {
-    font-family: "Merriweather", serif;
-    font-size: 18px;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    animation: tituloParpadeo 2s ease-in-out infinite;
-}
-
-@keyframes tituloParpadeo {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
-}
-
-.ganador-nombre {
-    font-family: "Inter", sans-serif;
+    left: 15px;
     font-size: 28px;
-    font-weight: 900;
-    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    border: 2px dashed #FFD700;
-    border-radius: 15px;
-    margin: 10px 0;
-    animation: nombreBrillo 1.5s ease-in-out infinite;
+    animation: confetti 2s ease-in-out infinite;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes nombreBrillo {
-    0%, 100% { 
-        transform: scale(1);
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-    }
-    50% { 
-        transform: scale(1.05);
-        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-    }
-}
-
-.celebracion {
-    font-size: 24px;
-    margin-top: 10px;
-    animation: celebracionBaile 1s ease-in-out infinite;
-}
-
-@keyframes celebracionBaile {
-    0%, 100% { transform: translateY(0px); }
-    25% { transform: translateY(-5px); }
-    75% { transform: translateY(5px); }
-}
-
-/* Confeti flotante */
-.confetti-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1000;
-}
-
-.confetti-piece {
+.result-display::after {
+    content: '🎊';
     position: absolute;
-    width: 10px;
-    height: 10px;
-    background: #ff6b6b;
-    animation: confettiFall linear infinite;
+    top: -15px;
+    right: 15px;
+    font-size: 28px;
+    animation: confetti 2s ease-in-out infinite reverse;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes confettiFall {
-    0% {
-        transform: translateY(-100vh) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-    }
-}
-
-/* Botón de sortear título */
-.button-draw {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 10px 40px;
-    color: var(--color-white);
-    background-color: var(--color-button);
-    font-size: 16px;
-}
-
-.button-draw img {
-    margin-right: 40px;
-}
-
-.button-draw:hover {
-    background-color: var(--color-button-hover);
-}
-
-/* Contador de participantes */
-.contador-participantes {
-    font-family: "Inter", sans-serif;
-    font-size: 14px;
-    color: var(--color-text);
-    text-align: center;
-    margin: 15px 0 20px 0;
-    padding: 8px 15px;
-    background-color: rgba(75, 105, 253, 0.1);
-    border-radius: 15px;
-    font-weight: 500;
-}
-
-/* Estilos para items de amigos con botón eliminar */
-.amigo-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    margin: 4px 0;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    transition: all 0.2s ease;
-}
-
-.amigo-item:hover {
-    background-color: rgba(255, 255, 255, 0.95);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.amigo-nombre {
-    flex: 1;
-    font-weight: 500;
-}
-
-.btn-eliminar {
-    background-color: #ff4757;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    margin-left: 10px;
-    padding: 0;
-}
-
-.btn-eliminar:hover {
-    background-color: #ff3742;
-    transform: scale(1.1);
-}
-
-.btn-eliminar:active {
-    transform: scale(0.95);
-}
-
-/* Estilos para amigos que ya ganaron */
-.amigo-ganador {
-    background-color: rgba(40, 167, 69, 0.1) !important;
-    border: 1px solid rgba(40, 167, 69, 0.3);
-    opacity: 0.8;
-}
-
-.amigo-ganador:hover {
-    background-color: rgba(40, 167, 69, 0.15) !important;
-}
-
-.indicador-ganador {
-    margin-left: 8px;
-    font-size: 16px;
-    animation: ganadorPulso 2s ease-in-out infinite;
-}
-
-@keyframes ganadorPulso {
+@keyframes confetti {
     0%, 100% { 
-        transform: scale(1); 
-        opacity: 1;
+        transform: translateY(0) rotate(0deg); 
+        opacity: 1; 
+    }
+    25% { 
+        transform: translateY(-10px) rotate(90deg); 
+        opacity: 0.8; 
     }
     50% { 
-        transform: scale(1.1); 
-        opacity: 0.8;
+        transform: translateY(-20px) rotate(180deg); 
+        opacity: 1; 
+    }
+    75% { 
+        transform: translateY(-10px) rotate(270deg); 
+        opacity: 0.8; 
     }
 }
 
-/* Footer */
-.footer {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    padding: 15px 20px;
-    text-align: center;
-    font-family: "Inter", sans-serif;
-    margin-top: auto;
+/* 💫 EFECTO HOVER PARA EL RESULTADO */
+.result-display:hover {
+    transform: scale(1.02);
+    box-shadow: 
+        0 12px 40px rgba(255, 215, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: var(--transition);
 }
 
-.footer-content {
-    max-width: 600px;
-    margin: 0 auto;
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* � BOTÓN DE SORTEAR - Botón principal para realizar el sorteo del amigo secreto */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* selector principal del boton que ejecuta el sorteo de amigo secreto */
+/* es el elemento mas importante de la interfaz con efectos visuales llamativos */
+.button-draw { /* clase del boton de sorteo con efectos especiales */
+    display: flex; /* usar flexbox para organizar el contenido interno del boton */
+    align-items: center; /* centrar verticalmente el contenido dentro del boton */
+    justify-content: center; /* centrar horizontalmente el contenido dentro del boton */
+    width: 100%; /* ocupar todo el ancho disponible del contenedor padre */
+    max-width: 300px; /* ancho maximo limitado a 300px para mantener proporciones */
+    padding: 20px 40px; /* espaciado interno: 20px vertical y 40px horizontal */
+    color: var(--color-white); /* color del texto usando variable blanca (#ffffff) */
+    background: var(--color-button); /* fondo usando variable del color principal (#667eea) */
+    font-size: 18px; /* tamaño de fuente grande para destacar la importancia */
+    font-weight: 700; /* peso de fuente extra bold para maximo enfasis visual */
+    margin: var(--spacing-medium) auto; /* margen vertical usando variable (16px) y centrado horizontal */
+    position: relative; /* posicionamiento relativo para permitir pseudo-elementos */
+    overflow: hidden; /* ocultar cualquier contenido que se desborde del boton */
+    
+    /* efecto pulsante magico que hace que el boton llame la atencion constantemente */
+    animation: pulse 2s ease-in-out infinite; /* animacion infinita de pulsacion cada 2 segundos */
+    /* combinacion de sombras para crear efecto de profundidad y brillo */
+    box-shadow: /* multiples sombras superpuestas para efecto dramatico */
+        0 0 30px rgba(255, 107, 107, 0.4), /* resplandor exterior rojo difuso de 30px */
+        0 8px 32px rgba(0, 0, 0, 0.2); /* sombra inferior negra para profundidad */
+} /* fin de estilos base del boton sortear */
+
+/* definicion de keyframe para animacion de pulsacion del boton sortear */
+/* alterna entre estados de sombra para crear efecto de latido visual */
+@keyframes pulse { /* nombre de animacion para efecto pulsante */
+    0%, 100% { /* estado inicial y final de la animacion */
+        box-shadow: /* sombras en estado normal de pulsacion */
+            0 0 30px rgba(255, 107, 107, 0.4), /* resplandor rojo con opacidad media */
+            0 8px 32px rgba(0, 0, 0, 0.2); /* sombra de profundidad sutil */
+    } /* fin de estado inicial/final */
+    50% { /* punto medio de la animacion con maxima intensidad */
+        box-shadow: /* sombras intensificadas en el pico de pulsacion */
+            0 0 50px rgba(255, 107, 107, 0.7), /* resplandor rojo expandido y mas intenso */
+            0 12px 40px rgba(0, 0, 0, 0.3); /* sombra de profundidad aumentada */
+    } /* fin de estado de pico */
+} /* fin de definicion de keyframe pulse */
+
+/* pseudo-elemento after para agregar emoji de dado al boton sortear */
+/* proporciona indicador visual del proposito del boton mediante iconografia */
+.button-draw::after { /* pseudo-elemento que se posiciona despues del contenido del boton */
+    content: '🎲'; /* emoji de dado como contenido del pseudo-elemento */
+    position: absolute; /* posicionamiento absoluto dentro del boton relativo */
+    right: 20px; /* posicionar a 20px desde el borde derecho del boton */
+    font-size: 20px; /* tamaño del emoji ligeramente mayor que el texto principal */
+    /* especificar fuentes de emoji para garantizar renderizado correcto multiplataforma */
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; /* fuentes de emoji */
+    animation: sparkle 1.5s ease-in-out infinite; /* animacion de destello cada 1.5 segundos */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* sombra del emoji para dar profundidad */
+} /* fin de pseudo-elemento emoji del boton sortear */
+
+/* definicion de keyframe para animacion de destello del emoji dado */
+/* crea efecto de rotacion y escala que llama la atencion hacia el boton */
+@keyframes sparkle { /* nombre de animacion para efecto de destello del emoji */
+    0%, 100% { /* estado inicial y final de la animacion */
+        transform: scale(1) rotate(0deg); /* tamaño normal sin rotacion */
+        opacity: 1; /* opacidad completa del emoji */
+    } /* fin de estado inicial/final */
+    50% { /* punto medio de la animacion con maxima transformacion */
+        transform: scale(1.2) rotate(180deg); /* agrandar 20% y rotar 180 grados */
+        opacity: 0.8; /* reducir opacidad ligeramente para efecto de parpadeo */
+    } /* fin de estado de transformacion maxima */
+} /* fin de definicion de keyframe sparkle */
+
+/* estilos para imagenes dentro del boton sortear */
+/* mejora la presentacion visual de iconos agregados al boton */
+.button-draw img { /* selector para imagenes dentro del boton de sorteo */
+    margin-right: 16px; /* margen derecho de 16px para separar imagen del texto */
+    /* aplicar sombra a la imagen para darle profundidad y destacarla */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); /* sombra negra sutil con desplazamiento de 2px */
+} /* fin de estilos para imagenes del boton sortear */
+
+/* efectos hover para el boton sortear - activados al pasar cursor sobre el elemento */
+/* proporciona feedback visual inmediato al usuario indicando interactividad */
+.button-draw:hover { /* pseudo-clase que se activa durante hover del boton */
+    background: var(--color-button-hover); /* cambiar a color de hover usando variable CSS */
+    transform: scale(1.05); /* agrandar boton 5% para efecto de crecimiento */
+    animation: none; /* desactivar animacion de pulsacion durante hover */
+    /* intensificar sombras durante hover para efecto dramatico */
+    box-shadow: /* sombras intensificadas para efecto hover */
+        0 0 60px rgba(255, 87, 34, 0.6), /* resplandor naranja intenso de 60px */
+        0 16px 50px rgba(0, 0, 0, 0.4); /* sombra de profundidad aumentada */
+} /* fin de efectos hover del boton sortear */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 🌟 FOOTER MÁGICO - Pie de página fijo con efectos glassmorphism */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* selector para el footer magico con efectos visuales avanzados */
+/* se posiciona fijo en la parte inferior con efectos de cristal difuminado */
+.magic-footer { /* clase principal del footer con efectos especiales */
+    position: fixed; /* posicionamiento fijo respecto a la ventana del navegador */
+    bottom: 0; /* posicionar en la parte inferior de la pantalla */
+    left: 0; /* extender desde el borde izquierdo */
+    right: 0; /* extender hasta el borde derecho */
+    /* gradiente de fondo diagonal con colores semi-transparentes */
+    background: linear-gradient(135deg, /* gradiente diagonal de 135 grados */
+        rgba(102, 126, 234, 0.95) 0%, /* azul semi-transparente al inicio */
+        rgba(118, 75, 162, 0.95) 100%); /* purpura semi-transparente al final */
+    backdrop-filter: blur(20px); /* filtro de desenfoque de fondo para efecto glassmorphism */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* borde superior blanco semi-transparente */
+    padding: 16px 0; /* espaciado interno vertical de 16px */
+    z-index: var(--z-modal); /* indice z alto usando variable para aparecer sobre otros elementos */
+    
+    /* aplicacion de efecto glassmorphism mediante sombras complejas */
+    box-shadow: /* multiples sombras para crear efecto de cristal */
+        0 -8px 32px rgba(0, 0, 0, 0.1), /* sombra superior difusa para profundidad */
+        inset 0 1px 0 rgba(255, 255, 255, 0.2); /* sombra interna superior para efecto de brillo */
+} /* fin de estilos del footer magico */
+
+/* contenedor interno del footer que organiza el contenido central */
+/* proporciona estructura y limitaciones de ancho para el contenido del footer */
+.footer-content { /* clase para el contenido interno del footer magico */
+    text-align: center; /* centrar todo el texto dentro del contenedor */
+    max-width: 600px; /* ancho maximo de 600px para mantener legibilidad */
+    margin: 0 auto; /* centrar horizontalmente el contenedor con margenes automaticos */
+    padding: 0 20px; /* espaciado horizontal de 20px a los lados */
+} /* fin de estilos del contenedor del footer */
+
+/* estilos para el texto principal del footer */
+/* proporciona la tipografia y organizacion visual del contenido principal */
+.footer-text { /* clase para el texto principal del footer */
+    color: var(--color-white); /* color blanco usando variable CSS (#ffffff) */
+    font-size: 14px; /* tamaño de fuente mediano para legibilidad */
+    font-weight: 500; /* peso de fuente medio para destacar ligeramente */
+    margin-bottom: 4px; /* margen inferior pequeño de 4px para separar del subtitulo */
+    display: flex; /* usar flexbox para organizar elementos internos */
+    align-items: center; /* centrar verticalmente elementos dentro del texto */
+    justify-content: center; /* centrar horizontalmente elementos dentro del texto */
+    gap: 8px; /* espacio de 8px entre elementos flexbox */
+    flex-wrap: wrap; /* permitir que elementos se envuelvan en multiples lineas */
+} /* fin de estilos del texto principal del footer */
+
+/* estilos para el subtitulo del footer */
+/* proporciona informacion secundaria con menor prominencia visual */
+.footer-subtitle { /* clase para texto secundario del footer */
+    color: rgba(255, 255, 255, 0.8); /* blanco con 80% de opacidad para menor prominencia */
+    font-size: 12px; /* tamaño de fuente pequeño para informacion secundaria */
+    font-weight: 400; /* peso de fuente normal para texto secundario */
+    opacity: 0.9; /* opacidad adicional del 90% para efecto sutil */
+} /* fin de estilos del subtitulo del footer */
+
+/* estilos para iconos dentro del footer */
+/* agregan animacion sutil a elementos decorativos */
+.footer-icon { /* clase para iconos decorativos del footer */
+    animation: twinkle 2s ease-in-out infinite; /* animacion de parpadeo cada 2 segundos infinitamente */
+} /* fin de estilos de iconos del footer */
+
+/* definicion de keyframe para animacion de parpadeo de iconos */
+/* crea efecto de centelleo similar a estrellas parpadeando */
+@keyframes twinkle { /* nombre de animacion para efecto de parpadeo de iconos */
+    0%, 100% { /* estado inicial y final de la animacion */
+        transform: scale(1) rotate(0deg); /* tamaño normal sin rotacion */
+        opacity: 1; /* opacidad completa */
+    } /* fin de estado inicial/final */
+    50% { /* punto medio con maxima transformacion */
+        transform: scale(1.2) rotate(180deg); /* agrandar 20% y rotar 180 grados */
+        opacity: 0.7; /* reducir opacidad al 70% para efecto de parpadeo */
+    } /* fin de estado de transformacion maxima */
+} /* fin de definicion de keyframe twinkle */
+
+/* estilos para elemento corazon con animacion de latido */
+/* representa elementos emotivos con movimiento que simula latidos */
+.heart { /* clase para iconos de corazon animados */
+    color: #ff6b6b; /* color rojo coral para representar amor/corazon */
+    animation: heartbeat 2s ease-in-out infinite; /* animacion de latido cada 2 segundos */
+    display: inline-block; /* mostrar como bloque en linea para aplicar transformaciones */
+} /* fin de estilos del corazon */
+
+/* definicion de keyframe para animacion de latido del corazon */
+/* simula el ritmo cardiaco mediante cambios de escala sutiles */
+@keyframes heartbeat { /* nombre de animacion para latido del corazon */
+    0%, 100% { /* estado inicial y final del latido */
+        transform: scale(1); /* tamaño normal del corazon */
+    } /* fin de estado normal */
+    50% { /* punto medio del latido con expansion */
+        transform: scale(1.1); /* agrandar 10% para simular latido */
+    } /* fin de estado de expansion */
+} /* fin de definicion de keyframe heartbeat */
+
+/* estilos para texto enfatizado dentro del footer */
+/* aplica gradiente de color para destacar elementos importantes */
+.footer-text strong { /* selector para elementos strong dentro del texto del footer */
+    /* gradiente de color para texto que va de blanco a rosa */
+    background: linear-gradient(45deg, #fff, #f093fb); /* gradiente diagonal blanco a rosa */
+    -webkit-background-clip: text; /* aplicar gradiente solo al texto (webkit) */
+    -webkit-text-fill-color: transparent; /* hacer texto transparente para mostrar gradiente */
+    background-clip: text; /* aplicar gradiente solo al texto (estandar) */
+    font-weight: 700; /* peso de fuente extra bold para maximo enfasis */
+} /* fin de estilos para texto enfatizado del footer */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 📱 RESPONSIVE TABLET - Adaptaciones para pantallas medianas (hasta 992px) */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* media query para adaptacion a pantallas tablet y dispositivos medianos */
+/* se activa cuando el ancho de pantalla es igual o menor a 992px */
+@media (max-width: 992px) { /* breakpoint para tablets y pantallas medianas */
+    
+    /* ajustes del contenedor principal para pantallas tablet */
+    /* reduce espaciado y margenes para optimizar espacio disponible */
+    .main-content { /* adaptacion del contenedor principal */
+        padding: 25px; /* reducir padding interno a 25px para aprovechar espacio */
+        margin: 20px 10px; /* margenes verticales 20px y horizontales 10px */
+    } /* fin de adaptacion main-content tablet */
+    
+    /* ajuste del titulo principal para mantener legibilidad en tablet */
+    /* reduce tamaño pero mantiene impacto visual */
+    .main-title { /* adaptacion del titulo principal */
+        font-size: 48px; /* reducir tamaño de fuente a 48px desde tamaño desktop */
+    } /* fin de adaptacion main-title tablet */
+    
+    /* ajuste de titulos de seccion para proporcion adecuada */
+    /* mantiene jerarquia visual con tamaño apropiado para tablet */
+    .section-title { /* adaptacion de titulos de seccion */
+        font-size: 24px; /* reducir tamaño a 24px para mejor proporcion en tablet */
+    } /* fin de adaptacion section-title tablet */
+    
+    /* ajuste del tamaño de imagen en banner para tablet */
+    /* optimiza espacio manteniendo visibilidad de elementos graficos */
+    .header-banner img { /* adaptacion de imagen del banner */
+        max-width: 120px; /* reducir ancho maximo a 120px para tablet */
+    } /* fin de adaptacion imagen banner tablet */
+} /* fin de media query tablet (992px) */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 📱 RESPONSIVE TABLET PEQUEÑA - Adaptaciones para pantallas pequeñas (hasta 768px) */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* media query para tablet pequeña y dispositivos de tamaño medio */
+/* optimiza layout para pantallas entre 768px y dispositivos mas pequeños */
+@media (max-width: 768px) { /* breakpoint para tablets pequeñas */
+    
+    /* reduccion de altura del banner para tablet pequeña */
+    /* optimiza espacio vertical limitado en pantallas mas pequeñas */
+    .header-banner { /* adaptacion del banner principal */
+        height: 220px; /* reducir altura a 220px desde tamaño tablet mayor */
+        padding: 20px 0; /* reducir padding vertical a 20px */
+    } /* fin de adaptacion header-banner tablet pequeña */
+    
+    /* mayor reduccion del titulo principal para tablet pequeña */
+    /* mantiene legibilidad en espacio mas limitado */
+    .main-title { /* adaptacion del titulo principal */
+        font-size: 44px; /* reducir aun mas el tamaño a 44px */
+    } /* fin de adaptacion main-title tablet pequeña */
+    
+    /* cambio critico: layout de entrada cambia a columna vertical */
+    /* mejora usabilidad en pantallas mas estrechas */
+    .input-wrapper { /* adaptacion del contenedor de entrada */
+        flex-direction: column; /* cambiar de fila a columna para mejor usabilidad */
+        gap: 12px; /* reducir espacio entre elementos a 12px */
+        max-width: 400px; /* limitar ancho maximo a 400px */
+    } /* fin de adaptacion input-wrapper tablet pequeña */
+    
+    /* elementos de entrada ocupan ancho completo en layout vertical */
+    /* proporciona areas de toque mas grandes para dispositivos tactiles */
+    .input-name, .button-add { /* adaptacion de input y boton */
+        width: 100%; /* ambos elementos ocupan todo el ancho disponible */
+        border-radius: var(--border-radius-small); /* usar radio de borde pequeño */
+    } /* fin de adaptacion input y boton tablet pequeña */
+    
+    /* reduccion adicional de imagen para tablet pequeña */
+    /* optimiza espacio preservando legibilidad */
+    .header-banner img { /* adaptacion de imagen del banner */
+        max-width: 100px; /* reducir ancho maximo a 100px para tablet pequeña */
+    } /* fin de adaptacion imagen banner tablet pequeña */
+    
+    /* ajuste de elementos de lista de amigos para tablet pequeña */
+    /* reduce tamaño de fuente y padding para optimizar espacio */
+    .friend-item { /* adaptacion de elementos individuales de amigos */
+        font-size: 14px; /* reducir tamaño de fuente a 14px */
+        padding: 10px 12px; /* reducir padding interno para ahorrar espacio */
+    } /* fin de adaptacion friend-item tablet pequeña */
+} /* fin de media query tablet pequeña (768px) */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 📱 RESPONSIVE MÓVIL - Adaptaciones para dispositivos móviles (hasta 600px) */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* media query para dispositivos moviles y pantallas muy pequeñas */
+/* optimizaciones criticas para experiencia de usuario en moviles */
+@media (max-width: 600px) { /* breakpoint para dispositivos moviles */
+    
+    /* adaptacion del texto del footer para moviles */
+    /* layout vertical y tipografia reducida para espacios limitados */
+    .footer-text { /* adaptacion del texto principal del footer */
+        font-size: 12px; /* reducir tamaño de fuente a 12px para moviles */
+        flex-direction: column; /* cambiar layout a columna vertical */
+        gap: 4px; /* reducir espacio entre elementos a 4px */
+    } /* fin de adaptacion footer-text movil */
+    
+    /* reduccion adicional del subtitulo del footer */
+    /* mantiene legibilidad en pantallas muy pequeñas */
+    .footer-subtitle { /* adaptacion del subtitulo del footer */
+        font-size: 10px; /* reducir a tamaño minimo legible de 10px */
+    } /* fin de adaptacion footer-subtitle movil */
+    
+    /* compactacion del footer magico para moviles */
+    /* reduce espaciado para aprovechar espacio vertical limitado */
+    .magic-footer { /* adaptacion del footer magico */
+        padding: 12px 0; /* reducir padding vertical a 12px */
+    } /* fin de adaptacion magic-footer movil */
+    
+    /* adaptaciones criticas del header para moviles */
+    /* optimiza el area mas visible y importante de la aplicacion */
+    .header-banner { /* adaptacion del banner principal */
+        height: 200px; /* reducir altura a 200px para moviles */
+        padding: 15px 0; /* reducir padding vertical a 15px */
+    } /* fin de adaptacion header-banner movil */
+    
+    /* ajuste del titulo principal para dispositivos moviles */
+    /* mantiene impacto visual con tamaño apropiado y efectos mejorados */
+    .main-title { /* adaptacion del titulo principal */
+        font-size: 40px; /* reducir tamaño a 40px manteniendo legibilidad */
+        /* sombras de texto intensificadas para mejorar legibilidad en movil */
+        text-shadow: /* multiples sombras para efecto dramatico */
+            0 0 20px rgba(255, 255, 255, 0.8), /* resplandor blanco intenso */
+            0 0 30px rgba(168, 85, 247, 0.6), /* resplandor purpura medio */
+            0 0 40px rgba(139, 92, 246, 0.4); /* resplandor purpura sutil extendido */
+    } /* fin de adaptacion main-title movil */
+    
+    /* maxima reduccion de imagen para dispositivos moviles */
+    /* preserva visibilidad mientras optimiza espacio critico */
+    .header-banner img { /* adaptacion de imagen del banner */
+        max-width: 80px; /* reducir a tamaño minimo de 80px para moviles */
+        height: auto; /* mantener proporcion automatica */
+    } /* fin de adaptacion imagen banner movil */
+    
+    /* compactacion maxima del contenedor principal */
+    /* adaptacion critica para aprovechar espacio limitado en moviles */
+    .main-content { /* adaptacion del contenedor principal */
+        padding: 20px 15px; /* padding minimo: 20px vertical, 15px horizontal */
+        margin: 15px 8px; /* margenes reducidos: 15px vertical, 8px horizontal */
+    } /* fin de adaptacion main-content movil */
+    
+    /* ajuste final de titulos de seccion para moviles */
+    /* mantiene jerarquia visual con tamaño apropiado para pantallas pequeñas */
+    .section-title { /* adaptacion de titulos de seccion */
+        font-size: 24px; /* mantener 24px para preservar jerarquia visual */
+    } /* fin de adaptacion section-title movil */
+} /* fin de media query movil (600px) */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 📱 RESPONSIVE ULTRA-PEQUEÑO - Para smartphones muy pequeños (hasta 360px) */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* media query para dispositivos ultra-compactos y smartphones antiguos */
+/* adaptaciones extremas para garantizar usabilidad en pantallas minimas */
+@media (max-width: 360px) { /* breakpoint para smartphones muy pequeños */
+    
+    /* compactacion extrema del contenedor principal */
+    /* utiliza margenes y padding minimos para maximizar espacio util */
+    .main-content { /* adaptacion del contenedor principal */
+        padding: 15px 10px; /* padding minimo: 15px vertical, 10px horizontal */
+        margin: 10px 5px; /* margenes minimos: 10px vertical, 5px horizontal */
+        min-height: calc(100vh - 200px); /* altura minima calculada para usar viewport completo */
+    } /* fin de adaptacion main-content ultra-pequeño */
+    
+    /* reduccion extrema del titulo principal manteniendo impacto */
+    /* ajusta efectos de sombra para mejorar legibilidad en pantallas pequeñas */
+    .main-title { /* adaptacion del titulo principal */
+        font-size: 36px; /* reducir a tamaño minimo legible de 36px */
+        /* sombras optimizadas para pantallas ultra-pequeñas */
+        text-shadow: /* efectos de sombra ajustados */
+            0 0 15px rgba(255, 255, 255, 0.9), /* resplandor blanco mas intenso */
+            0 0 25px rgba(168, 85, 247, 0.7), /* resplandor purpura concentrado */
+            0 0 35px rgba(139, 92, 246, 0.5); /* resplandor purpura extendido */
+    } /* fin de adaptacion main-title ultra-pequeño */
+    
+    /* compactacion de titulos de seccion para espacios extremos */
+    /* reduce tamaño y margenes para optimizar espacio vertical */
+    .section-title { /* adaptacion de titulos de seccion */
+        font-size: 20px; /* reducir a 20px manteniendo legibilidad */
+        margin: 8px 0; /* margenes verticales minimos de 8px */
+    } /* fin de adaptacion section-title ultra-pequeño */
+    
+    /* optimizacion extrema del contenedor de entrada */
+    /* layout completamente vertical con espaciado minimo */
+    .input-wrapper { /* adaptacion del contenedor de entrada */
+        flex-direction: column; /* layout vertical obligatorio */
+        gap: 8px; /* espacio minimo de 8px entre elementos */
+        max-width: 100%; /* usar todo el ancho disponible */
+    } /* fin de adaptacion input-wrapper ultra-pequeño */
+    
+    /* adaptacion de elementos de entrada para pantallas ultra-pequeñas */
+    /* areas de toque optimizadas para usabilidad tactil */
+    .input-name, .button-add { /* adaptacion de input y boton agregar */
+        width: 100%; /* ancho completo para maxima usabilidad */
+        border-radius: var(--border-radius-small); /* radio de borde pequeño */
+        padding: 14px 16px; /* padding optimizado para areas de toque */
+        font-size: 14px; /* tamaño de fuente legible en pantallas pequeñas */
+    } /* fin de adaptacion input y button-add ultra-pequeño */
+    
+    /* optimizacion del boton de sorteo para pantallas ultra-pequeñas */
+    /* garantiza usabilidad tactil con dimensiones apropiadas */
+    .button-draw { /* adaptacion del boton de sorteo */
+        padding: 14px 18px; /* padding optimizado para toque */
+        font-size: 14px; /* tamaño de fuente legible */
+        max-width: 100%; /* usar todo el ancho disponible */
+        min-height: 50px; /* altura minima para area de toque adecuada */
+    } /* fin de adaptacion button-draw ultra-pequeño */
+    
+    /* adaptacion de resultados para pantallas ultra-pequeñas */
+    /* tipografia y espaciado optimizados para legibilidad */
+    /* adaptacion de resultados para pantallas ultra-pequeñas */
+    /* tipografia y espaciado optimizados para legibilidad */
+    .result-display { /* adaptacion del contenedor de resultados */
+        font-size: 18px; /* tamaño de fuente para resultados importantes */
+        padding: 18px 12px; /* padding balanceado para contenido */
+        line-height: 1.4; /* altura de linea optimizada para legibilidad */
+        word-break: break-word; /* ruptura de palabras para evitar overflow */
+    } /* fin de adaptacion result-display ultra-pequeño */
+    
+    /* adaptacion del estado vacio para pantallas ultra-pequeñas */
+    /* mensaje optimizado cuando no hay amigos agregados */
+    .empty-state { /* adaptacion del estado sin contenido */
+        padding: 25px 12px; /* padding balanceado para mensaje centrado */
+        font-size: 14px; /* tamaño de fuente legible para mensaje */
+    } /* fin de adaptacion empty-state ultra-pequeño */
+    
+    /* compactacion extrema de elementos de lista de amigos */
+    /* optimiza espacio para mostrar mas elementos en pantalla pequeña */
+    .friend-item { /* adaptacion de elementos individuales de amigos */
+        font-size: 13px; /* tamaño de fuente minimo pero legible */
+        padding: 8px 10px; /* padding compacto para ahorrar espacio */
+        margin: 4px 0; /* margenes verticales minimos */
+    } /* fin de adaptacion friend-item ultra-pequeño */
+    
+    /* reduccion extrema del banner para pantallas ultra-pequeñas */
+    /* conserva funcionalidad visual con minimo espacio vertical */
+    .header-banner { /* adaptacion del banner principal */
+        height: 180px; /* altura minima de 180px */
+        padding: 12px 0; /* padding vertical reducido a 12px */
+    } /* fin de adaptacion header-banner ultra-pequeño */
+    
+    /* imagen del banner en tamaño ultra-compacto */
+    /* mantiene visibilidad con espacio minimo */
+    .header-banner img { /* adaptacion de imagen del banner */
+        max-width: 70px; /* tamaño minimo de 70px manteniendo visibilidad */
+    } /* fin de adaptacion imagen banner ultra-pequeño */
+    
+    /* optimizacion critica para overflow en pantallas ultra-pequeñas */
+    /* implementa scroll personalizado para listas largas de amigos */
+    .friends-list { /* adaptacion de la lista de amigos */
+        max-height: 40vh; /* limitar altura maxima al 40% del viewport */
+        overflow-y: auto; /* scroll vertical automatico cuando sea necesario */
+        scrollbar-width: thin; /* ancho de scrollbar delgado (Firefox) */
+        /* colores personalizados del scrollbar para mantener estetica */
+        scrollbar-color: rgba(168, 85, 247, 0.5) transparent; /* purpura semi-transparente */
+    } /* fin de adaptacion friends-list ultra-pequeño */
+    
+    /* personalizacion del scrollbar para navegadores webkit */
+    /* mantiene consistencia visual con el diseño general */
+    .friends-list::-webkit-scrollbar { /* selector del scrollbar webkit */
+        width: 4px; /* ancho ultra-delgado de 4px */
+    } /* fin de estilos webkit-scrollbar */
+    
+    /* estilos del track del scrollbar webkit */
+    /* fondo sutil que no interfiere con el diseño */
+    .friends-list::-webkit-scrollbar-track { /* selector del track del scrollbar */
+        background: rgba(255, 255, 255, 0.1); /* fondo blanco muy sutil */
+        border-radius: 2px; /* bordes redondeados pequeños */
+    } /* fin de estilos webkit-scrollbar-track */
+    
+    /* estilos del thumb del scrollbar webkit */
+    /* elemento deslizante del scrollbar con estetica coherente */
+    /* estilos del thumb del scrollbar webkit */
+    /* elemento deslizante del scrollbar con estetica coherente */
+    .friends-list::-webkit-scrollbar-thumb { /* selector del thumb del scrollbar */
+        background: rgba(168, 85, 247, 0.6); /* fondo purpura semi-transparente */
+        border-radius: 2px; /* bordes redondeados pequeños para consistencia */
+    } /* fin de estilos webkit-scrollbar-thumb */
+    
+    /* adaptacion del icono del estado vacio para ultra-pequeño */
+    /* mantiene impacto visual con tamaño apropiado */
+    .empty-state .empty-icon { /* adaptacion del icono de estado vacio */
+        font-size: 36px; /* tamaño de icono visible pero no dominante */
+    } /* fin de adaptacion empty-icon ultra-pequeño */
+    
+    /* adaptacion del texto del estado vacio para ultra-pequeño */
+    /* tamaño de fuente legible para mensajes informativos */
+    .empty-state p { /* adaptacion del texto del estado vacio */
+        font-size: 16px; /* tamaño de fuente claro para mensajes */
+    } /* fin de adaptacion empty-state p ultra-pequeño */
+} /* fin de media query ultra-pequeño (360px) */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 🎯 AJUSTE GLOBAL - Prevención de superposición con footer fijo */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* ajuste global del body para evitar que el footer tape el contenido */
+/* garantiza que siempre haya espacio suficiente en la parte inferior */
+body { /* selector global del documento */
+    padding-bottom: 120px; /* espaciado inferior de 120px para evitar superposicion con footer */
+} /* fin de ajuste global body */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 🚨 SISTEMA DE NOTIFICACIONES MÁGICAS - Alertas y mensajes temporales */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+/* clase base para notificaciones emergentes del sistema */
+/* proporciona base visual y posicionamiento para mensajes temporales */
+.notification { /* clase principal de notificaciones */
+    position: fixed; /* posicionamiento fijo respecto al viewport */
+    top: 20px; /* posicionar a 20px desde la parte superior */
+    right: 20px; /* posicionar a 20px desde el borde derecho */
+    padding: 16px 24px; /* espaciado interno: 16px vertical, 24px horizontal */
+    border-radius: var(--border-radius-medium); /* bordes redondeados medianos */
+    font-family: "Inter", sans-serif; /* fuente Inter para claridad en notificaciones */
+    font-weight: 600; /* peso de fuente semi-bold para destacar el mensaje */
+    font-size: 14px; /* tamaño de fuente apropiado para notificaciones */
+    z-index: var(--z-notification); /* indice z alto para aparecer sobre todos los elementos */
+    max-width: 400px; /* ancho maximo de 400px para legibilidad */
+    
+    /* aplicacion de efectos glassmorphism para notificaciones elegantes */
+    backdrop-filter: blur(20px); /* desenfoque de fondo de 20px para efecto cristal */
+    /* sombras complejas para profundidad y efecto floating */
+    box-shadow: /* multiples sombras para efecto glassmorphism */
+        0 8px 32px rgba(0, 0, 0, 0.15), /* sombra exterior para profundidad */
+        inset 0 1px 0 rgba(255, 255, 255, 0.2); /* sombra interna para brillo */
+    
+    /* animacion de entrada espectacular para notificaciones */
+    /* movimiento dinamico que llama la atencion del usuario */
+    animation: slideInNotification 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* animacion elastica */
+    transform: translate3d(0, 0, 0); /* posicion final sin desplazamiento con aceleración GPU */
+    transition: var(--transition); /* transicion suave usando variable global */
+    /* optimización de performance para animaciones */
+    will-change: transform, opacity; /* preparar propiedades para animación optimizada */
+} /* fin de estilos base de notificacion */
+
+/* definicion de keyframe para animacion de entrada de notificaciones */
+/* crea efecto dramatico de deslizamiento desde la derecha con elasticidad */
+@keyframes slideInNotification { /* nombre de animacion para entrada de notificaciones */
+    0% { /* estado inicial de la animacion */
+        opacity: 0; /* completamente transparente al inicio */
+        transform: translate3d(100%, 0, 0) scale3d(0.8, 0.8, 1); /* usar transform3d y scale3d para aceleración GPU */
+    } /* fin de estado inicial */
+    100% { /* estado final de la animacion */
+        opacity: 1; /* completamente opaca al final */
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1); /* posición y escala normal con aceleración GPU */
+    } /* fin de estado final */
+} /* fin de definicion de keyframe slideInNotification */
+
+/* estilos para notificaciones de exito con tema verde */
+/* comunicacion visual positiva para acciones completadas correctamente */
+.notification.success { /* clase modificadora para notificaciones exitosas */
+    /* gradiente verde para comunicar exito y positividad */
+    background: linear-gradient(135deg, /* gradiente diagonal de 135 grados */
+        rgba(34, 197, 94, 0.9) 0%, /* verde claro semi-transparente al inicio */
+        rgba(16, 185, 129, 0.9) 100%); /* verde esmeralda semi-transparente al final */
+    color: white; /* texto blanco para contraste con fondo verde */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* borde blanco sutil para definicion */
+} /* fin de estilos notificacion success */
+
+/* pseudo-elemento para icono de celebracion en notificaciones exitosas */
+/* agrega elemento visual que refuerza el mensaje positivo */
+.notification.success::before { /* pseudo-elemento before para icono */
+    content: '🎉'; /* emoji de celebracion como contenido */
+    margin-right: 8px; /* margen derecho de 8px para separar del texto */
+    font-size: 16px; /* tamaño del emoji ligeramente mayor */
+    /* especificar fuentes de emoji para renderizado consistente */
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; /* fuentes emoji */
+} /* fin de pseudo-elemento success before */
+
+/* estilos para notificaciones de error con tema rojo */
+/* comunicacion visual de advertencia para errores y problemas */
+.notification.error { /* clase modificadora para notificaciones de error */
+    /* gradiente rojo para comunicar error y urgencia */
+    background: linear-gradient(135deg, /* gradiente diagonal de 135 grados */
+        rgba(239, 68, 68, 0.9) 0%, /* rojo claro semi-transparente al inicio */
+        rgba(220, 38, 38, 0.9) 100%); /* rojo oscuro semi-transparente al final */
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.footer-text {
-    margin: 5px 0;
-    font-size: 14px;
-}
+/* pseudo-elemento para icono de error en notificaciones de error */
+/* agrega elemento visual que refuerza el mensaje de error y urgencia */
+.notification.error::before { /* pseudo-elemento before para icono de error */
+    content: '❌'; /* emoji de cruz roja como contenido para indicar error */
+    margin-right: 8px; /* margen derecho de 8px para separar del texto */
+    font-size: 16px; /* tamaño del emoji igual al resto para consistencia visual */
+    /* especificar fuentes de emoji para garantizar renderizado correcto multiplataforma */
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; /* stack de fuentes emoji */
+} /* fin de pseudo-elemento error before */
 
-.footer-links {
-    margin: 8px 0;
-    font-size: 12px;
-}
+/* seccion de estilos para notificaciones de advertencia con tema naranja */
+/* comunicacion visual de precaucion para situaciones que requieren atencion */
+.notification.warning { /* clase modificadora para notificaciones de advertencia */
+    /* gradiente naranja para comunicar advertencia y precaucion */
+    background: linear-gradient(135deg, /* gradiente diagonal de 135 grados */
+        rgba(245, 158, 11, 0.9) 0%, /* naranja claro semi-transparente al inicio */
+        rgba(217, 119, 6, 0.9) 100%); /* naranja oscuro semi-transparente al final */
+    color: white; /* texto blanco para contraste optimo con fondo naranja */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* borde blanco sutil para definicion */
+} /* fin de estilos notificacion warning */
 
-.footer-links a {
-    color: var(--color-white);
-    text-decoration: none;
-    margin: 0 5px;
-    transition: color 0.2s ease;
-}
+/* pseudo-elemento para icono de advertencia en notificaciones warning */
+/* agrega elemento visual que refuerza el mensaje de precaucion */
+.notification.warning::before { /* pseudo-elemento before para icono de advertencia */
+    content: '⚠️'; /* emoji de triangulo de advertencia como contenido */
+    margin-right: 8px; /* margen derecho de 8px para separar del texto */
+    font-size: 16px; /* tamaño del emoji consistente con otras notificaciones */
+    /* especificar fuentes de emoji para garantizar renderizado correcto multiplataforma */
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; /* stack de fuentes emoji */
+} /* fin de pseudo-elemento warning before */
 
-.footer-links a:hover {
-    color: var(--color-secondary);
-    text-decoration: underline;
-}
+/* seccion de animacion de salida para notificaciones que se ocultan */
+/* proporciona transicion suave cuando las notificaciones desaparecen automaticamente */
+.notification.hide { /* clase que se aplica cuando la notificacion debe ocultarse */
+    /* animacion de salida mas rapida que la entrada para mejor UX */
+    animation: slideOutNotification 0.3s ease-in-out forwards; /* animacion de 0.3 segundos con fill-mode forwards */
+} /* fin de clase hide para notificaciones */
 
-/* ==============================
-   RESPONSIVE DESIGN
-   ============================== */
+/* definicion de keyframe para animacion de salida de notificaciones */
+/* movimiento hacia la derecha con reduccion de escala y opacidad */
+@keyframes slideOutNotification { /* nombre de animacion para salida de notificaciones */
+    0% { /* estado inicial de la animacion de salida */
+        opacity: 1; /* completamente opaca al inicio */
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1); /* posición normal y tamaño completo con GPU */
+    } /* fin de estado inicial de salida */
+    100% { /* estado final de la animacion de salida */
+        opacity: 0; /* completamente transparente al final */
+        transform: translate3d(100%, 0, 0) scale3d(0.8, 0.8, 1); /* fuera de pantalla por la derecha y reducida con GPU */
+    } /* fin de estado final de salida */
+} /* fin de definicion de keyframe slideOutNotification */
 
-/* Tablets y pantallas medianas */
-@media (max-width: 768px) {
-    .header-banner {
-        padding: 10px 0;
-        min-height: 60px;
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .header-banner img {
-        max-width: 150px;
-    }
-    
-    .main-title {
-        font-size: 28px;
-        margin: 0 5px;
-    }
-    
-    .section-title {
-        font-size: 28px;
-        margin: 10px 0 20px 0;
-    }
-    
-    .input-section {
-        padding: 20px 15px;
-        border-radius: 40px 40px 0 0;
-    }
-    
-    .input-wrapper {
-        max-width: 100%;
-        margin: 15px 0 20px 0;
-    }
-    
-    .button-container {
-        width: 100%;
-        max-width: 280px;
-        margin-top: 25px;
-    }
-}
+/* efectos hover para notificaciones - activados al pasar cursor sobre ellas */
+/* proporciona feedback visual indicando que las notificaciones son interactivas */
+.notification:hover { /* pseudo-clase que se activa al hacer hover sobre notificacion */
+    transform: scale(1.02); /* agranda ligeramente la notificacion al 102% para efecto sutil */
+    cursor: pointer; /* cambiar cursor a pointer para indicar que es clickeable */
+    /* intensificar sombras durante hover para enfatizar interactividad */
+    box-shadow: /* sombras mejoradas para efecto hover */
+        0 12px 40px rgba(0, 0, 0, 0.2), /* sombra externa mas grande e intensa */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3); /* reflejo interno mas pronunciado */
+} /* fin de efectos hover para notificaciones */
 
-/* Móviles */
-@media (max-width: 480px) {
-    .header-banner {
-        padding: 8px 0;
-        min-height: 50px;
-    }
-    
-    .header-banner img {
-        max-width: 120px;
-    }
-    
-    .main-title {
-        font-size: 24px;
-        margin: 0;
-    }
-    
-    .section-title {
-        font-size: 24px;
-        margin: 8px 0 15px 0;
-    }
-    
-    .input-section {
-        padding: 15px 10px;
-        border-radius: 30px 30px 0 0;
-    }
-    
-    .input-wrapper {
-        margin: 10px 0 15px 0;
-    }
-    
-    .input-name {
-        font-size: 14px;
-        padding: 8px;
-    }
-    
-    .button-add {
-        font-size: 14px;
-        padding: 8px 12px;
-    }
-    
-    .contador-participantes {
-        font-size: 12px;
-        margin: 10px 0 15px 0;
-        padding: 6px 12px;
-    }
-    
-    ul {
-        font-size: 16px;
-        margin: 15px 0 20px 0;
-    }
-    
-    .button-container {
-        width: 100%;
-        max-width: 250px;
-        margin-top: 20px;
-    }
-    
-    .button-draw {
-        font-size: 14px;
-        padding: 8px 30px;
-    }
-    
-    .resultado-simple {
-        padding: 12px 15px;
-        margin: 10px 0 20px 0;
-    }
-    
-    .ganador-mensaje {
-        font-size: 16px;
-        gap: 6px;
-    }
-    
-    .icono-ganador {
-        font-size: 18px;
-    }
-}
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 🌍 SOPORTE CROSS-BROWSER MEJORADO - Compatibilidad con navegadores antiguos */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
 
-.footer-version {
-    font-size: 11px;
-    opacity: 0.8;
-    margin: 5px 0 0;
-}
+/* seccion de prefijos webkit para navegadores Chrome y Safari */
+/* asegura compatibilidad del efecto backdrop-filter en navegadores webkit */
+.main-content, /* contenedor principal de la aplicacion */
+.header-banner, /* banner superior con efectos glassmorphism */
+.input-name, /* campo de entrada de nombres */
+button, /* todos los botones de la aplicacion */
+.button-draw, /* boton especifico de sorteo */
+.result-display, /* contenedor de resultados del sorteo */
+.magic-footer, /* footer magico fijo */
+.notification { /* notificaciones del sistema */
+    -webkit-backdrop-filter: blur(20px); /* prefijo webkit para compatibilidad Safari */
+    backdrop-filter: blur(20px); /* propiedad estandar para desenfoque de fondo */
+} /* fin de aplicacion de prefijos webkit */
+
+/* seccion de fallback para Firefox que no soporta backdrop-filter */
+/* proporciona estilos alternativos cuando backdrop-filter no esta disponible */
+@supports not (backdrop-filter: blur(20px)) { /* feature query para detectar falta de soporte */
+    /* fallback para contenedor principal sin backdrop-filter */
+    .main-content { /* aplicar fondo mas opaco cuando no hay desenfoque */
+        background: rgba(255, 255, 255, 0.98); /* fondo blanco casi opaco como alternativa */
+    } /* fin de fallback main-content */
+    
+    /* fallback para banner header sin backdrop-filter */
+    .header-banner { /* aplicar gradiente mas opaco cuando no hay desenfoque */
+        /* gradiente con mayor opacidad para compensar falta de backdrop-filter */
+        background: linear-gradient(135deg, /* gradiente diagonal de 135 grados */
+            rgba(102, 126, 234, 0.95) 0%, /* azul con 95% opacidad al inicio */
+            rgba(118, 75, 162, 0.95) 100%); /* purpura con 95% opacidad al final */
+    } /* fin de fallback header-banner */
+    
+    /* fallback para footer magico sin backdrop-filter */
+    .magic-footer { /* aplicar fondo mas opaco cuando no hay desenfoque */
+        background: rgba(102, 126, 234, 0.98); /* azul casi opaco como alternativa */
+    } /* fin de fallback magic-footer */
+} /* fin de feature query supports not backdrop-filter */
+
+/* seccion de soporte para Flexbox en Internet Explorer 11 */
+/* proporciona prefijos vendor necesarios para compatibilidad con IE11 */
+.input-wrapper { /* contenedor de entrada que usa flexbox */
+    display: -webkit-box; /* prefijo webkit antiguo para flexbox */
+    display: -ms-flexbox; /* prefijo microsoft para IE10/11 */
+    display: flex; /* propiedad estandar de flexbox moderna */
+} /* fin de prefijos flexbox para input-wrapper */
+
+/* aplicacion de prefijos flexbox para contenedor principal */
+.main-content { /* contenedor principal que usa flexbox */
+    display: -webkit-box; /* prefijo webkit antiguo para flexbox */
+    display: -ms-flexbox; /* prefijo microsoft para IE10/11 */
+    display: flex; /* propiedad estandar de flexbox moderna */
+} /* fin de prefijos flexbox para main-content */
+
+/* seccion de fallback para CSS Grid en navegadores antiguos */
+/* proporciona estilos alternativos cuando CSS Grid no esta disponible */
+@supports not (display: grid) { /* feature query para detectar falta de soporte de grid */
+    /* fallback para lista de amigos sin CSS Grid */
+    .friends-list { /* cambiar a display block cuando grid no esta disponible */
+        display: block; /* layout de bloque tradicional como alternativa */
+    } /* fin de fallback friends-list */
+    
+    /* fallback para elementos individuales de amigo sin grid */
+    .friend-item { /* elementos de amigo con layout de bloque */
+        display: block; /* display block para compatibilidad */
+        margin-bottom: 8px; /* margen inferior para separar elementos verticalmente */
+    } /* fin de fallback friend-item */
+} /* fin de feature query supports not grid */
+
+/* seccion de fallback para clip-path en navegadores sin soporte */
+/* oculta elementos que dependen de clip-path cuando no esta disponible */
+@supports not (clip-path: polygon()) { /* feature query para detectar falta de soporte clip-path */
+    /* ocultar iconos de notificacion cuando clip-path no funciona */
+    .notification::before { /* pseudo-elementos de iconos en notificaciones */
+        display: none; /* ocultar completamente cuando clip-path no esta soportado */
+    } /* fin de fallback notification before */
+} /* fin de feature query supports not clip-path */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 🎯 FIN DEL ARCHIVO CSS - Todos los estilos han sido definidos y comentados */
+/* ═══════════════════════════════════════════════════════════════════════════════ */

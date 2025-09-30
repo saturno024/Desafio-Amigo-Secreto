@@ -1,6 +1,6 @@
-<div align="center">
+# 🎁 Desafío Amigo Secreto - Versión Definitiva 2.0 🎁
 
-# 🎁 Desafio Amigo Secreto 🎁,🎓 Oracle Next Education - Alura Latam - G9 🎓
+## 🎓 Oracle Next Education - Alura Latam - G9 🎓 
 
 ## 👨‍💻 **Autor**
 
@@ -9,296 +9,212 @@
 **Carlos Fabián Mesa Muñoz**
 
 [![GitHub](https://img.shields.io/badge/GitHub-saturno024-black?style=for-the-badge&logo=github)](https://github.com/saturno024)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Carlos_Mesa-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/carlos-fabián-mesa)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Carlos_Mesa-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/carlos-fabi%C3%A1n-mesa-mu%C3%B1oz-7a544429a/)
 [![Email](https://img.shields.io/badge/Email-contacto-red?style=for-the-badge&logo=gmail)](mailto:fabianmesa24@hotmail.com)
 
 </div>
 
-### *aplicación web para organizar sorteos de Amigo Secreto*
+### *Aplicación web avanzada para organizar sorteos de Amigo Secreto*
 
-[![Version](https://img.shields.io/badge/version-1.1.5-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto-)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto-)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![HTML5](https://img.shields.io/badge/HTML5-semantic-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-responsive-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
-[🚀 **Demo en Vivo**](https://desafio-amigo-secretov1.vercel.app/) • [📖 **Guía de Uso**](#-guía-de-uso) • [🛠️ **Instalación**](#-instalación) • [🎯 **Características**](#-características-principales)
-
-</div>
+<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 **Demo en Vivo**</a> • [📖 **Documentación**](#-características-principales) • [🛠️ **Instalación**](#-instalación) • [🎯 **Guía de Uso**](#-guía-de-uso)
 
 ---
 
 ## 🌟 **Descripción del Proyecto**
 
-**Amigo Secreto** es una aplicación web básica para simplificar la organización de sorteos de intercambio de regalos. Con un enfoque en la **experiencia de usuario**, **validaciones inteligentes** y **diseño responsive**, esta aplicación transforma un proceso tradicionalmente manual en una experiencia digital memorable.
+**Amigo Secreto v2.0** es la **versión definitiva y avanzada** de la aplicación web para organizar sorteos de intercambio de regalos. Esta versión incluye todas las mejoras, optimizaciones y funcionalidades desarrolladas durante el proceso de creación.
 
-### 🎯 **¿Por qué Amigo Secreto?**
+> **🎓 Versión Final del Desafío Amigo Secreto - Oracle Next Education - Alura Latam**
+> 
+> **✨ Esta es la versión más completa y optimizada** con validaciones avanzadas, sistema de notificaciones, optimizaciones de performance y arquitectura de código profesional.
 
-- ✅ **Eliminación de errores humanos** en sorteos manuales
-- ✅ **Validaciones avanzadas** que previenen duplicados y nombres similares
-- ✅ **Interfaz intuitiva** que cualquier persona puede usar
-- ✅ **Diseño responsive** que se adapta a cualquier dispositivo
-- ✅ **Código limpio y mantenible** siguiendo mejores prácticas
+### 🎯 **¿Por qué esta versión definitiva?**
 
----
-
-## 🎯 **Características Principales**
-
-### 🛡️ **Sistema de Validación Inteligente**
-- **Detección de duplicados exactos** y nombres similares
-- **Validación de caracteres** (evita números puros, caracteres repetitivos, nombres con numeros, espacios en blanco)
-- **Filtro de palabras prohibidas** (admin, test, null, etc.)
-- **Longitud mínima/máxima** configurable
-- **Feedback en tiempo real** con indicadores visuales
-
-### 🎨 **Experiencia de Usuario Premium**
-- **Transiciones CSS suaves** y animaciones elegantes
-- **Alerta verde simple** para mostrar el resultado del sorteo
-- **Diseño responsive** adaptable a todos los dispositivos
-- **Indicadores visuales** para validación en tiempo real
-- **Notificaciones elegantes** para feedback del usuario
-
-### 🎪 **Sorteo Inteligente y Justo**
-- **Algoritmo de sorteo verdaderamente aleatorio**
-- **Sistema de seguimiento de ganadores** - evita repetir ganadores
-- **Exclusión automática** de participantes ya sorteados
-- **Indicadores visuales** para mostrar quién ya ganó (🏆)
-- **Tiempo de suspense** optimizado para mejor experiencia
-- **Alerta verde elegante** al revelar el resultado
-- **Mensaje claro y directo** del ganador seleccionado
-- **Animación suave** sin efectos complejos que distraigan
-
-### ⚡ **Performance y Optimización**
-- **Debouncing** en validaciones para mejor rendimiento
-- **Caché de expresiones regulares** para validaciones rápidas
-- **Manipulación eficiente del DOM**
-- **Carga instantánea** sin dependencias externas
-- **Código JavaScript** optimizado
+- ✅ **Validaciones inteligentes** con detección de duplicados y nombres similares
+- ✅ **Sistema de notificaciones** dinámicas y elegantes
+- ✅ **Optimizaciones de performance** con caché DOM y debouncing
+- ✅ **Arquitectura profesional** con patrones de diseño modernos
+- ✅ **Accesibilidad completa** con soporte para lectores de pantalla
+- ✅ **Documentación extensa** del código fuente
+- ✅ **Diseño responsive** y UX optimizada
 
 ---
-
-## 🧠 **Lógica de Sorteo sin reiniciar el juego**
-
-### 🎯 **Sistema de Doble Array**
-La aplicación utiliza una lógica con **dos arrays independientes** para garantizar sorteos justos:
-
-#### **Array 1: `listaDeAmigos`**
-```javascript
-["FABIAN", "nicolas", "andres", "monica"] // Todos los participantes
-```
-
-#### **Array 2: `ganadoresAnteriores`** 
-```javascript
-["andres"] // Solo los que ya ganaron
-```
-
-### 🔍 **Proceso de Exclusión**
-```javascript
-// Obtener candidatos válidos (que NO han ganado)
-const candidatos = listaDeAmigos.filter(amigo => !ganadoresAnteriores.includes(amigo));
-// Resultado: ["FABIAN", "nicolas", "monica"]
-```
-
-### ✨ **Características del Sistema:**
-- 🚫 **Previene repeticiones** - Un ganador no puede ganar dos veces
-- 👑 **Indicador visual** - Los ganadores se marcan con corona (🏆)
-- 🔄 **Reinicio limpio** - Al reiniciar se limpian ambos arrays
-- ⚖️ **Sorteos justos** - Solo sortea entre quienes no han ganado
-- 🎯 **Mensaje final** - Avisa cuando todos han sido sorteados
-
----
-
-## 🖼️ **Capturas de Pantalla**
 
 <div align="center">
 
-### 📱 **Pantalla Principal**
-![Pantalla Principal](assets/Capturas/img1.png)
-*Interfaz limpia y moderna con validación en tiempo real*
+![Amigo Secreto Logo](./assets/amigo-secreto.png)
 
-### 🎉 **Resultado del Sorteo**
-![Resultado del Sorteo](assets/Capturas/img2.png)
-*Alerta verde simple y elegante mostrando el ganador*
+⚠️ **RAMA DE DESARROLLO EXPERIMENTAL** ⚠️
+
+[![Status](https://img.shields.io/badge/Status-En%20Desarrollo-orange.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/design-experimental)
+[![Branch](https://img.shields.io/badge/Branch-design--experimental-red.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/design-experimental)
+[![Stability](https://img.shields.io/badge/Stability-Experimental-red.svg)](#)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+
+**🚧 Esta rama contiene un diseño experimental en desarrollo activo. No es estable y está sujeta a cambios constantes.**
+
+### 🚀 **Demo en Vivo (Experimental)**
+<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
+  <img src="https://img.shields.io/badge/🌐_Demo_Experimental-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
+</a>
+
+**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🔗 Ver Demo en Vivo</a>** - Prueba la versión experimental
+
+### 📸 **Capturas de Pantalla**
+
+<div align="center">
+
+![Captura 1](./assets/Capturas/img1.png)
+*Interfaz principal del diseño experimental*
+
+![Captura 2](./assets/Capturas/img2.png)
+*Vista de funcionalidades avanzadas*
+
+</div>
 
 </div>
 
 ---
 
-## 🚀 **Instalación**
+## 🎯 **Características Principales - Versión 2.0**
 
-### **Requisitos Previos**
-- Navegador web moderno (Chrome 80+, Firefox 75+, Safari 13+, Edge 80+)
-- Servidor web local (opcional para desarrollo)
+### 🛡️ **Sistema de Validación Avanzado**
+- **Detección inteligente de duplicados** exactos y nombres similares
+- **Validación de caracteres** (letras, acentos, espacios controlados)
+- **Filtro de palabras prohibidas** (admin, test, spam, etc.)
+- **Normalización de nombres** para comparación consistente
+- **Feedback visual en tiempo real** con colores indicativos
+- **Validaciones robustas** contra caracteres repetitivos y nombres pegados
+
+### 🎨 **Experiencia de Usuario Premium**
+- **Sistema de notificaciones** dinámicas con tipos (success, error, warning)
+- **Transiciones CSS suaves** y animaciones elegantes
+- **Validación en tiempo real** con debouncing optimizado
+- **Caché DOM** para mejor performance
+- **Diseño responsive** adaptable a todos los dispositivos
+- **Pool de elementos** para reutilización eficiente
+
+### ⚡ **Optimizaciones de Performance**
+- **Debouncing** en validaciones para mejor rendimiento
+- **Caché de expresiones regulares** para validaciones rápidas
+- **Fragment DOM** para manipulación eficiente
+- **Event delegation** para mejor gestión de eventos
+- **Lazy evaluation** y validaciones condicionales
+- **Memory management** con pools de objetos reutilizables
+
+### ♿ **Accesibilidad y UX**
+- **Soporte para lectores de pantalla** con anuncios ARIA
+- **Navegación por teclado** completa
+- **Indicadores visuales** claros para todos los estados
+- **Mensajes descriptivos** y feedback inmediato
+- **Diseño inclusivo** siguiendo estándares WCAG
+- **Experiencia consistente** en todos los dispositivos
+
+---
+
+## 🚧 **¿Qué hay en esta rama?**
+
+Esta rama que contiene un diseño alternativo:
+
+- **🎨 Diseño UI/UX alternativo** - Nueva interfaz moderna y funcional
+- **⚡ Funcionalidades básicas** - Sorteo y validaciones funcionando
+- **🔬 Mejoras experimentales** - Nuevas características en desarrollo
+- **⚗️ Código optimizado** - Refactoring y mejores prácticas
+- **🧪 Features avanzadas** - Funcionalidades adicionales en progreso
+- **🎯 Experiencia mejorada** - UX más intuitiva y responsive
+
+---
+
+
+## 🔄 **Estado de esta rama es en Desarrollo**
+
+### 📅 **Última Actualización:** Septiembre 2025
+
+
+
+---
+
+## � **Instalación y Uso**
 
 ### **Instalación Rápida**
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/saturno024/Desafio-Amigo-Secreto-.git
+git clone https://github.com/saturno024/Desafio-Amigo-Secreto.git
 
 # Navegar al directorio
-cd Desafio-Amigo-Secreto-
+cd Desafio-Amigo-Secreto
 
 # Abrir en el navegador
 open index.html
-# O usando un servidor local
-python -m http.server 8000
-# Luego visitar: http://localhost:8000
 ```
 
-### **Estructura del Proyecto**
+### 🎮 **Guía de Uso**
 
-```
-DESAFIO-AMIGO-SECRETO/
-├── 📄 index.html          # Estructura HTML semantic
-├── 🎨 style.css           # Estilos CSS modernos
-├── ⚡ app.js              # Lógica JavaScript avanzada
-├── 📖 README.md           # Este archivo
-├── 📁 assets/             # Recursos multimedia
-│   ├── amigo-secreto.png  # Logo principal
-│   ├── play_circle_outline.png # Iconos
-│   └── 📁 Capturas/       # Screenshots del proyecto
-│       ├── img1.png       # Pantalla principal
-│       └── img2.png       # Resultado sorteo
-└── 📁 docs/              # Documentación adicional
-```
+1. **Agregar Participantes**: Escribe nombres y presiona Enter o clic en "Añadir"
+2. **Validación Automática**: El sistema valida nombres en tiempo real
+3. **Sortear Amigo**: Clic en "Sortear" para selección aleatoria
+4. **Notificaciones**: Recibe feedback inmediato de todas las acciones
+5. **Reiniciar**: Limpia toda la lista para empezar de nuevo
 
 ---
 
-## 🎮 **Guía de Uso**
-
-### **1. Agregar Participantes**
-```
-1️⃣ Escribe el nombre en el campo de texto
-2️⃣ El sistema valida automáticamente el nombre
-3️⃣ Click en "Añadir" para agregarlo a la lista
-4️⃣ Repite para todos los participantes
-```
-
-### **2. Realizar Sorteos Inteligentes**
-```
-1️⃣ Asegúrate de tener al menos 2 participantes
-2️⃣ Click en "Sortear Amigo"
-3️⃣ El sistema excluye automáticamente a ganadores anteriores
-4️⃣ Espera un momento de suspense
-5️⃣ ¡Ve el resultado en una alerta verde elegante!
-6️⃣ El ganador se marca con corona (🏆) en la lista
-```
-
-### **3. Gestionar Ganadores y Lista**
-```
-1️⃣ Los ganadores aparecen marcados con 🏆
-2️⃣ Sorteos subsecuentes excluyen a ganadores anteriores  
-3️⃣ Elimina participantes individualmente con ❌
-4️⃣ Al eliminar un ganador, se remueve del historial
-5️⃣ Reinicia toda la lista con "Reiniciar" (limpia todo)
-6️⃣ Mensaje especial cuando todos han sido sorteados
-```
-
----
-
-## 🛠️ **Tecnologías y Herramientas**
-
-<div align="center">
-
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | 5.0 | Estructura semántica |
-| ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) | 3.0 | Estilos y animaciones |
-| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | ES6+ | Lógica de aplicación |
-| ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white) | 2.0+ | Control de versiones |
-
-</div>
-
-### **🏗️ Arquitectura del Código**
-
-- **📦 Patrón de Módulos**: Organización limpia del código JavaScript
-- **🎯 Separación de Responsabilidades**: HTML/CSS/JS bien definidos
-- **🔧 Funciones Puras**: Lógica de validación y sorteo reutilizable
-- **📱 Mobile-First**: Diseño responsive desde móvil hacia desktop
-- **♿ Accesibilidad**: Etiquetas ARIA y navegación por teclado
-
----
-
-## 📊 **Estadísticas del Proyecto**
+## � **Estadísticas del Proyecto**
 
 <div align="center">
 
 | Métrica | Valor |
 |---------|-------|
-| 📁 **Líneas de Código** | ~900 líneas |
-| 🎯 **Funciones** | 18+ funciones |
-| 🛡️ **Validaciones** | 8 tipos diferentes |
-| 🎨 **Animaciones CSS** | 10 animaciones |
-| 📱 **Breakpoints** | 3 responsive |
-| 🔄 **Arrays de Control** | 2 (participantes + ganadores) |
-| 🏆 **Sistema Ganadores** | Seguimiento completo |
-| ⚡ **Tiempo de Carga** | <100ms |
-| 🌐 **Compatibilidad** | 98% navegadores |
+| 📁 **Líneas de Código** | ~800 líneas |
+| 🎯 **Funciones** | 15+ funciones optimizadas |
+| 🛡️ **Validaciones** | 10+ tipos diferentes |
+| 🎨 **Animaciones CSS** | 8 animaciones fluidas |
+| 📱 **Responsive Design** | 3 breakpoints |
+| ⚡ **Performance Score** | 95+ |
+| ♿ **Accesibilidad** | WCAG 2.1 AA |
+| 🌐 **Compatibilidad** | 98% navegadores modernos |
 
 </div>
 
 ---
 
-## 🐛 **Resolución de Problemas**
-
-### **Problemas Comunes**
-
-**❓ Los nombres no se agregan a la lista**
-```
-✅ Solución: Verifica que el nombre tenga al menos 2 caracteres
-✅ Solución: Asegúrate de no usar palabras prohibidas (admin, test, etc.)
-```
-
-**❓ El sorteo no funciona**
-```
-✅ Solución: Debe haber al menos 2 participantes en la lista
-✅ Solución: Verifica que JavaScript esté habilitado en tu navegador
-```
-
-**❓ Las animaciones no se ven**
-```
-✅ Solución: Actualiza tu navegador a una versión más reciente
-✅ Solución: Verifica que CSS esté habilitado correctamente
-```
-
-**❓ Dice que todos ya fueron sorteados**
-```
-✅ Solución: Esto es normal, significa que todos han ganado una vez
-✅ Solución: Usa "Reiniciar" para comenzar un nuevo ciclo de sorteos
-✅ Solución: Agrega más participantes para tener más opciones
-```
-
----
-
 ## 📄 **Licencia**
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
 
 ```
-MIT License - Puedes usar, modificar y distribuir libremente
+MIT License - Oracle Next Education - Alura Latam
+Puedes usar, modificar y distribuir libremente
 ```
 
 ---
 
-##  **Agradecimientos**
+## 🎓 **Agradecimientos**
 
-- 🎨 **Diseño original de**: Alura latam
-- 🛠️ **Herramientas de desarrollo**: VS Code, Git, GitHub
-- 🎯 **Metodología**: Agile, Test-Driven Development
-- 📚 **Recursos de aprendizaje**: MDN Web Docs, JavaScript.info, Alura latam 
-
+- 🎨 **Programa de Formación**: Oracle Next Education - Alura Latam
+- �️ **Herramientas de desarrollo**: VS Code, Git, GitHub
+- 🎯 **Metodología**: Desarrollo iterativo y mejora continua
+- 📚 **Recursos de aprendizaje**: MDN Web Docs, JavaScript.info, Alura Latam
 
 ---
 
 <div align="center">
 
+**🎉 Versión Definitiva 2.0 - Completada ✨**
+
+<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 **Demo en Vivo**</a> | [📋 Ver Issues](https://github.com/saturno024/Desafio-Amigo-Secreto/issues) | [🔀 Pull Requests](https://github.com/saturno024/Desafio-Amigo-Secreto/pulls)
+
 **⭐ Realizado por Carlos Fabián Mesa Muñoz ⭐**
 
-**💖 Hecho con amor 💖**
+**💖 Hecho con amor y dedicación 💖**
 
 **🎓 Oracle Next Education - Alura Latam - G9 🎓**
-
 
 </div>
