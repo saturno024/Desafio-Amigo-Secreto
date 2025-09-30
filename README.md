@@ -30,6 +30,7 @@
 
 ---
 
+## 👨‍💻 **Autor**
 
 <div align="center">
 
