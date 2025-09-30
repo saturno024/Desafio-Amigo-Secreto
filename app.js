@@ -644,12 +644,35 @@ function agregarAmigo() {
  * @returns {HTMLElement} elemento li configurado y listo para agregar al DOM
  */
 function crearElementoLista(nombre, index) {
-    const listItem = ELEMENT_POOL.getLiElement(); // usar pool en lugar de createElement
-    listItem.textContent = nombre; // establecer el nombre como contenido de texto del elemento
-    listItem.className = 'amigo-item'; // agregar clase CSS para estilos y animaciones
-    // agregar delay escalonado para animacion de entrada elegante
+    // obtener elemento li del pool para reutilización eficiente de memoria
+    const listItem = ELEMENT_POOL.getLiElement(); // usar pool en lugar de createElement para optimización
+    listItem.className = 'amigo-item'; // agregar clase CSS base para estilos y animaciones
+    
+    // CREAR SPAN PARA EL NOMBRE: separar el texto del nombre en su propio elemento
+    // esto permite mejor control de estilos y estructura semántica
+    const nombreSpan = document.createElement('span'); // crear elemento span para contener solo el nombre
+    nombreSpan.textContent = nombre; // asignar el nombre como contenido de texto
+    nombreSpan.className = 'amigo-nombre'; // clase CSS para estilar específicamente el nombre
+    
+    // CREAR BOTÓN DE ELIMINAR: permite eliminar usuarios individuales de la lista
+    // implementa funcionalidad crucial para gestión dinámica de participantes
+    const botonEliminar = document.createElement('button'); // crear elemento button para acción de eliminar
+    botonEliminar.textContent = '×'; // usar símbolo de multiplicación como icono de cerrar/eliminar
+    botonEliminar.className = 'btn-eliminar'; // clase CSS para estilar el botón de eliminar
+    // ACCESIBILIDAD: agregar descripción para lectores de pantalla
+    botonEliminar.setAttribute('aria-label', `Eliminar ${nombre} de la lista`); // texto descriptivo para usuarios con discapacidad visual
+    // EVENT HANDLER: conectar botón con función de eliminación usando arrow function
+    botonEliminar.onclick = () => eliminarAmigo(index); // pasar índice para identificar qué elemento eliminar
+    
+    // ENSAMBLAR ELEMENTO: construir la estructura completa del item de lista
+    listItem.innerHTML = ''; // limpiar cualquier contenido previo del elemento reutilizado
+    listItem.appendChild(nombreSpan); // agregar span del nombre como primer hijo
+    listItem.appendChild(botonEliminar); // agregar botón de eliminar como segundo hijo
+    
+    // ANIMACIÓN ESCALONADA: crear efecto visual elegante de aparición progresiva
     listItem.style.animationDelay = `${index * 0.1}s`; // cada elemento aparece 0.1s despues del anterior
-    return listItem; // retornar elemento configurado listo para usar
+    
+    return listItem; // retornar elemento completamente configurado y listo para insertar en DOM
 }
 
 /**
@@ -704,6 +727,44 @@ function mostrarAmigos() { // declaracion de funcion sin parametros para renderi
     // actualizar contador despues de mostrar la lista
     actualizarContador(); // llamar funcion que actualiza contador y estado visual
 } // fin de la funcion mostrarAmigos
+
+/**
+ * FUNCIÓN PARA ELIMINAR AMIGO INDIVIDUAL
+ * =====================================
+ * Esta función permite eliminar un participante específico de la lista
+ * manteniendo la integridad de los datos y actualizando la interfaz
+ * 
+ * PROCESO COMPLETO:
+ * 1. Captura el nombre antes de eliminarlo (para feedback)
+ * 2. Elimina del array principal usando splice()
+ * 3. Muestra notificación visual al usuario
+ * 4. Anuncia cambio para accesibilidad
+ * 5. Re-renderiza la lista actualizada
+ * 
+ * @param {number} indice - índice del amigo a eliminar en el array listaDeAmigos
+ */
+function eliminarAmigo(indice) {
+    // PASO 1: CAPTURAR INFORMACIÓN ANTES DE ELIMINAR
+    // necesario para mostrar feedback al usuario y para accesibilidad
+    const nombreEliminado = listaDeAmigos[indice]; // obtener nombre que se va a eliminar
+    
+    // PASO 2: ELIMINAR DEL ARRAY PRINCIPAL
+    // splice() elimina elemento en posición específica y reordena índices automáticamente
+    listaDeAmigos.splice(indice, 1); // eliminar 1 elemento en la posición 'indice'
+    
+    // PASO 3: FEEDBACK VISUAL AL USUARIO
+    // mostrar notificación tipo 'warning' para confirmar la eliminación
+    mostrarNotificacion(`🗑️ ${nombreEliminado} eliminado de la lista`, 'warning'); // emoji de papelera + mensaje
+    
+    // PASO 4: ACCESIBILIDAD - ANUNCIO PARA LECTORES DE PANTALLA
+    // informar a usuarios con discapacidad visual sobre el cambio en la lista
+    SCREEN_READER.announce(`${nombreEliminado} eliminado de la lista. Quedan ${listaDeAmigos.length} amigos.`);
+    
+    // PASO 5: ACTUALIZAR INTERFAZ VISUAL
+    // re-renderizar la lista completa para reflejar el cambio
+    // esto actualiza tanto la lista como el contador de participantes
+    mostrarAmigos(); // llamar función que redibuja toda la lista desde el array actualizado
+} // fin de la función eliminarAmigo
 
 /**
  * funcion principal para realizar el sorteo de amigo secreto
