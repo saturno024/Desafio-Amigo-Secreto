@@ -753,8 +753,8 @@ function eliminarAmigo(indice) {
     listaDeAmigos.splice(indice, 1); // eliminar 1 elemento en la posición 'indice'
     
     // PASO 3: FEEDBACK VISUAL AL USUARIO
-    // mostrar notificación tipo 'warning' para confirmar la eliminación
-    mostrarNotificacion(`🗑️ ${nombreEliminado} eliminado de la lista`, 'warning'); // emoji de papelera + mensaje
+    // mostrar notificación tipo 'error' (roja) para indicar acción destructiva/eliminación
+    mostrarNotificacion(`🗑️ ${nombreEliminado} eliminado de la lista`, 'error'); // emoji de papelera + mensaje en rojo
     
     // PASO 4: ACCESIBILIDAD - ANUNCIO PARA LECTORES DE PANTALLA
     // informar a usuarios con discapacidad visual sobre el cambio en la lista
