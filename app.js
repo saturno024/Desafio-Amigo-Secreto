@@ -6,11 +6,11 @@
  * Descripción: Sistema web interactivo para organizar sorteos de amigo secreto
  *             con validaciones robustas y interfaz de usuario moderna
  * 
- * Autor: [NOMBRE DEL DESARROLLADOR]
- * Email: [EMAIL DEL DESARROLLADOR]
- * Fecha de Creación: [FECHA]
- * Última Modificación: [FECHA]
- * Versión: 1.0.0
+ * Autor: Carlos Fabián Mesa Muñoz
+ * Email: fabianmesa24@hotmail.com
+ * Fecha de Creación: Septiembre 2025
+ * Última Modificación: Septiembre 2025
+ * Versión: 2.0.0
  * 
  * Tecnologías Utilizadas:
  * - HTML5 semántico
@@ -35,7 +35,7 @@
  * 6. Algoritmo de sorteo
  * 7. Funciones de utilidad
  * 
- * Licencia: [TIPO DE LICENCIA]
+ * Licencia: MIT License - Oracle Next Education - Alura Latam
  * ================================================================
  */
 
@@ -426,11 +426,6 @@ function validarNombre(nombre) { // declaracion de funcion que recibe parametro 
     if (!REGEX_CACHE.caracteres.test(nombre)) { // usar regex precacheada en lugar de recompilar
         return { valido: false, mensaje: 'El nombre solo puede contener letras y espacios' }; // retornar error de caracteres invalidos
     } // fin de validacion de caracteres permitidos
-    
-    // validacion adicional para evitar strings que solo contengan espacios
-    if (nombre.replace(/\s/g, '') === '') { // usar replace() con regex global para eliminar todos los espacios
-        return { valido: false, mensaje: 'El nombre no puede contener solo espacios' }; // retornar error de solo espacios
-    } // fin de validacion de solo espacios
     
     // validacion de espacios multiples consecutivos usando regex cacheada
     if (REGEX_CACHE.espaciosMultiples.test(nombre)) { // usar regex precacheada para mejor performance
