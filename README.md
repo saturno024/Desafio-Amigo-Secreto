@@ -43,6 +43,8 @@
 
 </div>
 
+<div align="center">
+
 ### *Aplicación web moderna para sorteos de Amigo Secreto*
 
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
@@ -52,7 +54,13 @@
 [![HTML5](https://img.shields.io/badge/HTML5-semantic-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-responsive-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
+</div>
+
+<div align="center">
+
 <a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 **Demo en Vivo**</a> • [📖 **Documentación**](#-características-principales) • [🛠️ **Instalación**](#-instalación) • [🎯 **Guía de Uso**](#-guía-de-uso)
+
+</div>
 
 ---
 
