@@ -186,7 +186,7 @@ Puedes usar, modificar y distribuir libremente
 
 ## 🎓 **Agradecimientos**
 
-- 🎨 **Programa de Formación**: Oracle Next Education - Alura Latam
+- 🎨 **Programa de Formación**: Oracle Next Education G9 - Alura Latam
 - 🛠️ **Herramientas de desarrollo**: VS Code, Git, GitHub
 - 🎯 **Metodología**: Desarrollo iterativo y mejora continua
 - 📚 **Recursos de aprendizaje**: MDN Web Docs, JavaScript.info, Alura Latam
