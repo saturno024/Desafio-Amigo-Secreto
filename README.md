@@ -17,7 +17,7 @@
 [![Stability](https://img.shields.io/badge/Stability-Stable-green.svg)](#)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-**🏆 Esta es la versión oficial 2.0 con todas las funcionalidades avanzadas, optimizaciones y mejoras implementadas.**
+**🏆 Esta es la versión 2.0 con todas las funcionalidades y validaciones completas, optimizaciones y mejoras implementadas.**
 
 ### 🚀 **Demo en Vivo Oficial**
 <a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
