@@ -1,8 +1,31 @@
-# 🎁 Desafío Amigo Secreto - Versión Definitiva 2.0 🎁
+# 🎁 Desafío Amigo Secreto - Versión 2.0 🎁
 
-## 🎓 Oracle Next Education - Alura Latam - G9 🎓 
+## 🎓 Oracle Next Education - Alura Latam - G9 🎓
 
-## 👨‍💻 **Autor**
+<div align="center">
+
+![Amigo Secreto Logo](./assets/amigo-secreto.png)
+
+✨ **VERSIÓN 2.0** ✨
+
+[![Status](https://img.shields.io/badge/Status-Estable-brightgreen.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
+[![Version](https://img.shields.io/badge/Version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
+[![Stability](https://img.shields.io/badge/Stability-Stable-green.svg)](#)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+
+**🏆 Esta es la versión oficial 2.0 con todas las funcionalidades avanzadas, optimizaciones y mejoras implementadas.**
+
+### � **Demo en Vivo Oficial**
+<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
+  <img src="https://img.shields.io/badge/🌐_Demo_Oficial_v2.0-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
+</a>
+
+**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 Ver Demo en Vivo</a>** - Versión definitiva 2.0
+
+</div>
+
+---
+
 
 <div align="center">
 
@@ -14,7 +37,7 @@
 
 </div>
 
-### *Aplicación web avanzada para organizar sorteos de Amigo Secreto*
+### *Aplicación web moderna para sorteos de Amigo Secreto*
 
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -29,7 +52,7 @@
 
 ## 🌟 **Descripción del Proyecto**
 
-**Amigo Secreto v2.0** es la **versión definitiva y avanzada** de la aplicación web para organizar sorteos de intercambio de regalos. Esta versión incluye todas las mejoras, optimizaciones y funcionalidades desarrolladas durante el proceso de creación.
+**Amigo Secreto v2.0** es la **versión completa y optimizada** de la aplicación web para organizar sorteos de intercambio de regalos. Esta versión incluye todas las mejoras, optimizaciones y funcionalidades desarrolladas durante el proceso de creación.
 
 > **🎓 Versión Final del Desafío Amigo Secreto - Oracle Next Education - Alura Latam**
 > 
