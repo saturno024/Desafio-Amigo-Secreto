@@ -61,21 +61,21 @@
 
 ## 🌟 **Descripción del Proyecto**
 
-**Amigo Secreto v2.0** es la **versión completa y optimizada** de la aplicación web para organizar sorteos de intercambio de regalos. Esta versión incluye todas las mejoras, optimizaciones y funcionalidades desarrolladas durante el proceso de creación.
+**Amigo Secreto v2.0** es una **aplicación web moderna y robusta** diseñada para facilitar la organización de sorteos de intercambio de regalos. Esta edición definitiva incorpora todas las mejoras técnicas, funcionalidades avanzadas y refinamientos desarrollados a lo largo del proyecto.
 
-> **🎓 Versión Final del Desafío Amigo Secreto - Oracle Next Education - Alura Latam**
+> **🎓 Proyecto Final del Desafío Amigo Secreto - Oracle Next Education - Alura Latam**
 > 
-> **✨ Esta es la versión más completa y optimizada** con validaciones avanzadas, sistema de notificaciones, optimizaciones de performance y arquitectura de código profesional.
+> **✨ Una solución integral y sofisticada** que combina validaciones inteligentes, sistema de notificaciones interactivo, optimizaciones de rendimiento y una arquitectura de código de nivel profesional.
 
-### 🎯 **¿Por qué esta versión definitiva?**
+### 🎯 **¿Qué hace especial esta versión 2.0?**
 
-- ✅ **Validaciones inteligentes** con detección de duplicados y nombres similares
-- ✅ **Sistema de notificaciones** dinámicas y elegantes
-- ✅ **Optimizaciones de performance** con caché DOM y debouncing
-- ✅ **Arquitectura profesional** con patrones de diseño modernos
-- ✅ **Accesibilidad completa** con soporte para lectores de pantalla
-- ✅ **Documentación extensa** del código fuente
-- ✅ **Diseño responsive** y UX optimizada
+- ✅ **Validación inteligente** con detección automática de duplicados y análisis de similitud
+- ✅ **Notificaciones interactivas** con mensajes dinámicos y diseño elegante
+- ✅ **Rendimiento optimizado** mediante caché DOM y técnicas de debouncing
+- ✅ **Código de nivel profesional** siguiendo patrones de diseño modernos
+- ✅ **Accesibilidad universal** con soporte completo para tecnologías asistivas
+- ✅ **Documentación detallada** del código fuente y funcionalidades
+- ✅ **Interfaz adaptativa** con diseño responsive y experiencia de usuario pulida
 
 ---
 
