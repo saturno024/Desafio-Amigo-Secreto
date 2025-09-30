@@ -29,9 +29,10 @@
 </div>
 
 ---
+<div align="center">
 
 ## 👨‍💻 **Autor**
-
+</div>
 <div align="center">
 
 **Carlos Fabián Mesa Muñoz**
