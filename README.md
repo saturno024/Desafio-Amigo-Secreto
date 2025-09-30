@@ -30,9 +30,9 @@
 
 ---
 
-## 👨‍💻 **Autor**
-
 <div align="center">
+
+## 👨‍💻 **Autor**
 
 **Carlos Fabián Mesa Muñoz**
 
@@ -40,11 +40,7 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Carlos_Mesa-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/carlos-fabi%C3%A1n-mesa-mu%C3%B1oz-7a544429a/)
 [![Email](https://img.shields.io/badge/Email-contacto-red?style=for-the-badge&logo=gmail)](mailto:fabianmesa24@hotmail.com)
 
-</div>
-
 ### *Aplicación web moderna para sorteos de Amigo Secreto*
-
-<div align="center">
 
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
