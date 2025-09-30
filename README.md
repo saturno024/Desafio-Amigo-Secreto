@@ -51,31 +51,31 @@
 
 ![Amigo Secreto Logo](./assets/amigo-secreto.png)
 
-⚠️ **RAMA DE DESARROLLO EXPERIMENTAL** ⚠️
+✨ **VERSIÓN DEFINITIVA 2.0 - OFICIAL** ✨
 
-[![Status](https://img.shields.io/badge/Status-En%20Desarrollo-orange.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/design-experimental)
-[![Branch](https://img.shields.io/badge/Branch-design--experimental-red.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto/tree/design-experimental)
-[![Stability](https://img.shields.io/badge/Stability-Experimental-red.svg)](#)
+[![Status](https://img.shields.io/badge/Status-Estable-brightgreen.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
+[![Version](https://img.shields.io/badge/Version-2.0.0-blue.svg)](https://github.com/saturno024/Desafio-Amigo-Secreto)
+[![Stability](https://img.shields.io/badge/Stability-Stable-green.svg)](#)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
-**🚧 Esta rama contiene un diseño experimental en desarrollo activo. No es estable y está sujeta a cambios constantes.**
+**🏆 Esta es la versión oficial 2.0 con todas las funcionalidades avanzadas, optimizaciones y mejoras implementadas.**
 
-### 🚀 **Demo en Vivo (Experimental)**
+### 🚀 **Demo en Vivo Oficial**
 <a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">
-  <img src="https://img.shields.io/badge/🌐_Demo_Experimental-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
+  <img src="https://img.shields.io/badge/🌐_Demo_Oficial_v2.0-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
 </a>
 
-**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🔗 Ver Demo en Vivo</a>** - Prueba la versión experimental
+**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">� Ver Demo en Vivo</a>** - Versión definitiva 2.0
 
 ### 📸 **Capturas de Pantalla**
 
 <div align="center">
 
 ![Captura 1](./assets/Capturas/img1.png)
-*Interfaz principal del diseño experimental*
+*Interfaz principal de la versión 2.0*
 
 ![Captura 2](./assets/Capturas/img2.png)
-*Vista de funcionalidades avanzadas*
+*Vista de funcionalidades versión 2.0*
 
 </div>
 
