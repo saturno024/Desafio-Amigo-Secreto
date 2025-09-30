@@ -778,7 +778,7 @@ ul {
 /* 🌟 ELEMENTOS DE LISTA CON SÚPER EFECTOS */
 /* estilos para cada elemento individual de la lista (cada nombre) */
 ul li {
-    padding: 12px 20px; /* espaciado interno comodo para el contenido */
+    padding: 12px 50px 12px 20px; /* espaciado interno con espacio para botón eliminar */
     margin: 8px 0; /* separacion vertical entre elementos */
     /* gradiente sutil para fondo de cada elemento de lista */
     background: linear-gradient(145deg, 
@@ -806,7 +806,7 @@ ul li {
 /* mejora la performance al tener selectores más específicos y evita recalculos CSS innecesarios */
 .amigo-item {
     /* heredar todos los estilos de ul li pero con mayor especificidad */
-    padding: 12px 20px;
+    padding: 12px 50px 12px 20px; /* más padding a la derecha para el botón */
     margin: 8px 0;
     background: linear-gradient(145deg, 
         rgba(255, 255, 255, 0.8) 0%,
@@ -814,7 +814,7 @@ ul li {
     border-radius: var(--border-radius-small);
     border: 1px solid rgba(102, 126, 234, 0.1);
     transition: var(--transition);
-    position: relative;
+    position: relative; /* necesario para posicionar el botón eliminar */
     overflow: hidden;
     backdrop-filter: blur(10px);
     box-shadow: 
@@ -948,6 +948,161 @@ ul li:nth-child(5) { animation-delay: 0.5s; } /* quinto elemento */
 } /* fin de estilos del numero del contador */
 
 /* clase para animacion de rebote que se aplica temporalmente al numero */
+
+/* 🗑️ COMPONENTE: BOTÓN ELIMINAR AMIGOS */
+/* botón interactivo para eliminar participantes individuales de la lista */
+/* implementa diseño moderno con glassmorphism y feedback visual inmediato */
+.btn-eliminar {
+    /* POSICIONAMIENTO ABSOLUTO: se coloca automáticamente en la esquina derecha de cada elemento */
+    position: absolute; /* posicionamiento absoluto dentro del contenedor padre relativo */
+    right: 12px; /* distancia fija de 12px desde el borde derecho del contenedor */
+    top: 50%; /* posicionar en el centro vertical del contenedor padre */
+    transform: translateY(-50%); /* centrar verticalmente usando transform para mayor precisión */
+    
+    /* DIMENSIONES: botón circular compacto pero clickeable */
+    width: 24px; /* ancho fijo de 24px para mantener proporción circular */
+    height: 24px; /* altura idéntica al ancho para crear círculo perfecto */
+    
+    /* DISEÑO VISUAL: gradiente sutil con colores de advertencia (rojo/naranja) */
+    background: linear-gradient(135deg, /* gradiente diagonal de 135 grados para profundidad */
+        rgba(255, 99, 132, 0.15) 0%, /* rojo claro con baja opacidad en parte superior */
+        rgba(255, 159, 64, 0.15) 100%); /* naranja claro con baja opacidad en parte inferior */
+    border: 1px solid rgba(255, 99, 132, 0.3); /* borde rojo semi-transparente para definición */
+    border-radius: 50%; /* radio del 50% para crear círculo perfecto */
+    
+    /* TIPOGRAFÍA: símbolo × con suficiente contraste y legibilidad */
+    font-size: 16px; /* tamaño de fuente de 16px para buena legibilidad del símbolo × */
+    font-weight: 700; /* peso bold para asegurar visibilidad del símbolo */
+    color: rgba(255, 99, 132, 0.9); /* color rojo con alta opacidad para contraste adecuado */
+    font-family: inherit; /* heredar fuente del sistema para consistencia */
+    
+    /* INTERACTIVIDAD: cursor y transiciones suaves para mejor UX */
+    cursor: pointer; /* cambiar cursor a mano para indicar elemento clickeable */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* transición suave con curva de animación moderna */
+    
+    /* EFECTOS GLASSMORPHISM: desenfoque de fondo para efecto de vidrio moderno */
+    backdrop-filter: blur(8px); /* desenfoque del contenido detrás del botón para efecto glassmorphism */
+    /* sistema de sombras en capas para profundidad visual */
+    box-shadow: 
+        0 2px 8px rgba(255, 99, 132, 0.1), /* sombra externa difusa en color rojo sutil */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3); /* sombra interna blanca para simular brillo superior */
+    
+    /* CENTRADO DE CONTENIDO: usar flexbox para centrado perfecto del símbolo × */
+    display: flex; /* activar flexbox para control de alineación */
+    align-items: center; /* centrar contenido verticalmente */
+    justify-content: center; /* centrar contenido horizontalmente */
+    
+    /* RESET DE ESTILOS DE BOTÓN: eliminar estilos por defecto del navegador */
+    border: none; /* eliminar borde por defecto de elementos button */
+    outline: none; /* eliminar outline azul por defecto del navegador en focus */
+    padding: 0; /* eliminar padding interno por defecto */
+    margin: 0; /* eliminar margin externo por defecto */
+    
+    /* OPTIMIZACIÓN DE PERFORMANCE: preparar para animaciones con aceleración GPU */
+    will-change: transform, opacity, background; /* indicar al navegador qué propiedades cambiarán */
+}
+
+/* 🌟 ESTADO HOVER: efectos visuales cuando el usuario pasa el cursor sobre el botón */
+/* aumenta la visibilidad y proporciona feedback inmediato de interactividad */
+.btn-eliminar:hover {
+    /* FONDO INTENSIFICADO: gradiente más prominente para indicar estado hover */
+    background: linear-gradient(135deg, /* mantener mismo ángulo del gradiente base */
+        rgba(255, 99, 132, 0.25) 0%, /* aumentar opacidad del rojo para mayor visibilidad */
+        rgba(255, 159, 64, 0.25) 100%); /* aumentar opacidad del naranja proporcionalmente */
+    
+    /* BORDE MÁS DEFINIDO: incrementar visibilidad del contorno */
+    border-color: rgba(255, 99, 132, 0.5); /* intensificar color del borde al 50% de opacidad */
+    
+    /* COLOR DEL SÍMBOLO: máxima opacidad para contraste óptimo */
+    color: rgba(255, 99, 132, 1); /* color rojo completamente opaco para legibilidad perfecta */
+    
+    /* TRANSFORMACIÓN DE ESCALA: efecto de crecimiento sutil que mantiene el centrado */
+    transform: translateY(-50%) scale(1.1); /* mantener centrado vertical y escalar 10% más grande */
+    
+    /* SOMBRAS INTENSIFICADAS: mayor profundidad visual para enfatizar el estado hover */
+    box-shadow: 
+        0 4px 16px rgba(255, 99, 132, 0.2), /* sombra externa más extensa y visible */
+        inset 0 1px 0 rgba(255, 255, 255, 0.4); /* brillo interno más intenso */
+}
+
+/* 💥 ESTADO ACTIVE: feedback visual inmediato cuando se presiona el botón */
+/* simula efecto físico de presionar botón para confirmar la interacción del usuario */
+.btn-eliminar:active {
+    /* ESCALA REDUCIDA: simular efecto de botón presionado físicamente */
+    transform: translateY(-50%) scale(0.95); /* reducir tamaño 5% manteniendo centrado vertical */
+    
+    /* SOMBRAS REDUCIDAS: simular que el botón se "hunde" al ser presionado */
+    box-shadow: 
+        0 2px 8px rgba(255, 99, 132, 0.15), /* sombra externa más pequeña y sutil */
+        inset 0 2px 4px rgba(255, 99, 132, 0.1); /* sombra interna hacia abajo para simular hundimiento */
+}
+
+/* 🎭 ANIMACIÓN DE ENTRADA: aparición elegante del botón cuando se crea el elemento */
+/* keyframe que define la secuencia de aparición desde escala pequeña hasta tamaño normal */
+@keyframes fadeInScale {
+    /* ESTADO INICIAL: botón invisible y pequeño */
+    0% {
+        opacity: 0; /* completamente transparente al inicio */
+        transform: translateY(-50%) scale(0.5); /* centrado verticalmente pero a la mitad del tamaño */
+    }
+    /* ESTADO FINAL: botón completamente visible y a tamaño normal */
+    100% {
+        opacity: 1; /* completamente opaco */
+        transform: translateY(-50%) scale(1); /* centrado verticalmente y a tamaño completo */
+    }
+}
+
+/* APLICAR ANIMACIÓN: conectar keyframe con el elemento */
+.btn-eliminar {
+    animation: fadeInScale 0.3s ease-out forwards; /* animación de 0.3s con curva ease-out */
+}
+
+/* 📱 RESPONSIVE DESIGN: ajustes para dispositivos móviles */
+/* optimizar tamaño y posicionamiento para pantallas táctiles pequeñas */
+@media (max-width: 768px) {
+    .btn-eliminar {
+        /* TAMAÑO AMPLIADO: botón más grande para facilitar toque en pantallas pequeñas */
+        width: 28px; /* incrementar ancho 4px para mejor accesibilidad táctil */
+        height: 28px; /* incrementar altura proporcionalmente */
+        
+        /* POSICIONAMIENTO AJUSTADO: mayor margen para evitar toques accidentales */
+        right: 8px; /* reducir margen derecho para aprovechar mejor el espacio disponible */
+        
+        /* TIPOGRAFÍA OPTIMIZADA: mantener legibilidad en pantallas pequeñas */
+        font-size: 16px; /* conservar tamaño de fuente para buena visibilidad */
+    }
+}
+
+/* 🔄 VARIANTE ALTERNATIVA: icono de cruz dibujado con CSS puro */
+/* opción avanzada que usa pseudo-elementos para crear símbolo × más moderno */
+/* PSEUDO-ELEMENTO BEFORE: primera línea de la cruz (diagonal 45°) */
+.btn-eliminar::before {
+    content: ''; /* contenido vacío requerido para que aparezca el pseudo-elemento */
+    position: absolute; /* posicionamiento absoluto dentro del botón */
+    width: 12px; /* ancho de la línea de la cruz */
+    height: 2px; /* grosor de la línea para buena visibilidad */
+    background: currentColor; /* usar el mismo color que el texto del botón */
+    border-radius: 1px; /* bordes ligeramente redondeados para suavizar la línea */
+    transform: rotate(45deg); /* rotar 45 grados para formar primera diagonal */
+}
+
+/* PSEUDO-ELEMENTO AFTER: segunda línea de la cruz (diagonal -45°) */
+.btn-eliminar::after {
+    content: ''; /* contenido vacío requerido para que aparezca el pseudo-elemento */
+    position: absolute; /* posicionamiento absoluto dentro del botón */
+    width: 12px; /* mismo ancho que la primera línea para simetría perfecta */
+    height: 2px; /* mismo grosor que la primera línea */
+    background: currentColor; /* heredar color del elemento padre */
+    border-radius: 1px; /* bordes redondeados consistentes */
+    transform: rotate(-45deg); /* rotar -45 grados para formar segunda diagonal */
+}
+
+/* CLASE MODIFICADORA: activar modo de icono CSS ocultando el texto × */
+/* aplicar esta clase cuando se prefiera usar las líneas CSS en lugar del símbolo × */
+.btn-eliminar.icon-cross {
+    font-size: 0; /* ocultar completamente el texto × estableciendo tamaño de fuente a 0 */
+    /* NOTA: los pseudo-elementos ::before y ::after seguirán visibles creando la cruz */
+}
 /* se activa cuando el numero cambia para proporcionar feedback visual dinamico */
 .friend-counter #numeroAmigos.bounce { /* clase combinada que se aplica al numero durante cambios */
     animation: counterBounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* animacion elastica de 0.4 segundos */
