@@ -237,6 +237,7 @@ const DOM_CACHE = {
     resultado: null,
     numeroAmigos: null,
     estadoVacio: null,
+    contador: null,
     
     // Inicializar cache de elementos DOM
     init() {
@@ -245,6 +246,7 @@ const DOM_CACHE = {
         this.resultado = document.getElementById('resultado');
         this.numeroAmigos = document.getElementById('numeroAmigos');
         this.estadoVacio = document.getElementById('estadoVacio');
+        this.contador = document.getElementById('contador');
     },
     
     // Método para obtener elemento con fallback si no está cacheado
@@ -255,6 +257,7 @@ const DOM_CACHE = {
             case 'resultado': return this.resultado || document.getElementById('resultado');
             case 'numeroAmigos': return this.numeroAmigos || document.getElementById('numeroAmigos');
             case 'estadoVacio': return this.estadoVacio || document.getElementById('estadoVacio');
+            case 'contador': return this.contador || document.getElementById('contador');
             default: return document.getElementById(elementId);
         }
     }
@@ -474,6 +477,16 @@ function actualizarContador() { // declaracion de funcion sin parametros
         
         // actualizar el contenido del contador con el texto calculado dinamicamente
         numeroElement.textContent = textoContador; // asignar texto construido al elemento DOM
+        
+        // obtener referencia al contenedor completo del contador para actualizar texto completo
+        const contadorCompleto = DOM_CACHE.get('contador'); // obtener elemento contenedor del contador
+        if (contadorCompleto && amigosSorteados > 0) { // verificar si existe y hay sorteos activos
+            // actualizar todo el contenido del contador incluyendo el texto descriptivo
+            contadorCompleto.innerHTML = `Amigos agregados: <span id="numeroAmigos">${textoContador}</span>`; // reemplazar HTML completo con progreso
+        } else if (contadorCompleto) { // caso cuando no hay sorteos pero existe el elemento
+            // mantener formato original cuando no hay sorteos activos
+            contadorCompleto.innerHTML = `Amigos agregados: <span id="numeroAmigos">${textoContador}</span>`; // formato estandar sin progreso
+        } // fin de actualizacion de contador completo
     } // fin de verificacion de elemento numero
     
     // control inteligente de visibilidad del mensaje de estado vacio
