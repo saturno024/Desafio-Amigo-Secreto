@@ -439,6 +439,7 @@ document.addEventListener('DOMContentLoaded', function() { // agregar escuchador
  * funcion para actualizar contador visual de amigos con animacion
  * esta funcion se encarga de mostrar cuantos amigos se han agregado
  * controla la visibilidad del estado vacio y animaciones del contador dinamico
+ * muestra informacion completa del progreso: amigos totales y sorteados en formato visual intuitivo
  */
 function actualizarContador() { // declaracion de funcion sin parametros
     // obtener referencias a elementos del dom que necesitamos actualizar
@@ -454,8 +455,25 @@ function actualizarContador() { // declaracion de funcion sin parametros
             numeroElement.classList.remove('bounce'); // quitar clase bounce para resetear animacion
         }, VALIDACION_CONFIG.DURACION_ANIMACION_COUNTER); // usar constante configurada en lugar de numero magico
         
-        // actualizar el contenido numerico del contador con la cantidad actual de amigos
-        numeroElement.textContent = listaDeAmigos.length; // asignar longitud del array como texto
+        // calcular valores necesarios para mostrar progreso completo de sorteo
+        const totalAmigos = listaDeAmigos.length; // obtener cantidad total de amigos en la lista
+        const amigosSorteados = amigosYaSorteados.length; // obtener cantidad de amigos ya sorteados
+        
+        // construir texto dinamico que muestra progreso completo segun estado actual
+        let textoContador; // declarar variable para almacenar texto final del contador
+        
+        // verificar si hay amigos en la lista para mostrar informacion apropiada
+        if (totalAmigos === 0) { // caso cuando no hay amigos agregados
+            textoContador = '0'; // mostrar solo cero cuando lista esta vacia
+        } else if (amigosSorteados === 0) { // caso cuando hay amigos pero no se ha sorteado ninguno
+            textoContador = totalAmigos.toString(); // mostrar solo el numero total sin progreso
+        } else { // caso cuando hay amigos y algunos han sido sorteados
+            // mostrar formato completo con progreso: "X | Sorteados: Y/Z"
+            textoContador = `${totalAmigos} | Sorteados: ${amigosSorteados}/${totalAmigos}`;
+        } // fin de construccion condicional del texto
+        
+        // actualizar el contenido del contador con el texto calculado dinamicamente
+        numeroElement.textContent = textoContador; // asignar texto construido al elemento DOM
     } // fin de verificacion de elemento numero
     
     // control inteligente de visibilidad del mensaje de estado vacio
@@ -1219,7 +1237,7 @@ function ejecutarReinicio() { // funcion que ejecuta el reinicio real de la apli
     // actualizar contador a 0 y mostrar estado vacio
     actualizarContador(); // llamar funcion que recalcula estado visual de la aplicacion
     // mostrar notificacion de confirmacion de reinicio exitoso (verde)
-    mostrarNotificacion('🔄 Lista reiniciada correctamente', 'success'); // feedback positivo al usuario
+    mostrarNotificacion('🔄 Juego reiniciado correctamente', 'success'); // feedback positivo al usuario
     // limpiar y enfocar el input para nueva entrada
     limpiarCampos(); // llamar funcion que resetea campo de entrada
 } // fin de la funcion ejecutarReinicio
