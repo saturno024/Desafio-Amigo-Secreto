@@ -339,8 +339,8 @@ function mostrarConfirmacion(mensaje, onConfirm, onCancel = null) { // funcion p
         <div class="notification-content">
             <span class="notification-text">${mensaje}</span>
             <div class="notification-buttons">
-                <button class="notification-btn cancel">Finalizar</button>
-                <button class="notification-btn confirm">Nueva Ronda</button>
+                <button class="notification-btn cancel">Nueva Ronda</button>
+                <button class="notification-btn confirm">Finalizar</button>
             </div>
         </div>
     `; // usar template literal con botones claros y descriptivos
@@ -1144,35 +1144,28 @@ function manejarFinDeRonda() { // declaracion de funcion para gestion de finaliz
     // mostrarConfirmacion crea interfaz moderna en lugar de alert() nativo
     // utiliza patron callback para manejar respuestas de usuario de forma asincrona
     mostrarConfirmacion(
-        // MENSAJE: template literal con informacion contextual sobre estado actual
-        // incluir numero de ronda y cantidad total para claridad al usuario
+        // MENSAJE: template literal con informacion clara sobre las opciones disponibles
+        // explicar claramente que hace cada boton para evitar confusion
         `🎊 ¡Felicitaciones! Has completado la ronda ${rondaActual}. 
         Todos los ${listaDeAmigos.length} amigos han sido sorteados.
         
-        ¿Quieres iniciar una nueva ronda para sortear nuevamente?`, // mensaje descriptivo con interpolacion
+        ¿Qué deseas hacer ahora?
+        • Nueva Ronda: Mantener amigos y sortear nuevamente
+        • Finalizar: Reiniciar todo el juego desde cero`, // mensaje descriptivo con opciones claras
         
-        // CALLBACK CONFIRMACION: funcion que se ejecuta si usuario acepta continuar
-        // arrow function para encapsular logica de continuacion
-        () => { // callback de confirmacion usando arrow function
-            iniciarNuevaRonda(); // llamar funcion que resetea sistema para nueva ronda
+        // CALLBACK CONFIRMACION: ejecuta reinicio completo (botón "Finalizar")
+        // el boton confirm ahora es "Finalizar" que reinicia todo
+        () => { // callback de confirmacion para reinicio completo
+            // REINICIO DIRECTO: ejecutar reinicio completo del juego
+            // el usuario eligio "Finalizar" como accion principal
+            ejecutarReinicio(); // ejecutar reinicio completo de la aplicacion
         }, // fin de callback de confirmacion
         
-        // CALLBACK FINALIZACION: funcion que se ejecuta si usuario decide finalizar completamente
-        // arrow function que ejecuta confirmacion adicional para reinicio total
-        () => { // callback de finalizacion usando arrow function
-            // CONFIRMACION ADICIONAL: preguntar si realmente quiere reiniciar todo
-            // usar sistema de confirmacion anidado para doble verificacion
-            mostrarConfirmacion(
-                '🔄 ¿Estás seguro de que quieres finalizar y reiniciar todo el juego? Se perderá toda la lista de amigos agregados.',
-                () => { // callback si confirma reinicio total
-                    ejecutarReinicio(); // ejecutar reinicio completo del juego
-                },
-                () => { // callback si cancela el reinicio
-                    // MENSAJE INFORMATIVO: explicar opciones disponibles sin reiniciar
-                    mostrarNotificacion('🏁 Sorteos finalizados. La lista de amigos se mantiene intacta.', 'success');
-                }
-            ); // fin de confirmacion anidada
-        } // fin de callback de finalizacion
+        // CALLBACK CANCELACION: inicia nueva ronda (botón "Nueva Ronda") 
+        // el boton cancel ahora es "Nueva Ronda" que mantiene amigos
+        () => { // callback de cancelacion para nueva ronda
+            iniciarNuevaRonda(); // llamar funcion que resetea solo sistema de sorteos
+        } // fin de callback de cancelacion
     ); // fin de llamada a mostrarConfirmacion con todos los parametros
 } // fin de la funcion manejarFinDeRonda
 
