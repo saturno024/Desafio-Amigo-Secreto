@@ -2076,5 +2076,130 @@ button, /* todos los botones de la aplicacion */
 } /* fin de feature query supports not clip-path */
 
 /* ═══════════════════════════════════════════════════════════════════════════════ */
-/* 🎯 FIN DEL ARCHIVO CSS - Todos los estilos han sido definidos y comentados */
+/* � ANIMACIÓN DE SORTEO - Sistema de sorteo con efectos visuales */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+.sorteo-animacion { /* contenedor principal para la animación de sorteo */
+    font-size: 1.5rem; /* texto grande para mayor impacto visual */
+    font-weight: bold; /* peso bold para enfatizar */
+    text-align: center; /* centrar texto */
+    padding: 20px; /* espaciado interno generoso */
+    background: linear-gradient(135deg, /* gradiente diagonal dinámico */
+        rgba(168, 85, 247, 0.1) 0%, /* morado claro semi-transparente */
+        rgba(59, 130, 246, 0.1) 50%, /* azul claro semi-transparente */
+        rgba(16, 185, 129, 0.1) 100%); /* verde claro semi-transparente */
+    border-radius: 12px; /* bordes redondeados */
+    border: 2px solid rgba(168, 85, 247, 0.3); /* borde morado sutil */
+    margin: 20px 0; /* margen vertical */
+    position: relative; /* posición relativa para pseudo-elementos */
+    overflow: hidden; /* ocultar desbordamientos para efectos */
+} /* fin de contenedor sorteo-animacion */
+
+.sorteo-animacion::before { /* pseudo-elemento para efecto de brillo */
+    content: ''; /* contenido vacío para pseudo-elemento */
+    position: absolute; /* posición absoluta sobre el contenedor */
+    top: -50%; /* posición inicial fuera del contenedor */
+    left: -50%; /* posición inicial fuera del contenedor */
+    width: 200%; /* ancho doble del contenedor */
+    height: 200%; /* altura doble del contenedor */
+    background: linear-gradient(45deg, /* gradiente diagonal */
+        transparent 30%, /* transparente al inicio */
+        rgba(255, 255, 255, 0.1) 50%, /* blanco semi-transparente en el centro */
+        transparent 70%); /* transparente al final */
+    animation: sorteoShine 3s linear infinite; /* animación de brillo continua */
+    pointer-events: none; /* no interferir con interacciones */
+} /* fin de pseudo-elemento before */
+
+.nombre-sorteando { /* clase para el texto que está cambiando durante el sorteo */
+    display: inline-block; /* display inline-block para transformaciones */
+    color: #8b5cf6; /* color morado vibrante */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* sombra sutil */
+    animation: sorteoFlicker 0.1s ease-in-out infinite; /* parpadeo rápido */
+    transform: scale(1.1); /* escala ligeramente mayor */
+    transition: all 0.3s ease; /* transiciones suaves */
+} /* fin de clase nombre-sorteando */
+
+.nombre-final { /* clase para el nombre final revelado */
+    display: inline-block; /* display inline-block para transformaciones */
+    color: #059669; /* color verde para éxito */
+    font-size: 2rem; /* tamaño mayor para énfasis */
+    font-weight: 900; /* peso máximo */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* sombra más pronunciada */
+    animation: sorteoReveal 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; /* animación de revelación */
+    transform: scale(0.8); /* escala inicial menor */
+} /* fin de clase nombre-final */
+
+/* animación de brillo que recorre el contenedor */
+@keyframes sorteoShine { /* keyframe para efecto de brillo */
+    0% { /* estado inicial */
+        transform: translateX(-100%) translateY(-100%) rotate(45deg); /* posición inicial fuera */
+    } /* fin estado inicial */
+    100% { /* estado final */
+        transform: translateX(100%) translateY(100%) rotate(45deg); /* posición final fuera */
+    } /* fin estado final */
+} /* fin de keyframe sorteoShine */
+
+/* animación de parpadeo para nombres durante sorteo */
+@keyframes sorteoFlicker { /* keyframe para parpadeo de nombres */
+    0%, 100% { /* estados inicial y final */
+        opacity: 1; /* completamente opaco */
+        transform: scale(1.1) rotate(0deg); /* escala normal sin rotación */
+    } /* fin estados inicial y final */
+    50% { /* estado intermedio */
+        opacity: 0.7; /* ligeramente transparente */
+        transform: scale(1.15) rotate(1deg); /* escala mayor con rotación sutil */
+    } /* fin estado intermedio */
+} /* fin de keyframe sorteoFlicker */
+
+/* animación de revelación para el nombre final */
+@keyframes sorteoReveal { /* keyframe para revelación del ganador */
+    0% { /* estado inicial */
+        opacity: 0; /* completamente transparente */
+        transform: scale(0.5) rotate(-10deg); /* escala pequeña con rotación */
+    } /* fin estado inicial */
+    50% { /* estado intermedio */
+        opacity: 1; /* completamente opaco */
+        transform: scale(1.2) rotate(5deg); /* escala mayor con rotación opuesta */
+    } /* fin estado intermedio */
+    100% { /* estado final */
+        opacity: 1; /* completamente opaco */
+        transform: scale(1) rotate(0deg); /* escala normal sin rotación */
+    } /* fin estado final */
+} /* fin de keyframe sorteoReveal */
+
+/* efectos para diferentes fases del sorteo */
+.sorteo-iniciando { /* clase para la fase inicial del sorteo */
+    animation: sorteoStart 0.5s ease-out; /* animación de inicio */
+} /* fin de clase sorteo-iniciando */
+
+.sorteo-finalizando { /* clase para la fase final del sorteo */
+    animation: sorteoEnd 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* animación de finalización suave */
+} /* fin de clase sorteo-finalizando */
+
+/* animación de inicio del sorteo */
+@keyframes sorteoStart { /* keyframe para inicio del sorteo */
+    0% { /* estado inicial */
+        opacity: 0; /* completamente transparente */
+        transform: translateY(-20px) scale(0.9); /* posición superior con escala menor */
+    } /* fin estado inicial */
+    100% { /* estado final */
+        opacity: 1; /* completamente opaco */
+        transform: translateY(0) scale(1); /* posición normal con escala normal */
+    } /* fin estado final */
+} /* fin de keyframe sorteoStart */
+
+/* animación de finalización del sorteo */
+@keyframes sorteoEnd { /* keyframe para finalización del sorteo */
+    0% { /* estado inicial */
+        border-color: rgba(168, 85, 247, 0.3); /* borde morado inicial */
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(59, 130, 246, 0.1) 50%, rgba(16, 185, 129, 0.1) 100%); /* gradiente inicial */
+    } /* fin estado inicial */
+    100% { /* estado final */
+        border-color: rgba(16, 185, 129, 0.5); /* borde verde final */
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(34, 197, 94, 0.1) 50%, rgba(16, 185, 129, 0.1) 100%); /* gradiente verde final */
+    } /* fin estado final */
+} /* fin de keyframe sorteoEnd */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* �🎯 FIN DEL ARCHIVO CSS - Todos los estilos han sido definidos y comentados */
 /* ═══════════════════════════════════════════════════════════════════════════════ */

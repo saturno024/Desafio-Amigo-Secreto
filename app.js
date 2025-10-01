@@ -837,18 +837,102 @@ function sortearAmigo() { // declaracion de funcion sin parametros para ejecutar
         return; // salir de la funcion si no hay suficientes participantes
     } // fin de validacion de cantidad minima
 
-    // algoritmo de seleccion aleatoria usando Math.random()
-    // Math.floor redondea hacia abajo y Math.random() genera numero entre 0 y 1
-    let amigoGanador = listaDeAmigos[Math.floor(Math.random() * listaDeAmigos.length)]; // seleccionar indice aleatorio del array
-    
-    // mostrar resultado con notificacion de exito y emoji celebratorio
-    mostrarNotificacion(`🎊 ¡El amigo secreto es: ${amigoGanador}!`, 'success'); // usar template literal para mensaje dinamico
-    // tambien mostrar resultado en area dedicada del DOM
-    DOM_CACHE.get('resultado').textContent = "El amigo secreto sorteado es: " + amigoGanador; // usar cache para asignar resultado
-    
-    // OPTIMIZACIÓN: Anuncio para lectores de pantalla
-    SCREEN_READER.announce(`Sorteo completado. El amigo secreto es: ${amigoGanador}`);
+    // iniciar animacion de sorteo antes de mostrar resultado
+    iniciarAnimacionSorteo(); // llamar funcion que maneja toda la animacion
 } // fin de la funcion sortearAmigo
+
+/**
+ * funcion que maneja la animacion completa del sorteo
+ * implementa efecto visual de "maquina de sorteo" con nombres cambiando
+ * gradualmente reduce velocidad para generar suspense hasta revelar ganador
+ */
+function iniciarAnimacionSorteo() { // funcion para animacion de sorteo emocionante
+    // preparar area de resultado con contenedor de animacion
+    const contenedorResultado = DOM_CACHE.get('resultado'); // obtener referencia al area de resultados
+    contenedorResultado.innerHTML = ''; // limpiar contenido previo
+    
+    // crear elemento especial para la animacion
+    const animacionContainer = document.createElement('div'); // crear contenedor de animacion
+    animacionContainer.className = 'sorteo-animacion sorteo-iniciando'; // agregar clases CSS para estilos
+    animacionContainer.innerHTML = `
+        <div>🎰 Sorteando...</div>
+        <div class="nombre-sorteando" id="nombre-animado">Preparando...</div>
+    `; // estructura HTML con emoji de slot machine
+    
+    contenedorResultado.appendChild(animacionContainer); // agregar al DOM
+    
+    // configuracion de la animacion: velocidad y duracion
+    let velocidadInicial = 50; // milisegundos entre cambios (rapido al inicio)
+    let velocidadActual = velocidadInicial; // velocidad que ira cambiando
+    const incrementoVelocidad = 20; // cuanto aumentar el intervalo cada vez
+    const duracionTotal = 3000; // duracion total de la animacion en milisegundos
+    const tiempoInicio = Date.now(); // timestamp del inicio para calcular progreso
+    
+    // elemento donde se mostraran los nombres cambiando
+    const elementoNombre = document.getElementById('nombre-animado'); // referencia al elemento de texto
+    
+    // funcion recursiva que ejecuta la animacion frame por frame
+    function cicloAnimacion() { // funcion interna que maneja cada frame de animacion
+        const tiempoTranscurrido = Date.now() - tiempoInicio; // calcular tiempo transcurrido
+        const progreso = tiempoTranscurrido / duracionTotal; // calcular progreso (0 a 1)
+        
+        // verificar si la animacion debe continuar
+        if (progreso < 1) { // si aun no hemos llegado al final
+            // seleccionar nombre aleatorio para mostrar durante la animacion
+            const nombreAleatorio = listaDeAmigos[Math.floor(Math.random() * listaDeAmigos.length)]; // nombre random
+            elementoNombre.textContent = nombreAleatorio; // actualizar texto mostrado
+            
+            // calcular nueva velocidad: mas lento conforme avanza la animacion
+            velocidadActual = velocidadInicial + (incrementoVelocidad * progreso * 10); // reducir velocidad gradualmente
+            
+            // programar el siguiente frame de animacion
+            setTimeout(cicloAnimacion, velocidadActual); // llamada recursiva con delay variable
+        } else { // cuando la animacion debe terminar
+            finalizarAnimacionSorteo(animacionContainer); // llamar funcion de finalizacion
+        } // fin de verificacion de progreso
+    } // fin de funcion cicloAnimacion
+    
+    // iniciar el primer ciclo de animacion
+    cicloAnimacion(); // comenzar la animacion recursiva
+} // fin de la funcion iniciarAnimacionSorteo
+
+/**
+ * funcion que finaliza la animacion y muestra el resultado final
+ * aplica efectos visuales especiales para la revelacion del ganador
+ * @param {HTMLElement} contenedor - elemento que contiene la animacion
+ */
+function finalizarAnimacionSorteo(contenedor) { // funcion para finalizar animacion y mostrar ganador
+    // seleccionar el ganador real usando algoritmo aleatorio
+    const amigoGanador = listaDeAmigos[Math.floor(Math.random() * listaDeAmigos.length)]; // seleccion final aleatoria
+    
+    // agregar clase CSS para animacion de finalizacion
+    contenedor.classList.add('sorteo-finalizando'); // activar estilos de finalizacion
+    
+    // actualizar contenido con resultado final
+    setTimeout(() => { // delay para sincronizar con animacion CSS
+        contenedor.innerHTML = `
+            <div>🏆 ¡Resultado del Sorteo!</div>
+            <div class="nombre-final">${amigoGanador}</div>
+        `; // estructura HTML final con emoji de trofeo
+        
+        // despues de mostrar resultado, activar notificacion y efectos adicionales
+        setTimeout(() => { // segundo delay para permitir que se vea la revelacion
+            // mostrar notificacion de exito
+            mostrarNotificacion(`🎊 ¡El amigo secreto es: ${amigoGanador}!`, 'success'); // notificacion celebratoria
+            
+            // agregar texto adicional al area de resultados
+            const textoAdicional = document.createElement('div'); // crear elemento adicional
+            textoAdicional.textContent = `El amigo secreto sorteado es: ${amigoGanador}`; // texto descriptivo
+            textoAdicional.style.marginTop = '15px'; // margen superior
+            textoAdicional.style.fontSize = '1.1rem'; // tamaño de fuente
+            textoAdicional.style.color = '#6b7280'; // color gris
+            contenedor.appendChild(textoAdicional); // agregar al contenedor
+            
+            // OPTIMIZACIÓN: Anuncio para lectores de pantalla
+            SCREEN_READER.announce(`Sorteo completado. El amigo secreto es: ${amigoGanador}`); // accesibilidad
+        }, 1000); // delay de 1 segundo para la notificacion
+    }, 300); // delay de 300ms para sincronizar con CSS
+} // fin de la funcion finalizarAnimacionSorteo
 
 /**
  * funcion para reiniciar completamente la aplicacion
