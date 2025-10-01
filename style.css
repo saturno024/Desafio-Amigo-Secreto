@@ -917,6 +917,53 @@ ul li:nth-child(5) { animation-delay: 0.5s; } /* quinto elemento */
         inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
+/* 🎯 ESTILOS PARA AMIGOS SORTEADOS */
+/* indicador visual diferenciado para amigos que ya fueron sorteados en la ronda actual */
+.amigo-item.sorteado {
+    /* cambiar gradiente de fondo para indicar estado sorteado */
+    background: linear-gradient(145deg, 
+        rgba(46, 204, 113, 0.15) 0%, /* verde suave para indicar completado */
+        rgba(39, 174, 96, 0.20) 100%); /* verde mas intenso en la parte inferior */
+    border-color: rgba(46, 204, 113, 0.3); /* borde verde para coherencia visual */
+    color: #000000; /* texto negro puro para máximo contraste */
+    position: relative; /* necesario para elementos pseudo */
+    
+    /* efecto de sombra verde sutil para distinguir visualmente */
+    box-shadow: 
+        0 4px 16px rgba(46, 204, 113, 0.15), /* sombra externa verde */
+        inset 0 1px 0 rgba(255, 255, 255, 0.4); /* brillo interno suave */
+}
+
+/* icono visual para amigos sorteados usando pseudo-elemento */
+.amigo-item.sorteado::before {
+    content: "✓"; /* checkmark unicode para indicar completado */
+    position: absolute; /* posicionamiento absoluto para control preciso */
+    left: 8px; /* ubicacion a la izquierda del texto */
+    top: 50%; /* centrado vertical */
+    transform: translateY(-50%); /* ajuste fino del centrado vertical */
+    color: #27ae60; /* verde intenso para el icono */
+    font-weight: 700; /* peso bold para mayor visibilidad */
+    font-size: 14px; /* tamaño apropiado para el icono */
+    opacity: 0.8; /* transparencia sutil para no competir con el texto */
+}
+
+/* ajustar padding del texto cuando hay icono de sorteado */
+.amigo-item.sorteado {
+    padding-left: 35px; /* espacio adicional a la izquierda para el icono */
+}
+
+/* efecto hover especializado para amigos sorteados */
+.amigo-item.sorteado:hover {
+    transform: translate3d(2px, -2px, 0); /* mantener elevacion hover */
+    background: linear-gradient(145deg, 
+        rgba(46, 204, 113, 0.25) 0%, /* intensificar verde en hover */
+        rgba(39, 174, 96, 0.30) 100%);
+    border-color: rgba(46, 204, 113, 0.4); /* borde mas visible en hover */
+    box-shadow: 
+        0 8px 25px rgba(46, 204, 113, 0.25), /* sombra verde mas intensa */
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
 /* seccion de estilos para el contador que muestra cantidad de amigos agregados */
 /* componente visual que proporciona feedback en tiempo real del estado de la aplicacion */
 .friend-counter { /* clase que define el contenedor del contador de amigos */

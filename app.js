@@ -760,7 +760,16 @@ function agregarAmigo() {
 function crearElementoLista(nombre, index) {
     // obtener elemento li del pool para reutilización eficiente de memoria
     const listItem = ELEMENT_POOL.getLiElement(); // usar pool en lugar de createElement para optimización
-    listItem.className = 'amigo-item'; // agregar clase CSS base para estilos y animaciones
+    
+    // determinar clases CSS basadas en estado del amigo
+    let clases = 'amigo-item'; // clase base para todos los elementos
+    
+    // verificar si el amigo ya fue sorteado en la ronda actual
+    if (amigosYaSorteados.includes(nombre)) { // usar includes para verificar presencia en array
+        clases += ' sorteado'; // agregar clase sorteado para styling diferenciado
+    } // fin de verificacion de estado sorteado
+    
+    listItem.className = clases; // aplicar clases CSS determinadas dinamicamente
     
     // CREAR SPAN PARA EL NOMBRE: separar el texto del nombre en su propio elemento
     // esto permite mejor control de estilos y estructura semántica
@@ -1085,6 +1094,7 @@ function registrarAmigoSorteado(nombreAmigo) { // declaracion de funcion para re
         // llamar funcion que recalcula y muestra contadores actualizados
         actualizarInterfazSorteos(); // refrescar visualizacion de estado en DOM
         actualizarContador(); // actualizar contador principal con progreso de sorteo
+        mostrarAmigos(); // refrescar lista visual para mostrar estado sorteado
     } // fin de verificacion de no duplicados
 } // fin de la funcion registrarAmigoSorteado
 
@@ -1107,6 +1117,7 @@ function iniciarNuevaRonda() { // declaracion de funcion para gestion de nuevas 
     // mostrar ronda actualizada y resetear contadores de progreso
     actualizarInterfazSorteos(); // refrescar elementos visuales del DOM
     actualizarContador(); // actualizar contador principal sin progreso de sorteo
+    mostrarAmigos(); // refrescar lista visual para quitar marcas de sorteado
     
     // FEEDBACK: informar al usuario sobre el cambio exitoso de ronda
     // usar template literal para mensaje dinamico con numero de ronda
@@ -1250,6 +1261,7 @@ function ejecutarReinicio() { // funcion que ejecuta el reinicio real de la apli
     
     // actualizar contador para reflejar estado limpio
     actualizarContador(); // sincronizar contador con estado reiniciado
+    mostrarAmigos(); // refrescar lista visual para estado limpio
     
     // limpiar elemento de estado de sorteos si existe
     const estadoSorteos = document.getElementById('estado-sorteos'); // buscar elemento de estado
