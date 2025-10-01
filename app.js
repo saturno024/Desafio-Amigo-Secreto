@@ -116,8 +116,21 @@ const AmigoSecreto = {
 // Array global para mantener compatibilidad con código existente
 // esta variable mantiene el estado de todos los amigos agregados durante la sesion
 let listaDeAmigos = []; // declaracion de array vacio que sera poblado dinamicamente
-let amigosYaSorteados = []; // array para llevar registro de amigos que ya fueron sorteados
-let rondaActual = 1; // contador de ronda actual de sorteos (inicia en 1)
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 🎯 SISTEMA DE SORTEOS ÚNICOS - Variables globales para control de rondas */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+// array que almacena nombres de amigos que ya fueron sorteados en la ronda actual
+// se utiliza para evitar repeticiones y garantizar que cada amigo sea sorteado solo una vez por ronda
+// se reinicia al comenzar nueva ronda pero mantiene historial durante ronda activa
+let amigosYaSorteados = []; // declaracion de array vacio para control de sorteados
+
+// contador numerico que lleva registro de la ronda actual de sorteos
+// inicia en 1 y se incrementa cada vez que se completa una ronda
+// se muestra en la interfaz para que el usuario sepa en que ronda esta
+// se resetea solo con reinicio completo de la aplicacion
+let rondaActual = 1; // declaracion de contador inicializado en primera ronda
 
 // cache de expresiones regulares para mejorar performance
 // evita recompilar la regex en cada validacion, optimizando el rendimiento
@@ -693,7 +706,11 @@ function agregarAmigo() {
     
     mostrarNotificacion(`🎉 ¡${validacion.nombre} agregado exitosamente!`, 'success'); // feedback positivo con template literal
     mostrarAmigos(); // actualizar la lista visual en pantalla llamando funcion de renderizado
-    actualizarInterfazSorteos(); // actualizar estado de sorteos tras agregar amigo
+    
+    // INTEGRACION: actualizar sistema de sorteos unicos tras modificacion de lista
+    // sincronizar interfaz de estado para reflejar nuevos totales y disponibles
+    actualizarInterfazSorteos(); // refrescar contadores y estado visual del sistema de rondas
+    
     limpiarCampos(); // limpiar input para siguiente entrada y mantener focus
 } // fin de la funcion agregarAmigo
 
@@ -826,12 +843,18 @@ function eliminarAmigo(indice) {
     // esto actualiza tanto la lista como el contador de participantes
     mostrarAmigos(); // llamar función que redibuja toda la lista desde el array actualizado
     
-    // PASO 6: ACTUALIZAR SISTEMA DE SORTEOS
-    // verificar si el amigo eliminado estaba ya sorteado y actualizar estado
-    if (amigosYaSorteados.includes(nombreEliminado)) { // si estaba sorteado
-        amigosYaSorteados = amigosYaSorteados.filter(amigo => amigo !== nombreEliminado); // remover de sorteados
-    } // fin de verificacion de amigo sorteado
-    actualizarInterfazSorteos(); // actualizar estado visual de sorteos
+    // PASO 6: INTEGRACION CON SISTEMA DE SORTEOS UNICOS
+    // mantener consistencia entre lista principal y sistema de control de rondas
+    // verificar si el amigo eliminado estaba registrado como sorteado en ronda actual
+    if (amigosYaSorteados.includes(nombreEliminado)) { // usar includes para verificar presencia en array de sorteados
+        // LIMPIEZA: remover amigo del array de sorteados usando filter
+        // filter crea nuevo array excluyendo elementos que cumplan condicion
+        amigosYaSorteados = amigosYaSorteados.filter(amigo => amigo !== nombreEliminado); // filtrar usando comparacion de desigualdad
+    } // fin de verificacion y limpieza de amigo sorteado
+    
+    // SINCRONIZACION: actualizar interfaz visual para reflejar cambios en totales
+    // recalcular disponibles, sorteados y estado general del sistema
+    actualizarInterfazSorteos(); // refrescar elementos visuales del sistema de rondas
 } // fin de la función eliminarAmigo
 
 /**
@@ -984,73 +1007,117 @@ function finalizarAnimacionSorteo(contenedor) { // funcion para finalizar animac
 /**
  * funcion que obtiene la lista de amigos disponibles para sortear
  * excluye a aquellos que ya fueron sorteados en la ronda actual
- * @returns {Array} array de nombres disponibles para sortear
+ * utiliza filter() para crear nuevo array sin modificar originales
+ * es la funcion clave del sistema de sorteos unicos
+ * @returns {Array} array de nombres disponibles para sortear (subconjunto de listaDeAmigos)
  */
-function obtenerAmigosDisponibles() { // funcion para filtrar amigos no sorteados
-    return listaDeAmigos.filter(amigo => !amigosYaSorteados.includes(amigo)); // filtrar usando includes()
+function obtenerAmigosDisponibles() { // declaracion de funcion para filtrado inteligente
+    // usar metodo filter para crear nuevo array con elementos que cumplan condicion
+    // la condicion es: amigo NO esta incluido en array de ya sorteados
+    // includes() retorna true si encuentra el elemento, negamos con ! para obtener no incluidos
+    return listaDeAmigos.filter(amigo => !amigosYaSorteados.includes(amigo)); // filtrar amigos usando negacion de includes
 } // fin de la funcion obtenerAmigosDisponibles
 
 /**
- * funcion que verifica si todos los amigos han sido sorteados
- * compara la cantidad de sorteados con el total de amigos
+ * funcion que verifica si todos los amigos han sido sorteados en la ronda actual
+ * utiliza comparacion de longitudes de arrays para determinar completitud
+ * es fundamental para detectar cuando una ronda ha terminado
  * @returns {boolean} true si todos fueron sorteados, false en caso contrario
  */
-function todosLoAmigosHanSidoSorteados() { // funcion para verificar completitud del ciclo
-    return amigosYaSorteados.length === listaDeAmigos.length; // comparar longitudes de arrays
+function todosLoAmigosHanSidoSorteados() { // declaracion de funcion para verificacion de completitud
+    // comparar cantidad de elementos en array de sorteados vs array total
+    // si ambas longitudes son iguales significa que todos fueron sorteados
+    // length es propiedad nativa de arrays que retorna cantidad de elementos
+    return amigosYaSorteados.length === listaDeAmigos.length; // comparacion numerica de longitudes
 } // fin de la funcion todosLoAmigosHanSidoSorteados
 
 /**
- * funcion que registra un amigo como sorteado
- * actualiza el array de control y la interfaz de usuario
+ * funcion que registra un amigo como sorteado en la ronda actual
+ * actualiza el array de control y sincroniza la interfaz visual
+ * incluye validacion para evitar registros duplicados por seguridad
  * @param {string} nombreAmigo - nombre del amigo que fue sorteado
  */
-function registrarAmigoSorteado(nombreAmigo) { // funcion para marcar amigo como sorteado
-    if (!amigosYaSorteados.includes(nombreAmigo)) { // verificar que no este ya registrado
-        amigosYaSorteados.push(nombreAmigo); // agregar al array de sorteados
-        actualizarInterfazSorteos(); // actualizar visualizacion de estado
-    } // fin de verificacion de duplicados
+function registrarAmigoSorteado(nombreAmigo) { // declaracion de funcion para registro de sorteo
+    // VALIDACION: verificar que el amigo no este ya registrado como sorteado
+    // esto previene errores de logica y duplicados accidentales en el array
+    if (!amigosYaSorteados.includes(nombreAmigo)) { // usar negacion de includes para verificar ausencia
+        // REGISTRO: agregar nombre al final del array de sorteados
+        // push() es metodo nativo que agrega elemento al final del array
+        amigosYaSorteados.push(nombreAmigo); // insertar nombre en array de control
+        
+        // ACTUALIZACION: sincronizar interfaz visual con nuevo estado
+        // llamar funcion que recalcula y muestra contadores actualizados
+        actualizarInterfazSorteos(); // refrescar visualizacion de estado en DOM
+    } // fin de verificacion de no duplicados
 } // fin de la funcion registrarAmigoSorteado
 
 /**
- * funcion que inicia una nueva ronda de sorteos
- * limpia el registro de sorteados y reinicia contadores
+ * funcion que inicia una nueva ronda de sorteos desde cero
+ * resetea el sistema de control manteniendo la lista original de amigos
+ * proporciona retroalimentacion visual al usuario sobre el cambio de estado
+ * es llamada cuando usuario confirma continuar despues de completar ronda
  */
-function iniciarNuevaRonda() { // funcion para comenzar nueva ronda
-    rondaActual++; // incrementar contador de ronda
-    amigosYaSorteados = []; // limpiar array de sorteados
-    actualizarInterfazSorteos(); // actualizar interfaz
-    // mostrar notificacion informativa sobre la nueva ronda
-    mostrarNotificacion(`🔄 ¡Nueva ronda ${rondaActual} iniciada! Todos los amigos están disponibles nuevamente.`, 'success');
+function iniciarNuevaRonda() { // declaracion de funcion para gestion de nuevas rondas
+    // INCREMENTO: aumentar contador de ronda para tracking y visualizacion
+    // operador ++ incrementa variable numerica en 1 unidad
+    rondaActual++; // incrementar numero de ronda actual
+    
+    // RESETEO: limpiar completamente array de amigos sorteados
+    // asignar array vacio para comenzar con todos los amigos disponibles
+    amigosYaSorteados = []; // reinicializar array de control a estado vacio
+    
+    // SINCRONIZACION: actualizar interfaz visual para reflejar nuevo estado
+    // mostrar ronda actualizada y resetear contadores de progreso
+    actualizarInterfazSorteos(); // refrescar elementos visuales del DOM
+    
+    // FEEDBACK: informar al usuario sobre el cambio exitoso de ronda
+    // usar template literal para mensaje dinamico con numero de ronda
+    mostrarNotificacion(`🔄 ¡Nueva ronda ${rondaActual} iniciada! Todos los amigos están disponibles nuevamente.`, 'success'); // notificacion verde informativa
 } // fin de la funcion iniciarNuevaRonda
 
 /**
- * funcion que actualiza la interfaz para mostrar el estado de los sorteos
- * muestra informacion sobre ronda actual y amigos pendientes
+ * funcion que actualiza la interfaz visual para mostrar el estado actual de los sorteos
+ * maneja la creacion dinamica del elemento de estado si no existe
+ * muestra informacion contextual sobre ronda actual y progreso de sorteos
+ * utiliza conditional rendering para mostrar estado apropiado segun progreso
  */
-function actualizarInterfazSorteos() { // funcion para actualizar estado visual
-    const disponibles = obtenerAmigosDisponibles().length; // contar amigos disponibles
-    const sorteados = amigosYaSorteados.length; // contar amigos sorteados
-    const total = listaDeAmigos.length; // total de amigos
+function actualizarInterfazSorteos() { // declaracion de funcion para gestion de interfaz de estado
+    // CALCULOS: obtener metricas actuales del sistema de sorteos
+    // usar funciones auxiliares y propiedades de arrays para datos precisos
+    const disponibles = obtenerAmigosDisponibles().length; // cantidad de amigos no sorteados usando funcion filtro
+    const sorteados = amigosYaSorteados.length; // cantidad de amigos ya sorteados usando propiedad length
+    const total = listaDeAmigos.length; // cantidad total de amigos en la lista completa
     
-    // buscar o crear elemento para mostrar estado de sorteos
-    let estadoSorteos = document.getElementById('estado-sorteos'); // buscar elemento existente
-    if (!estadoSorteos) { // si no existe, crearlo
-        estadoSorteos = document.createElement('div'); // crear nuevo elemento
-        estadoSorteos.id = 'estado-sorteos'; // asignar ID unico
-        estadoSorteos.className = 'estado-sorteos'; // asignar clase CSS
+    // BUSQUEDA: intentar encontrar elemento existente en DOM antes de crear uno nuevo
+    // getElementById es metodo optimizado para busqueda por ID unico
+    let estadoSorteos = document.getElementById('estado-sorteos'); // buscar elemento con ID especifico
+    
+    // CREACION CONDICIONAL: crear elemento solo si no existe previamente
+    if (!estadoSorteos) { // verificar ausencia del elemento usando negacion
+        // crear nuevo elemento div dinamicamente en memoria
+        estadoSorteos = document.createElement('div'); // factory method para creacion de elementos
+        estadoSorteos.id = 'estado-sorteos'; // asignar identificador unico para futuras busquedas
+        estadoSorteos.className = 'estado-sorteos'; // asignar clase CSS para aplicar estilos
         
-        // insertar despues del contador de amigos
-        const contador = document.querySelector('.contador'); // buscar contador existente
-        if (contador) { // si existe el contador
-            contador.insertAdjacentElement('afterend', estadoSorteos); // insertar despues
-        } // fin de verificacion de contador
-    } // fin de creacion de elemento
+        // POSICIONAMIENTO: insertar elemento en ubicacion logica del DOM
+        // buscar elemento contador como punto de referencia para insercion
+        const contador = document.querySelector('.contador'); // buscar primer elemento con clase contador
+        if (contador) { // verificar que el elemento de referencia existe
+            // insertar nuevo elemento inmediatamente despues del contador
+            contador.insertAdjacentElement('afterend', estadoSorteos); // metodo para insercion relativa
+        } // fin de verificacion y posicionamiento
+    } // fin de creacion condicional de elemento
     
-    // actualizar contenido del elemento de estado
-    if (total === 0) { // si no hay amigos agregados
-        estadoSorteos.style.display = 'none'; // ocultar elemento
-    } else { // si hay amigos
-        estadoSorteos.style.display = 'block'; // mostrar elemento
+    // RENDERIZADO CONDICIONAL: mostrar u ocultar segun estado de la aplicacion
+    if (total === 0) { // si no hay amigos en la lista principal
+        // ocultar elemento completo cuando no hay datos que mostrar
+        estadoSorteos.style.display = 'none'; // aplicar estilo CSS para ocultar
+    } else { // si hay amigos para mostrar estado
+        // mostrar elemento y actualizar contenido dinamico
+        estadoSorteos.style.display = 'block'; // aplicar estilo CSS para mostrar
+        
+        // GENERACION DE HTML: crear estructura completa usando template literals
+        // utilizar conditional rendering con operador ternario para diferentes estados
         estadoSorteos.innerHTML = `
             <div class="ronda-info">
                 <span class="ronda-numero">Ronda ${rondaActual}</span>
@@ -1062,29 +1129,42 @@ function actualizarInterfazSorteos() { // funcion para actualizar estado visual
                     `<span class="completado">🎉 ¡Ronda completa!</span>`
                 }
             </div>
-        `; // usar template literal para estructura HTML completa
-    } // fin de verificacion de amigos
+        `; // template literal con interpolacion de variables y conditional rendering
+    } // fin de renderizado condicional
 } // fin de la funcion actualizarInterfazSorteos
 
 /**
- * funcion que maneja el final de una ronda completa
- * muestra opciones al usuario para continuar o finalizar
+ * funcion que maneja el final de una ronda completa de sorteos
+ * presenta opciones al usuario usando sistema de confirmacion moderno
+ * proporciona dos caminos: continuar con nueva ronda o finalizar sesion
+ * utiliza callbacks para manejar diferentes decisiones del usuario
  */
-function manejarFinDeRonda() { // funcion para manejar ronda completada
-    // mostrar confirmacion para nueva ronda usando sistema de confirmacion moderno
+function manejarFinDeRonda() { // declaracion de funcion para gestion de finalizacion de ronda
+    // CONFIRMACION INTERACTIVA: usar sistema de notificaciones con botones
+    // mostrarConfirmacion crea interfaz moderna en lugar de alert() nativo
+    // utiliza patron callback para manejar respuestas de usuario de forma asincrona
     mostrarConfirmacion(
+        // MENSAJE: template literal con informacion contextual sobre estado actual
+        // incluir numero de ronda y cantidad total para claridad al usuario
         `🎊 ¡Felicitaciones! Has completado la ronda ${rondaActual}. 
         Todos los ${listaDeAmigos.length} amigos han sido sorteados.
         
-        ¿Quieres iniciar una nueva ronda para sortear nuevamente?`,
-        () => { // callback si confirma nueva ronda
-            iniciarNuevaRonda(); // iniciar nueva ronda
-        },
-        () => { // callback si decide no continuar
-            // mostrar mensaje de finalizacion
-            mostrarNotificacion('🏁 ¡Sorteos completados! Puedes agregar más amigos o reiniciar cuando quieras.', 'success');
-        }
-    ); // fin de llamada a mostrarConfirmacion
+        ¿Quieres iniciar una nueva ronda para sortear nuevamente?`, // mensaje descriptivo con interpolacion
+        
+        // CALLBACK CONFIRMACION: funcion que se ejecuta si usuario acepta continuar
+        // arrow function para encapsular logica de continuacion
+        () => { // callback de confirmacion usando arrow function
+            iniciarNuevaRonda(); // llamar funcion que resetea sistema para nueva ronda
+        }, // fin de callback de confirmacion
+        
+        // CALLBACK CANCELACION: funcion que se ejecuta si usuario decide finalizar
+        // arrow function para encapsular logica de finalizacion
+        () => { // callback de cancelacion usando arrow function
+            // MENSAJE DE CIERRE: notificacion informativa sobre opciones disponibles
+            // dar contexto al usuario sobre que puede hacer despues
+            mostrarNotificacion('🏁 ¡Sorteos completados! Puedes agregar más amigos o reiniciar cuando quieras.', 'success'); // notificacion verde informativa
+        } // fin de callback de cancelacion
+    ); // fin de llamada a mostrarConfirmacion con todos los parametros
 } // fin de la funcion manejarFinDeRonda
 
 /**

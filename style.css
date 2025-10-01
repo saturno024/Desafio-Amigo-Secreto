@@ -2204,107 +2204,207 @@ button, /* todos los botones de la aplicacion */
 /* 🎯 INTERFAZ DE ESTADO DE SORTEOS - Sistema de rondas y progreso */
 /* ═══════════════════════════════════════════════════════════════════════════════ */
 
-.estado-sorteos { /* contenedor principal para información de sorteos */
-    background: linear-gradient(135deg, /* gradiente sutil */
-        rgba(99, 102, 241, 0.05) 0%, /* indigo muy claro */
-        rgba(168, 85, 247, 0.05) 100%); /* morado muy claro */
-    border: 1px solid rgba(99, 102, 241, 0.2); /* borde indigo sutil */
-    border-radius: 12px; /* bordes redondeados */
-    padding: 16px; /* espaciado interno */
-    margin: 16px 0; /* margen vertical */
-    font-size: 0.9rem; /* texto ligeramente menor */
-    transition: all 0.3s ease; /* transiciones suaves */
-} /* fin de contenedor estado-sorteos */
-
-.ronda-info { /* información de ronda actual */
-    display: flex; /* flexbox para layout horizontal */
-    justify-content: space-between; /* separar elementos */
-    align-items: center; /* centrar verticalmente */
-    margin-bottom: 8px; /* margen inferior */
-    padding-bottom: 8px; /* padding inferior */
-    border-bottom: 1px solid rgba(99, 102, 241, 0.1); /* línea divisoria sutil */
-} /* fin de ronda-info */
-
-.ronda-numero { /* número de ronda actual */
-    font-weight: 700; /* peso bold */
-    color: #4f46e5; /* color indigo vibrante */
-    font-size: 1rem; /* tamaño normal */
-    display: flex; /* flexbox para alineación */
-    align-items: center; /* centrar verticalmente */
-} /* fin de ronda-numero */
-
-.ronda-numero::before { /* icono antes del número de ronda */
-    content: '🎯'; /* emoji de diana */
-    margin-right: 6px; /* margen derecho */
-    font-size: 1.1rem; /* tamaño ligeramente mayor */
-} /* fin de pseudo-elemento before */
-
-.sorteos-estado { /* estado de sorteos completados */
-    font-weight: 600; /* peso semi-bold */
-    padding: 4px 8px; /* padding interno */
-    background: rgba(99, 102, 241, 0.1); /* fondo indigo claro */
-    border-radius: 8px; /* bordes redondeados pequeños */
-    color: #4338ca; /* color indigo oscuro */
-    font-size: 0.85rem; /* tamaño menor */
-} /* fin de sorteos-estado */
-
-.disponibles-info { /* información de amigos disponibles */
-    text-align: center; /* centrar contenido */
-    margin-top: 4px; /* margen superior pequeño */
-} /* fin de disponibles-info */
-
-.disponibles-count { /* contador de amigos disponibles */
-    font-weight: 600; /* peso semi-bold */
-    color: #059669; /* color verde */
-    background: rgba(16, 185, 129, 0.1); /* fondo verde claro */
-    padding: 6px 12px; /* padding interno */
-    border-radius: 20px; /* bordes muy redondeados */
-    display: inline-block; /* display inline-block */
-    font-size: 0.9rem; /* tamaño ligeramente menor */
-} /* fin de disponibles-count */
-
-.completado { /* indicador de ronda completada */
-    font-weight: 700; /* peso bold */
-    color: #dc2626; /* color rojo para llamar atención */
-    background: rgba(239, 68, 68, 0.1); /* fondo rojo claro */
-    padding: 8px 16px; /* padding generoso */
-    border-radius: 20px; /* bordes muy redondeados */
-    display: inline-block; /* display inline-block */
-    font-size: 1rem; /* tamaño normal */
-    animation: completadoPulse 2s ease-in-out infinite; /* animación de pulso */
-} /* fin de completado */
-
-/* animación de pulso para ronda completada */
-@keyframes completadoPulse { /* keyframe para efecto de pulso */
-    0%, 100% { /* estados inicial y final */
-        transform: scale(1); /* escala normal */
-        opacity: 1; /* opacidad completa */
-    } /* fin estados inicial y final */
-    50% { /* estado intermedio */
-        transform: scale(1.05); /* escala ligeramente mayor */
-        opacity: 0.8; /* opacidad reducida */
-    } /* fin estado intermedio */
-} /* fin de keyframe completadoPulse */
-
-/* efectos hover para estado de sorteos */
-.estado-sorteos:hover { /* efecto hover del contenedor */
-    border-color: rgba(99, 102, 241, 0.3); /* borde más visible */
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1); /* sombra sutil */
-} /* fin de hover estado-sorteos */
-
-/* responsive para dispositivos móviles */
-@media (max-width: 480px) { /* media query para móviles */
-    .ronda-info { /* información de ronda en móvil */
-        flex-direction: column; /* cambiar a layout vertical */
-        gap: 8px; /* espacio entre elementos */
-        text-align: center; /* centrar contenido */
-    } /* fin de ronda-info móvil */
+/* contenedor principal para visualizacion del estado actual de sorteos */
+/* proporciona informacion contextual sobre ronda y progreso de sorteos */
+/* utiliza diseño moderno con gradientes sutiles y esquinas redondeadas */
+.estado-sorteos { /* clase principal para widget de estado de sorteos */
+    /* FONDO: gradiente diagonal muy sutil para profundidad visual sin distraccion */
+    background: linear-gradient(135deg, /* gradiente de esquina superior izquierda a inferior derecha */
+        rgba(99, 102, 241, 0.05) 0%, /* indigo con 5% opacidad al inicio - muy sutil */
+        rgba(168, 85, 247, 0.05) 100%); /* morado con 5% opacidad al final - armonioso */
     
-    .estado-sorteos { /* contenedor en móvil */
-        padding: 12px; /* padding reducido */
-        margin: 12px 0; /* margen reducido */
-    } /* fin de estado-sorteos móvil */
-} /* fin de media query móvil */
+    /* BORDES: linea sutil para definicion sin ser intrusiva */
+    border: 1px solid rgba(99, 102, 241, 0.2); /* borde indigo con 20% opacidad para definicion suave */
+    border-radius: 12px; /* esquinas redondeadas para estilo moderno y suave */
+    
+    /* ESPACIADO: padding generoso para respiracion visual del contenido */
+    padding: 16px; /* espaciado interno uniforme de 16px en todos los lados */
+    margin: 16px 0; /* margen vertical para separacion de otros elementos */
+    
+    /* TIPOGRAFIA: tamaño ligeramente reducido para contenido secundario */
+    font-size: 0.9rem; /* 90% del tamaño base para indicar informacion complementaria */
+    
+    /* ANIMACIONES: transiciones suaves para cambios de estado */
+    transition: all 0.3s ease; /* transicion de 300ms para todas las propiedades */
+} /* fin de clase estado-sorteos */
+
+/* seccion superior del widget que contiene informacion de ronda y progreso */
+/* utiliza flexbox para layout horizontal con separacion automatica */
+/* incluye linea divisoria para separar visualmente de informacion inferior */
+.ronda-info { /* contenedor para numero de ronda y contador de progreso */
+    /* LAYOUT: flexbox para distribucion horizontal automatica */
+    display: flex; /* activar flexbox container para control de distribucion */
+    justify-content: space-between; /* separar elementos a extremos opuestos del contenedor */
+    align-items: center; /* centrar contenido verticalmente en el eje transversal */
+    
+    /* ESPACIADO: margenes y padding para separacion visual */
+    margin-bottom: 8px; /* margen inferior para separar de seccion siguiente */
+    padding-bottom: 8px; /* padding inferior para dar respiro antes del borde */
+    
+    /* SEPARADOR: linea divisoria muy sutil para organizar informacion */
+    border-bottom: 1px solid rgba(99, 102, 241, 0.1); /* linea indigo con 10% opacidad - apenas perceptible */
+} /* fin de clase ronda-info */
+
+/* elemento que muestra el numero de ronda actual con enfasis visual */
+/* utiliza color vibrante y peso de fuente alto para jerarquia visual */
+/* incluye emoji mediante pseudo-elemento para mayor impacto visual */
+.ronda-numero { /* clase para indicador de numero de ronda */
+    /* TIPOGRAFIA: peso alto para enfasis e importancia visual */
+    font-weight: 700; /* peso 700 (bold) para destacar informacion importante */
+    color: #4f46e5; /* indigo vibrante #4f46e5 para contrastar con fondo sutil */
+    font-size: 1rem; /* tamaño base 1rem para legibilidad sin sobredimensionar */
+    
+    /* LAYOUT: flexbox para alineacion precisa con pseudo-elemento */
+    display: flex; /* activar flexbox para control de alineacion de icono y texto */
+    align-items: center; /* centrar verticalmente icono y texto en eje transversal */
+} /* fin de clase ronda-numero */
+
+/* pseudo-elemento que agrega emoji de diana antes del numero de ronda */
+/* proporciona contexto visual inmediato sobre proposito del elemento */
+/* utiliza fuentes emoji para renderizado consistente multiplataforma */
+.ronda-numero::before { /* pseudo-elemento decorativo para icono de ronda */
+    /* CONTENIDO: emoji de diana para simbolizar objetivo/ronda */
+    content: '🎯'; /* unicode del emoji diana - simboliza precision y objetivo */
+    
+    /* ESPACIADO: margen para separar icono del texto numerico */
+    margin-right: 6px; /* 6px de separacion entre icono y numero para respiracion */
+    
+    /* TIPOGRAFIA: tamaño ligeramente mayor para impacto visual */
+    font-size: 1.1rem; /* 110% del tamaño base para que icono destaque sutilmente */
+} /* fin de pseudo-elemento before de ronda-numero */
+
+/* indicador de progreso que muestra fraccion de sorteos completados */
+/* utiliza estilo de badge con fondo coloreado para destacar informacion */
+/* posicionado en lado derecho del contenedor de ronda para balance visual */
+.sorteos-estado { /* clase para badge de estado de progreso de sorteos */
+    /* TIPOGRAFIA: peso semi-bold para legibilidad sin sobrecargar */
+    font-weight: 600; /* peso 600 (semi-bold) para equilibrio entre legible y destacado */
+    font-size: 0.85rem; /* 85% del tamaño base - informacion secundaria pero importante */
+    color: #4338ca; /* indigo oscuro #4338ca para alto contraste con fondo claro */
+    
+    /* ESPACIADO: padding compacto para badge pequeño pero legible */
+    padding: 4px 8px; /* padding asimetrico: 4px vertical, 8px horizontal para forma capsular */
+    
+    /* FONDO: color tematico sutil para agrupacion visual */
+    background: rgba(99, 102, 241, 0.1); /* indigo con 10% opacidad - visible pero no dominante */
+    
+    /* FORMA: bordes redondeados para estilo moderno tipo badge */
+    border-radius: 8px; /* esquinas redondeadas para estilo pill/badge moderno */
+} /* fin de clase sorteos-estado */
+
+/* contenedor inferior que alberga informacion sobre amigos disponibles */
+/* centrado para balance visual y enfoque en informacion clave */
+/* utiliza margen minimo para mantener compacidad del widget */
+.disponibles-info { /* contenedor para indicadores de disponibilidad */
+    /* ALINEACION: centrado horizontal para balance visual */
+    text-align: center; /* centrar contenido horizontalmente en el contenedor */
+    
+    /* ESPACIADO: margen minimo para separacion sin fragmentar widget */
+    margin-top: 4px; /* 4px de separacion superior - suficiente sin romper cohesion */
+} /* fin de clase disponibles-info */
+
+/* badge verde que muestra cantidad de amigos aun disponibles para sorteo */
+/* utiliza semantica de color verde para indicar disponibilidad positiva */
+/* diseño capsular moderno que complementa el badge de estado superior */
+.disponibles-count { /* clase para indicador de amigos disponibles */
+    /* TIPOGRAFIA: balance entre legibilidad y jerarquia visual */
+    font-weight: 600; /* peso semi-bold para destacar sin competir con ronda-numero */
+    font-size: 0.9rem; /* 90% del tamaño base para informacion complementaria */
+    color: #059669; /* verde oscuro #059669 para alto contraste y semantica positiva */
+    
+    /* ESPACIADO: padding para forma capsular comoda y legible */
+    padding: 6px 12px; /* padding asimetrico: 6px vertical, 12px horizontal para capsula */
+    
+    /* FONDO: verde muy sutil para agrupacion tematica sin saturar */
+    background: rgba(16, 185, 129, 0.1); /* verde esmeralda con 10% opacidad - sutil pero tematico */
+    
+    /* FORMA: bordes muy redondeados para estilo capsular moderno */
+    border-radius: 20px; /* radio alto para forma de pill/capsula caracteristica */
+    
+    /* DISPLAY: inline-block para control de dimensiones manteniendo flujo */
+    display: inline-block; /* permite padding y dimensiones en elemento inline */
+} /* fin de clase disponibles-count */
+
+/* indicador especial que aparece cuando todos los amigos han sido sorteados */
+/* utiliza color rojo para llamar atencion y animacion para enfasis */
+/* estilo mas prominente que disponibles-count para destacar estado especial */
+.completado { /* clase para indicador de ronda completada */
+    /* TIPOGRAFIA: peso maximo y tamaño normal para maxima atencion */
+    font-weight: 700; /* peso 700 (bold) para enfasis maximo en estado importante */
+    font-size: 1rem; /* tamaño base completo por importancia del estado */
+    color: #dc2626; /* rojo vibrante #dc2626 para llamar atencion inmediata */
+    
+    /* ESPACIADO: padding generoso por importancia del estado */
+    padding: 8px 16px; /* padding mayor que disponibles-count por importancia del mensaje */
+    
+    /* FONDO: rojo muy sutil para tematica de alerta sin saturacion */
+    background: rgba(239, 68, 68, 0.1); /* rojo con 10% opacidad - alerta sutil pero perceptible */
+    
+    /* FORMA: bordes muy redondeados consistentes con otros badges */
+    border-radius: 20px; /* radio alto manteniendo consistencia con disponibles-count */
+    
+    /* DISPLAY: inline-block para control dimensional */
+    display: inline-block; /* permite dimensiones personalizadas en flujo inline */
+    
+    /* ANIMACION: pulso infinito para llamar atencion sobre estado especial */
+    animation: completadoPulse 2s ease-in-out infinite; /* animacion suave de 2 segundos en loop */
+} /* fin de clase completado */
+
+/* definicion de keyframe para animacion de pulso del indicador completado */
+/* crea efecto visual hipnotico que atrae atencion hacia estado especial */
+/* utiliza transformaciones de escala y cambios de opacidad para suavidad */
+@keyframes completadoPulse { /* keyframe personalizado para efecto de pulsacion */
+    /* ESTADO INICIAL Y FINAL: configuracion base que se repite */
+    0%, 100% { /* porcentajes 0% (inicio) y 100% (final) con mismas propiedades */
+        transform: scale(1); /* escala normal 1:1 - tamaño original sin modificacion */
+        opacity: 1; /* opacidad completa - elemento completamente visible */
+    } /* fin de estados inicial y final de la animacion */
+    
+    /* ESTADO INTERMEDIO: punto de maxima transformacion */
+    50% { /* porcentaje 50% (punto medio) con maxima alteracion */
+        transform: scale(1.05); /* escala 105% - crecimiento sutil del 5% */
+        opacity: 0.8; /* opacidad reducida al 80% - ligera transparencia */
+    } /* fin de estado intermedio de maxima transformacion */
+} /* fin de definicion de keyframe completadoPulse */
+
+/* efectos interactivos que se activan al pasar cursor sobre widget */
+/* proporciona feedback visual indicando que elemento es interactivo */
+/* utiliza transiciones suaves para experiencia pulida y profesional */
+.estado-sorteos:hover { /* pseudo-clase que se activa con cursor sobre elemento */
+    /* BORDE: intensificar color para indicar interactividad */
+    border-color: rgba(99, 102, 241, 0.3); /* aumentar opacidad de borde indigo de 20% a 30% */
+    
+    /* SOMBRA: agregar profundidad sutil para efecto de elevacion */
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1); /* sombra difusa indigo: 4px offset-y, 12px blur */
+} /* fin de efectos hover para estado-sorteos */
+
+/* adaptaciones para dispositivos moviles con pantallas pequeñas */
+/* optimiza layout y espaciado para experiencia tactil comoda */
+/* punto de quiebre en 480px cubre la mayoria de smartphones */
+@media (max-width: 480px) { /* media query para dispositivos con ancho maximo 480px */
+    /* ADAPTACION DE RONDA-INFO: cambio de layout horizontal a vertical */
+    /* evita congestion en pantallas estrechas y mejora legibilidad tactil */
+    .ronda-info { /* contenedor de informacion de ronda en dispositivos moviles */
+        /* LAYOUT: cambiar de flexbox horizontal a vertical */
+        flex-direction: column; /* apilar elementos verticalmente en lugar de horizontalmente */
+        
+        /* ESPACIADO: gap para separacion entre elementos apilados */
+        gap: 8px; /* 8px de separacion vertical entre numero de ronda y contador */
+        
+        /* ALINEACION: centrar todo el contenido para simetria movil */
+        text-align: center; /* centrar texto de ambos elementos para balance visual */
+    } /* fin de adaptacion ronda-info para movil */
+    
+    /* ADAPTACION DEL CONTENEDOR: reducir espaciado para aprovechar espacio */
+    /* optimizar para dedos y pantallas tactiles pequeñas */
+    .estado-sorteos { /* contenedor principal en dispositivos moviles */
+        /* ESPACIADO INTERNO: reducir padding para conservar espacio de pantalla */
+        padding: 12px; /* reducir de 16px a 12px para mayor eficiencia espacial */
+        
+        /* ESPACIADO EXTERNO: reducir margenes para mayor densidad de contenido */
+        margin: 12px 0; /* reducir de 16px a 12px vertical para compacidad */
+    } /* fin de adaptacion estado-sorteos para movil */
+} /* fin de media query para dispositivos moviles */
 
 /* ═══════════════════════════════════════════════════════════════════════════════ */
 /* �🎯 FIN DEL ARCHIVO CSS - Todos los estilos han sido definidos y comentados */

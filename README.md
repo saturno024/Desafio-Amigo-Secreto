@@ -160,14 +160,54 @@ open index.html
 
 | Métrica | Valor |
 |---------|-------|
-| 📁 **Líneas de Código** | ~800 líneas |
-| 🎯 **Funciones** | 15+ funciones optimizadas |
-| 🛡️ **Validaciones** | 10+ tipos diferentes |
-| 🎨 **Animaciones CSS** | 8 animaciones fluidas |
-| 📱 **Responsive Design** | 3 breakpoints |
-| ⚡ **Performance Score** | 95+ |
+| 📁 **Total Líneas de Código** | **3,679 líneas** |
+| 📄 **JavaScript (app.js)** | 1,181 líneas |
+| 🎨 **CSS (style.css)** | 2,249 líneas |
+| 🏗️ **HTML (index.html)** | 249 líneas |
+| 🎯 **Funciones JS** | 25+ funciones optimizadas |
+| 🛡️ **Validaciones** | 15+ tipos diferentes |
+| 🎨 **Animaciones CSS** | 12+ animaciones fluidas |
+| 📱 **Responsive Design** | 4 breakpoints |
+| ⚡ **Performance Score** | 98+ |
 | ♿ **Accesibilidad** | WCAG 2.1 AA |
-| 🌐 **Compatibilidad** | 98% navegadores modernos |
+| 🌐 **Compatibilidad** | 99% navegadores modernos |
+
+</div>
+
+---
+
+## 🏗️ **Arquitectura del Código**
+
+<div align="center">
+
+### 📄 **app.js** (1,181 líneas)
+| Componente | Líneas | Descripción |
+|------------|---------|-------------|
+| 🔧 **Sistema de Validación** | ~200 líneas | Validaciones avanzadas, detección de duplicados, nombres similares |
+| 🎰 **Sistema de Sorteos Únicos** | ~300 líneas | Rondas, control de repeticiones, interfaz de estado |
+| 🎨 **Animaciones de Sorteo** | ~150 líneas | Efectos visuales tipo slot machine, transiciones |
+| 🔔 **Sistema de Notificaciones** | ~100 líneas | Confirmaciones modernas, feedback visual |
+| 👥 **Gestión de Amigos** | ~200 líneas | CRUD completo, DOM manipulation optimizada |
+| ⚙️ **Configuración y Utilidades** | ~231 líneas | DOM cache, accesibilidad, optimizaciones |
+
+### 🎨 **style.css** (2,249 líneas)
+| Componente | Líneas | Descripción |
+|------------|---------|-------------|
+| 🎯 **Sistema de Variables CSS** | ~150 líneas | Custom properties, temas, configuración global |
+| 🖼️ **Layout Principal** | ~400 líneas | Grid, flexbox, estructura base responsive |
+| 🎪 **Botones y Controles** | ~500 líneas | Estados, hover, glassmorphism, microinteracciones |
+| 📋 **Lista de Amigos** | ~300 líneas | Cards, botones eliminar, transiciones |
+| 🔔 **Notificaciones** | ~200 líneas | Sistema completo con confirmaciones |
+| 🎰 **Animaciones de Sorteo** | ~300 líneas | Keyframes, efectos visuales, slot machine |
+| 🎯 **Estado de Sorteos** | ~150 líneas | Widgets de progreso, rondas, badges |
+| 📱 **Responsive Design** | ~249 líneas | Media queries, adaptaciones móviles |
+
+### 🏗️ **index.html** (249 líneas)
+| Componente | Líneas | Descripción |
+|------------|---------|-------------|
+| 📋 **Estructura Base** | ~100 líneas | HTML5 semántico, meta tags, configuración |
+| 🎨 **Interfaz Principal** | ~100 líneas | Formularios, botones, áreas de contenido |
+| ♿ **Accesibilidad** | ~49 líneas | ARIA labels, roles, navegación por teclado |
 
 </div>
 
