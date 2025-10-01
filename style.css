@@ -2201,5 +2201,111 @@ button, /* todos los botones de la aplicacion */
 } /* fin de keyframe sorteoEnd */
 
 /* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 🎯 INTERFAZ DE ESTADO DE SORTEOS - Sistema de rondas y progreso */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+.estado-sorteos { /* contenedor principal para información de sorteos */
+    background: linear-gradient(135deg, /* gradiente sutil */
+        rgba(99, 102, 241, 0.05) 0%, /* indigo muy claro */
+        rgba(168, 85, 247, 0.05) 100%); /* morado muy claro */
+    border: 1px solid rgba(99, 102, 241, 0.2); /* borde indigo sutil */
+    border-radius: 12px; /* bordes redondeados */
+    padding: 16px; /* espaciado interno */
+    margin: 16px 0; /* margen vertical */
+    font-size: 0.9rem; /* texto ligeramente menor */
+    transition: all 0.3s ease; /* transiciones suaves */
+} /* fin de contenedor estado-sorteos */
+
+.ronda-info { /* información de ronda actual */
+    display: flex; /* flexbox para layout horizontal */
+    justify-content: space-between; /* separar elementos */
+    align-items: center; /* centrar verticalmente */
+    margin-bottom: 8px; /* margen inferior */
+    padding-bottom: 8px; /* padding inferior */
+    border-bottom: 1px solid rgba(99, 102, 241, 0.1); /* línea divisoria sutil */
+} /* fin de ronda-info */
+
+.ronda-numero { /* número de ronda actual */
+    font-weight: 700; /* peso bold */
+    color: #4f46e5; /* color indigo vibrante */
+    font-size: 1rem; /* tamaño normal */
+    display: flex; /* flexbox para alineación */
+    align-items: center; /* centrar verticalmente */
+} /* fin de ronda-numero */
+
+.ronda-numero::before { /* icono antes del número de ronda */
+    content: '🎯'; /* emoji de diana */
+    margin-right: 6px; /* margen derecho */
+    font-size: 1.1rem; /* tamaño ligeramente mayor */
+} /* fin de pseudo-elemento before */
+
+.sorteos-estado { /* estado de sorteos completados */
+    font-weight: 600; /* peso semi-bold */
+    padding: 4px 8px; /* padding interno */
+    background: rgba(99, 102, 241, 0.1); /* fondo indigo claro */
+    border-radius: 8px; /* bordes redondeados pequeños */
+    color: #4338ca; /* color indigo oscuro */
+    font-size: 0.85rem; /* tamaño menor */
+} /* fin de sorteos-estado */
+
+.disponibles-info { /* información de amigos disponibles */
+    text-align: center; /* centrar contenido */
+    margin-top: 4px; /* margen superior pequeño */
+} /* fin de disponibles-info */
+
+.disponibles-count { /* contador de amigos disponibles */
+    font-weight: 600; /* peso semi-bold */
+    color: #059669; /* color verde */
+    background: rgba(16, 185, 129, 0.1); /* fondo verde claro */
+    padding: 6px 12px; /* padding interno */
+    border-radius: 20px; /* bordes muy redondeados */
+    display: inline-block; /* display inline-block */
+    font-size: 0.9rem; /* tamaño ligeramente menor */
+} /* fin de disponibles-count */
+
+.completado { /* indicador de ronda completada */
+    font-weight: 700; /* peso bold */
+    color: #dc2626; /* color rojo para llamar atención */
+    background: rgba(239, 68, 68, 0.1); /* fondo rojo claro */
+    padding: 8px 16px; /* padding generoso */
+    border-radius: 20px; /* bordes muy redondeados */
+    display: inline-block; /* display inline-block */
+    font-size: 1rem; /* tamaño normal */
+    animation: completadoPulse 2s ease-in-out infinite; /* animación de pulso */
+} /* fin de completado */
+
+/* animación de pulso para ronda completada */
+@keyframes completadoPulse { /* keyframe para efecto de pulso */
+    0%, 100% { /* estados inicial y final */
+        transform: scale(1); /* escala normal */
+        opacity: 1; /* opacidad completa */
+    } /* fin estados inicial y final */
+    50% { /* estado intermedio */
+        transform: scale(1.05); /* escala ligeramente mayor */
+        opacity: 0.8; /* opacidad reducida */
+    } /* fin estado intermedio */
+} /* fin de keyframe completadoPulse */
+
+/* efectos hover para estado de sorteos */
+.estado-sorteos:hover { /* efecto hover del contenedor */
+    border-color: rgba(99, 102, 241, 0.3); /* borde más visible */
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1); /* sombra sutil */
+} /* fin de hover estado-sorteos */
+
+/* responsive para dispositivos móviles */
+@media (max-width: 480px) { /* media query para móviles */
+    .ronda-info { /* información de ronda en móvil */
+        flex-direction: column; /* cambiar a layout vertical */
+        gap: 8px; /* espacio entre elementos */
+        text-align: center; /* centrar contenido */
+    } /* fin de ronda-info móvil */
+    
+    .estado-sorteos { /* contenedor en móvil */
+        padding: 12px; /* padding reducido */
+        margin: 12px 0; /* margen reducido */
+    } /* fin de estado-sorteos móvil */
+} /* fin de media query móvil */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
 /* �🎯 FIN DEL ARCHIVO CSS - Todos los estilos han sido definidos y comentados */
 /* ═══════════════════════════════════════════════════════════════════════════════ */

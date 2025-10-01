@@ -116,6 +116,8 @@ const AmigoSecreto = {
 // Array global para mantener compatibilidad con código existente
 // esta variable mantiene el estado de todos los amigos agregados durante la sesion
 let listaDeAmigos = []; // declaracion de array vacio que sera poblado dinamicamente
+let amigosYaSorteados = []; // array para llevar registro de amigos que ya fueron sorteados
+let rondaActual = 1; // contador de ronda actual de sorteos (inicia en 1)
 
 // cache de expresiones regulares para mejorar performance
 // evita recompilar la regex en cada validacion, optimizando el rendimiento
@@ -691,6 +693,7 @@ function agregarAmigo() {
     
     mostrarNotificacion(`🎉 ¡${validacion.nombre} agregado exitosamente!`, 'success'); // feedback positivo con template literal
     mostrarAmigos(); // actualizar la lista visual en pantalla llamando funcion de renderizado
+    actualizarInterfazSorteos(); // actualizar estado de sorteos tras agregar amigo
     limpiarCampos(); // limpiar input para siguiente entrada y mantener focus
 } // fin de la funcion agregarAmigo
 
@@ -822,6 +825,13 @@ function eliminarAmigo(indice) {
     // re-renderizar la lista completa para reflejar el cambio
     // esto actualiza tanto la lista como el contador de participantes
     mostrarAmigos(); // llamar función que redibuja toda la lista desde el array actualizado
+    
+    // PASO 6: ACTUALIZAR SISTEMA DE SORTEOS
+    // verificar si el amigo eliminado estaba ya sorteado y actualizar estado
+    if (amigosYaSorteados.includes(nombreEliminado)) { // si estaba sorteado
+        amigosYaSorteados = amigosYaSorteados.filter(amigo => amigo !== nombreEliminado); // remover de sorteados
+    } // fin de verificacion de amigo sorteado
+    actualizarInterfazSorteos(); // actualizar estado visual de sorteos
 } // fin de la función eliminarAmigo
 
 /**
@@ -830,12 +840,23 @@ function eliminarAmigo(indice) {
  * muestra el resultado tanto en notificacion como en area dedicada
  */
 function sortearAmigo() { // declaracion de funcion sin parametros para ejecutar sorteo
-    // validacion: verificar que hay al menos 2 amigos para poder sortear
+    // validacion: verificar que hay al menos 2 amigos en total para poder sortear
     if(listaDeAmigos.length < 2){ // verificar si el array tiene menos de 2 elementos
         mostrarNotificacion('❌ Debe haber al menos dos amigos para sortear', 'error'); // mostrar mensaje de error
         DOM_CACHE.get('resultado').textContent = ""; // usar cache para limpiar resultado anterior
         return; // salir de la funcion si no hay suficientes participantes
     } // fin de validacion de cantidad minima
+    
+    // validacion: verificar que hay amigos disponibles para sortear (no sorteados)
+    const amigosDisponibles = obtenerAmigosDisponibles(); // obtener lista filtrada
+    if(amigosDisponibles.length === 0){ // si no hay amigos disponibles
+        // esto significa que todos fueron sorteados en la ronda actual
+        mostrarNotificacion('🎉 ¡Todos los amigos ya fueron sorteados! Completa la ronda actual.', 'warning'); // mensaje informativo
+        setTimeout(() => { // delay para mostrar mensaje antes de opciones
+            manejarFinDeRonda(); // mostrar opciones de nueva ronda
+        }, 1500); // delay de 1.5 segundos
+        return; // salir de la funcion
+    } // fin de validacion de disponibilidad
 
     // iniciar animacion de sorteo antes de mostrar resultado
     iniciarAnimacionSorteo(); // llamar funcion que maneja toda la animacion
@@ -899,11 +920,26 @@ function iniciarAnimacionSorteo() { // funcion para animacion de sorteo emociona
 /**
  * funcion que finaliza la animacion y muestra el resultado final
  * aplica efectos visuales especiales para la revelacion del ganador
+ * utiliza el sistema de sorteos unicos para evitar repeticiones
  * @param {HTMLElement} contenedor - elemento que contiene la animacion
  */
 function finalizarAnimacionSorteo(contenedor) { // funcion para finalizar animacion y mostrar ganador
-    // seleccionar el ganador real usando algoritmo aleatorio
-    const amigoGanador = listaDeAmigos[Math.floor(Math.random() * listaDeAmigos.length)]; // seleccion final aleatoria
+    // obtener lista de amigos disponibles (no sorteados previamente)
+    const amigosDisponibles = obtenerAmigosDisponibles(); // filtrar amigos no sorteados
+    
+    // verificar si hay amigos disponibles para sortear
+    if (amigosDisponibles.length === 0) { // si no hay amigos disponibles
+        // esto no deberia suceder por validacion previa, pero por seguridad
+        console.error('Error: No hay amigos disponibles para sortear'); // log de error
+        mostrarNotificacion('❌ Error interno: No hay amigos disponibles', 'error'); // notificacion de error
+        return; // salir de la funcion
+    } // fin de verificacion de disponibilidad
+    
+    // seleccionar ganador de la lista de disponibles usando algoritmo aleatorio
+    const amigoGanador = amigosDisponibles[Math.floor(Math.random() * amigosDisponibles.length)]; // seleccion aleatoria de disponibles
+    
+    // registrar el amigo como sorteado en el sistema
+    registrarAmigoSorteado(amigoGanador); // marcar como sorteado y actualizar interfaz
     
     // agregar clase CSS para animacion de finalizacion
     contenedor.classList.add('sorteo-finalizando'); // activar estilos de finalizacion
@@ -928,11 +964,128 @@ function finalizarAnimacionSorteo(contenedor) { // funcion para finalizar animac
             textoAdicional.style.color = '#6b7280'; // color gris
             contenedor.appendChild(textoAdicional); // agregar al contenedor
             
+            // verificar si todos los amigos han sido sorteados
+            if (todosLoAmigosHanSidoSorteados()) { // si se completo la ronda
+                setTimeout(() => { // delay adicional para que se vea el resultado
+                    manejarFinDeRonda(); // mostrar opciones de nueva ronda
+                }, 2000); // delay de 2 segundos para disfrutar el resultado
+            } // fin de verificacion de ronda completa
+            
             // OPTIMIZACIÓN: Anuncio para lectores de pantalla
             SCREEN_READER.announce(`Sorteo completado. El amigo secreto es: ${amigoGanador}`); // accesibilidad
         }, 1000); // delay de 1 segundo para la notificacion
     }, 300); // delay de 300ms para sincronizar con CSS
 } // fin de la funcion finalizarAnimacionSorteo
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 🎯 SISTEMA DE SORTEOS ÚNICOS - Evita repeticiones y maneja ciclos completos */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * funcion que obtiene la lista de amigos disponibles para sortear
+ * excluye a aquellos que ya fueron sorteados en la ronda actual
+ * @returns {Array} array de nombres disponibles para sortear
+ */
+function obtenerAmigosDisponibles() { // funcion para filtrar amigos no sorteados
+    return listaDeAmigos.filter(amigo => !amigosYaSorteados.includes(amigo)); // filtrar usando includes()
+} // fin de la funcion obtenerAmigosDisponibles
+
+/**
+ * funcion que verifica si todos los amigos han sido sorteados
+ * compara la cantidad de sorteados con el total de amigos
+ * @returns {boolean} true si todos fueron sorteados, false en caso contrario
+ */
+function todosLoAmigosHanSidoSorteados() { // funcion para verificar completitud del ciclo
+    return amigosYaSorteados.length === listaDeAmigos.length; // comparar longitudes de arrays
+} // fin de la funcion todosLoAmigosHanSidoSorteados
+
+/**
+ * funcion que registra un amigo como sorteado
+ * actualiza el array de control y la interfaz de usuario
+ * @param {string} nombreAmigo - nombre del amigo que fue sorteado
+ */
+function registrarAmigoSorteado(nombreAmigo) { // funcion para marcar amigo como sorteado
+    if (!amigosYaSorteados.includes(nombreAmigo)) { // verificar que no este ya registrado
+        amigosYaSorteados.push(nombreAmigo); // agregar al array de sorteados
+        actualizarInterfazSorteos(); // actualizar visualizacion de estado
+    } // fin de verificacion de duplicados
+} // fin de la funcion registrarAmigoSorteado
+
+/**
+ * funcion que inicia una nueva ronda de sorteos
+ * limpia el registro de sorteados y reinicia contadores
+ */
+function iniciarNuevaRonda() { // funcion para comenzar nueva ronda
+    rondaActual++; // incrementar contador de ronda
+    amigosYaSorteados = []; // limpiar array de sorteados
+    actualizarInterfazSorteos(); // actualizar interfaz
+    // mostrar notificacion informativa sobre la nueva ronda
+    mostrarNotificacion(`🔄 ¡Nueva ronda ${rondaActual} iniciada! Todos los amigos están disponibles nuevamente.`, 'success');
+} // fin de la funcion iniciarNuevaRonda
+
+/**
+ * funcion que actualiza la interfaz para mostrar el estado de los sorteos
+ * muestra informacion sobre ronda actual y amigos pendientes
+ */
+function actualizarInterfazSorteos() { // funcion para actualizar estado visual
+    const disponibles = obtenerAmigosDisponibles().length; // contar amigos disponibles
+    const sorteados = amigosYaSorteados.length; // contar amigos sorteados
+    const total = listaDeAmigos.length; // total de amigos
+    
+    // buscar o crear elemento para mostrar estado de sorteos
+    let estadoSorteos = document.getElementById('estado-sorteos'); // buscar elemento existente
+    if (!estadoSorteos) { // si no existe, crearlo
+        estadoSorteos = document.createElement('div'); // crear nuevo elemento
+        estadoSorteos.id = 'estado-sorteos'; // asignar ID unico
+        estadoSorteos.className = 'estado-sorteos'; // asignar clase CSS
+        
+        // insertar despues del contador de amigos
+        const contador = document.querySelector('.contador'); // buscar contador existente
+        if (contador) { // si existe el contador
+            contador.insertAdjacentElement('afterend', estadoSorteos); // insertar despues
+        } // fin de verificacion de contador
+    } // fin de creacion de elemento
+    
+    // actualizar contenido del elemento de estado
+    if (total === 0) { // si no hay amigos agregados
+        estadoSorteos.style.display = 'none'; // ocultar elemento
+    } else { // si hay amigos
+        estadoSorteos.style.display = 'block'; // mostrar elemento
+        estadoSorteos.innerHTML = `
+            <div class="ronda-info">
+                <span class="ronda-numero">Ronda ${rondaActual}</span>
+                <span class="sorteos-estado">${sorteados}/${total} sorteados</span>
+            </div>
+            <div class="disponibles-info">
+                ${disponibles > 0 ? 
+                    `<span class="disponibles-count">👥 ${disponibles} disponibles</span>` : 
+                    `<span class="completado">🎉 ¡Ronda completa!</span>`
+                }
+            </div>
+        `; // usar template literal para estructura HTML completa
+    } // fin de verificacion de amigos
+} // fin de la funcion actualizarInterfazSorteos
+
+/**
+ * funcion que maneja el final de una ronda completa
+ * muestra opciones al usuario para continuar o finalizar
+ */
+function manejarFinDeRonda() { // funcion para manejar ronda completada
+    // mostrar confirmacion para nueva ronda usando sistema de confirmacion moderno
+    mostrarConfirmacion(
+        `🎊 ¡Felicitaciones! Has completado la ronda ${rondaActual}. 
+        Todos los ${listaDeAmigos.length} amigos han sido sorteados.
+        
+        ¿Quieres iniciar una nueva ronda para sortear nuevamente?`,
+        () => { // callback si confirma nueva ronda
+            iniciarNuevaRonda(); // iniciar nueva ronda
+        },
+        () => { // callback si decide no continuar
+            // mostrar mensaje de finalizacion
+            mostrarNotificacion('🏁 ¡Sorteos completados! Puedes agregar más amigos o reiniciar cuando quieras.', 'success');
+        }
+    ); // fin de llamada a mostrarConfirmacion
+} // fin de la funcion manejarFinDeRonda
 
 /**
  * funcion para reiniciar completamente la aplicacion
@@ -961,14 +1114,26 @@ function reiniciar() { // declaracion de funcion sin parametros para resetear ap
 /**
  * funcion auxiliar que contiene la logica real de reinicio
  * separada para reutilizacion desde confirmacion y llamada directa
+ * limpia todos los datos incluyendo el sistema de sorteos unicos
  */
 function ejecutarReinicio() { // funcion que ejecuta el reinicio real de la aplicacion
     // limpiar completamente el array de amigos
     listaDeAmigos = []; // asignar array vacio para resetear datos
+    // limpiar el sistema de sorteos unicos
+    amigosYaSorteados = []; // limpiar array de sorteados
+    rondaActual = 1; // resetear contador de ronda a 1
+    
     // limpiar la lista visual del DOM
     DOM_CACHE.get('listaAmigos').innerHTML = ""; // usar cache para limpiar contenido HTML
     // limpiar el area de resultados
     DOM_CACHE.get('resultado').textContent = ""; // usar cache para limpiar texto de resultados
+    
+    // limpiar elemento de estado de sorteos si existe
+    const estadoSorteos = document.getElementById('estado-sorteos'); // buscar elemento de estado
+    if (estadoSorteos) { // si existe
+        estadoSorteos.remove(); // eliminarlo del DOM
+    } // fin de limpieza de estado
+    
     // actualizar contador a 0 y mostrar estado vacio
     actualizarContador(); // llamar funcion que recalcula estado visual de la aplicacion
     // mostrar notificacion de confirmacion de reinicio exitoso (verde)
