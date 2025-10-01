@@ -334,16 +334,16 @@ function mostrarConfirmacion(mensaje, onConfirm, onCancel = null) { // funcion p
     const notificacion = document.createElement('div'); // crear contenedor principal
     notificacion.className = 'notification warning'; // establecer clases para estilo de advertencia
     
-    // crear estructura interna con mensaje y botones
+    // crear estructura interna con mensaje y botones descriptivos
     notificacion.innerHTML = `
         <div class="notification-content">
             <span class="notification-text">${mensaje}</span>
             <div class="notification-buttons">
-                <button class="notification-btn cancel">Cancelar</button>
-                <button class="notification-btn confirm">Confirmar</button>
+                <button class="notification-btn cancel">Finalizar</button>
+                <button class="notification-btn confirm">Nueva Ronda</button>
             </div>
         </div>
-    `; // usar template literal para estructura HTML completa
+    `; // usar template literal con botones claros y descriptivos
     
     // obtener referencias a los botones para agregar event listeners
     const btnConfirmar = notificacion.querySelector('.notification-btn.confirm'); // boton de confirmacion
@@ -1157,13 +1157,22 @@ function manejarFinDeRonda() { // declaracion de funcion para gestion de finaliz
             iniciarNuevaRonda(); // llamar funcion que resetea sistema para nueva ronda
         }, // fin de callback de confirmacion
         
-        // CALLBACK CANCELACION: funcion que se ejecuta si usuario decide finalizar
-        // arrow function para encapsular logica de finalizacion
-        () => { // callback de cancelacion usando arrow function
-            // MENSAJE DE CIERRE: notificacion informativa sobre opciones disponibles
-            // dar contexto al usuario sobre que puede hacer despues
-            mostrarNotificacion('🏁 ¡Sorteos completados! Puedes agregar más amigos o reiniciar cuando quieras.', 'success'); // notificacion verde informativa
-        } // fin de callback de cancelacion
+        // CALLBACK FINALIZACION: funcion que se ejecuta si usuario decide finalizar completamente
+        // arrow function que ejecuta confirmacion adicional para reinicio total
+        () => { // callback de finalizacion usando arrow function
+            // CONFIRMACION ADICIONAL: preguntar si realmente quiere reiniciar todo
+            // usar sistema de confirmacion anidado para doble verificacion
+            mostrarConfirmacion(
+                '🔄 ¿Estás seguro de que quieres finalizar y reiniciar todo el juego? Se perderá toda la lista de amigos agregados.',
+                () => { // callback si confirma reinicio total
+                    ejecutarReinicio(); // ejecutar reinicio completo del juego
+                },
+                () => { // callback si cancela el reinicio
+                    // MENSAJE INFORMATIVO: explicar opciones disponibles sin reiniciar
+                    mostrarNotificacion('🏁 Sorteos finalizados. La lista de amigos se mantiene intacta.', 'success');
+                }
+            ); // fin de confirmacion anidada
+        } // fin de callback de finalizacion
     ); // fin de llamada a mostrarConfirmacion con todos los parametros
 } // fin de la funcion manejarFinDeRonda
 
