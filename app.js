@@ -475,18 +475,23 @@ function actualizarContador() { // declaracion de funcion sin parametros
             textoContador = `${totalAmigos} | Sorteados: ${amigosSorteados}/${totalAmigos}`;
         } // fin de construccion condicional del texto
         
-        // actualizar el contenido del contador con el texto calculado dinamicamente
-        numeroElement.textContent = textoContador; // asignar texto construido al elemento DOM
-        
         // obtener referencia al contenedor completo del contador para actualizar texto completo
         const contadorCompleto = DOM_CACHE.get('contador'); // obtener elemento contenedor del contador
-        if (contadorCompleto && amigosSorteados > 0) { // verificar si existe y hay sorteos activos
-            // actualizar todo el contenido del contador incluyendo el texto descriptivo
-            contadorCompleto.innerHTML = `Amigos agregados: <span id="numeroAmigos">${textoContador}</span>`; // reemplazar HTML completo con progreso
-        } else if (contadorCompleto) { // caso cuando no hay sorteos pero existe el elemento
-            // mantener formato original cuando no hay sorteos activos
-            contadorCompleto.innerHTML = `Amigos agregados: <span id="numeroAmigos">${textoContador}</span>`; // formato estandar sin progreso
-        } // fin de actualizacion de contador completo
+        
+        // actualizar todo el contenido del contador segun el estado actual
+        if (contadorCompleto) { // verificar que el elemento contador existe
+            // construir el HTML completo del contador con progreso dinamico
+            if (amigosSorteados > 0) { // caso cuando hay sorteos activos
+                // mostrar formato completo con progreso de sorteo
+                contadorCompleto.innerHTML = `Amigos agregados: <span id="numeroAmigos">${textoContador}</span>`; // HTML con progreso
+            } else { // caso cuando no hay sorteos activos
+                // mostrar formato simple solo con cantidad de amigos
+                contadorCompleto.innerHTML = `Amigos agregados: <span id="numeroAmigos">${textoContador}</span>`; // HTML simple
+            } // fin de construccion condicional del HTML
+        } else if (numeroElement) { // fallback: actualizar solo el numero si no existe contador completo
+            // actualizar solo el contenido numerico como respaldo
+            numeroElement.textContent = textoContador; // asignar texto construido al elemento DOM
+        } // fin de actualizacion de contador con fallback
     } // fin de verificacion de elemento numero
     
     // control inteligente de visibilidad del mensaje de estado vacio
@@ -1079,6 +1084,7 @@ function registrarAmigoSorteado(nombreAmigo) { // declaracion de funcion para re
         // ACTUALIZACION: sincronizar interfaz visual con nuevo estado
         // llamar funcion que recalcula y muestra contadores actualizados
         actualizarInterfazSorteos(); // refrescar visualizacion de estado en DOM
+        actualizarContador(); // actualizar contador principal con progreso de sorteo
     } // fin de verificacion de no duplicados
 } // fin de la funcion registrarAmigoSorteado
 
@@ -1100,6 +1106,7 @@ function iniciarNuevaRonda() { // declaracion de funcion para gestion de nuevas 
     // SINCRONIZACION: actualizar interfaz visual para reflejar nuevo estado
     // mostrar ronda actualizada y resetear contadores de progreso
     actualizarInterfazSorteos(); // refrescar elementos visuales del DOM
+    actualizarContador(); // actualizar contador principal sin progreso de sorteo
     
     // FEEDBACK: informar al usuario sobre el cambio exitoso de ronda
     // usar template literal para mensaje dinamico con numero de ronda
@@ -1240,6 +1247,9 @@ function ejecutarReinicio() { // funcion que ejecuta el reinicio real de la apli
     DOM_CACHE.get('listaAmigos').innerHTML = ""; // usar cache para limpiar contenido HTML
     // limpiar el area de resultados
     DOM_CACHE.get('resultado').textContent = ""; // usar cache para limpiar texto de resultados
+    
+    // actualizar contador para reflejar estado limpio
+    actualizarContador(); // sincronizar contador con estado reiniciado
     
     // limpiar elemento de estado de sorteos si existe
     const estadoSorteos = document.getElementById('estado-sorteos'); // buscar elemento de estado
