@@ -24,7 +24,7 @@
   <img src="https://img.shields.io/badge/🌐_Demo_Oficial_v2.0-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo">
 </a>
 
-**<a href="https://desafio-amigo-secretov2.verce2.app/" target="_blank">🚀 Ver Demo en Vivo</a>** - Versión 2.0
+**<a href="https://desafio-amigo-secretov2.vercel.app/" target="_blank">🚀 Ver Demo en Vivo</a>** - Versión 2.0
 
 </div>
 
@@ -237,7 +237,7 @@ Puedes usar, modificar y distribuir libremente
 
 **🎉 Versión 2.0 ✨**
 
-<a href="https://desafio-amigo-secretov1.verce2.app/" target="_blank">🚀 **Demo en Vivo**</a> | [📋 Ver Issues](https://github.com/saturno024/Desafio-Amigo-Secreto/issues) | [🔀 Pull Requests](https://github.com/saturno024/Desafio-Amigo-Secreto/pulls)
+<a href="https://desafio-amigo-secretov1.vercel.app/" target="_blank">🚀 **Demo en Vivo**</a> | [📋 Ver Issues](https://github.com/saturno024/Desafio-Amigo-Secreto/issues) | [🔀 Pull Requests](https://github.com/saturno024/Desafio-Amigo-Secreto/pulls)
 
 **⭐ Realizado por Carlos Fabián Mesa Muñoz ⭐**
 
