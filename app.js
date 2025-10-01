@@ -302,6 +302,64 @@ function mostrarNotificacion(mensaje, tipo = 'success') { // declaracion de func
 } // fin de la funcion mostrarNotificacion
 
 /**
+ * funcion especializada para mostrar notificaciones de confirmación con botones
+ * implementa UX moderno para acciones destructivas que requieren confirmación del usuario
+ * @param {string} mensaje - mensaje de advertencia a mostrar
+ * @param {function} onConfirm - callback que se ejecuta si el usuario confirma
+ * @param {function} onCancel - callback opcional que se ejecuta si el usuario cancela
+ */
+function mostrarConfirmacion(mensaje, onConfirm, onCancel = null) { // funcion para confirmaciones modernas
+    // eliminar cualquier notificacion existente para evitar conflictos
+    const notificacionExistente = document.querySelector('.notification'); // buscar notificacion previa
+    if (notificacionExistente) { // verificar existencia
+        notificacionExistente.remove(); // eliminar del DOM
+    } // fin de limpieza previa
+    
+    // crear elemento principal para la notificacion de confirmacion
+    const notificacion = document.createElement('div'); // crear contenedor principal
+    notificacion.className = 'notification warning'; // establecer clases para estilo de advertencia
+    
+    // crear estructura interna con mensaje y botones
+    notificacion.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-text">${mensaje}</span>
+            <div class="notification-buttons">
+                <button class="notification-btn cancel">Cancelar</button>
+                <button class="notification-btn confirm">Confirmar</button>
+            </div>
+        </div>
+    `; // usar template literal para estructura HTML completa
+    
+    // obtener referencias a los botones para agregar event listeners
+    const btnConfirmar = notificacion.querySelector('.notification-btn.confirm'); // boton de confirmacion
+    const btnCancelar = notificacion.querySelector('.notification-btn.cancel'); // boton de cancelacion
+    
+    // event listener para botón confirmar - ejecuta callback y cierra notificacion
+    btnConfirmar.addEventListener('click', (e) => { // escuchar click en confirmar
+        e.stopPropagation(); // evitar que se propague el evento al contenedor padre
+        notificacion.remove(); // eliminar notificacion del DOM
+        if (typeof onConfirm === 'function') { // verificar que el callback sea una funcion valida
+            onConfirm(); // ejecutar callback de confirmacion
+        } // fin de verificacion de callback
+    }); // fin de event listener confirmar
+    
+    // event listener para botón cancelar - opcional callback y cierre
+    btnCancelar.addEventListener('click', (e) => { // escuchar click en cancelar
+        e.stopPropagation(); // evitar propagacion del evento
+        notificacion.remove(); // eliminar notificacion del DOM
+        if (typeof onCancel === 'function') { // verificar callback opcional
+            onCancel(); // ejecutar callback de cancelacion si existe
+        } // fin de verificacion de callback cancelar
+    }); // fin de event listener cancelar
+    
+    // agregar la notificacion al DOM para mostrarla
+    document.body.appendChild(notificacion); // insertar en el body como ultimo elemento
+    
+    // no agregar timer automatico - requiere interaccion explicita del usuario
+    // esto es intencional para confirmaciones que requieren decision consciente
+} // fin de la funcion mostrarConfirmacion
+
+/**
  * inicializacion de event listeners cuando el dom esta completamente cargado
  * esta funcion se ejecuta automaticamente cuando la pagina termina de cargar
  * implementa funcionalidad de tecla enter para agregar nombres y configuracion inicial
@@ -798,14 +856,29 @@ function sortearAmigo() { // declaracion de funcion sin parametros para ejecutar
  * incluye confirmacion del usuario para evitar perdida accidental de datos
  */
 function reiniciar() { // declaracion de funcion sin parametros para resetear aplicacion
-    // confirmacion de seguridad antes de reiniciar para evitar perdida accidental de datos
-    if (listaDeAmigos.length > 0) { // verificar si hay datos que se van a perder
-        const confirmar = confirm('¿Estás seguro de que quieres reiniciar? Se perderán todos los nombres agregados.'); // mostrar dialogo de confirmacion
-        if (!confirmar) { // verificar si el usuario cancelo la operacion
-            return; // salir de la funcion si el usuario no confirma
-        } // fin de verificacion de confirmacion
+    // verificar si hay datos que se van a perder para mostrar confirmacion
+    if (listaDeAmigos.length > 0) { // verificar si hay amigos en la lista
+        // mostrar confirmacion moderna con notificacion warning (naranja)
+        mostrarConfirmacion(
+            '⚠️ ¿Estás seguro de que quieres reiniciar? Se perderán todos los nombres agregados.',
+            () => { // callback que se ejecuta si el usuario confirma
+                ejecutarReinicio(); // ejecutar la logica de reinicio
+            },
+            () => { // callback opcional que se ejecuta si el usuario cancela
+                // no es necesario hacer nada al cancelar, solo informativo
+                console.log('Reinicio cancelado por el usuario'); // log para debugging
+            }
+        ); // fin de llamada a mostrarConfirmacion
+    } else { // si no hay datos que perder
+        ejecutarReinicio(); // ejecutar reinicio directamente sin confirmacion
     } // fin de verificacion de datos existentes
-    
+} // fin de la funcion reiniciar
+
+/**
+ * funcion auxiliar que contiene la logica real de reinicio
+ * separada para reutilizacion desde confirmacion y llamada directa
+ */
+function ejecutarReinicio() { // funcion que ejecuta el reinicio real de la aplicacion
     // limpiar completamente el array de amigos
     listaDeAmigos = []; // asignar array vacio para resetear datos
     // limpiar la lista visual del DOM
@@ -814,9 +887,9 @@ function reiniciar() { // declaracion de funcion sin parametros para resetear ap
     DOM_CACHE.get('resultado').textContent = ""; // usar cache para limpiar texto de resultados
     // actualizar contador a 0 y mostrar estado vacio
     actualizarContador(); // llamar funcion que recalcula estado visual de la aplicacion
-    // mostrar notificacion de confirmacion de reinicio exitoso
+    // mostrar notificacion de confirmacion de reinicio exitoso (verde)
     mostrarNotificacion('🔄 Lista reiniciada correctamente', 'success'); // feedback positivo al usuario
     // limpiar y enfocar el input para nueva entrada
     limpiarCampos(); // llamar funcion que resetea campo de entrada
-} // fin de la funcion reiniciar
+} // fin de la funcion ejecutarReinicio
 

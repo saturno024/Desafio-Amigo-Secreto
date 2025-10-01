@@ -1882,12 +1882,26 @@ body { /* selector global del documento */
     font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; /* stack de fuentes emoji */
 } /* fin de pseudo-elemento error before */
 
-/* 
- * NOTA: Los estilos de .notification.warning fueron removidos
- * ya que no se utilizan en la aplicación actual.
- * Solo se mantienen los estilos para 'success' y 'error' 
- * siguiendo el principio DRY y optimización de CSS.
- */
+/* seccion de estilos para notificaciones de advertencia con tema naranja */
+/* comunicacion visual de precaucion para situaciones que requieren atencion */
+.notification.warning { /* clase modificadora para notificaciones de advertencia */
+    /* gradiente naranja para comunicar advertencia y precaucion */
+    background: linear-gradient(135deg, /* gradiente diagonal de 135 grados */
+        rgba(245, 158, 11, 0.9) 0%, /* naranja claro semi-transparente al inicio */
+        rgba(217, 119, 6, 0.9) 100%); /* naranja oscuro semi-transparente al final */
+    color: white; /* texto blanco para contraste optimo con fondo naranja */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* borde blanco sutil para definicion */
+} /* fin de estilos notificacion warning */
+
+/* pseudo-elemento para icono de advertencia en notificaciones warning */
+/* agrega elemento visual que refuerza el mensaje de precaucion */
+.notification.warning::before { /* pseudo-elemento before para icono de advertencia */
+    content: '⚠️'; /* emoji de triangulo de advertencia como contenido */
+    margin-right: 8px; /* margen derecho de 8px para separar del texto */
+    font-size: 16px; /* tamaño del emoji consistente con otras notificaciones */
+    /* especificar fuentes de emoji para garantizar renderizado correcto multiplataforma */
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; /* stack de fuentes emoji */
+} /* fin de pseudo-elemento warning before */
 
 /* seccion de animacion de salida para notificaciones que se ocultan */
 /* proporciona transicion suave cuando las notificaciones desaparecen automaticamente */
@@ -1909,16 +1923,78 @@ body { /* selector global del documento */
     } /* fin de estado final de salida */
 } /* fin de definicion de keyframe slideOutNotification */
 
-/* efectos hover para notificaciones - activados al pasar cursor sobre ellas */
+/* efectos hover para notificaciones simples (sin botones) */
 /* proporciona feedback visual indicando que las notificaciones son interactivas */
-.notification:hover { /* pseudo-clase que se activa al hacer hover sobre notificacion */
+.notification:not(:has(.notification-buttons)):hover { /* hover solo para notificaciones sin botones */
     transform: scale(1.02); /* agranda ligeramente la notificacion al 102% para efecto sutil */
     cursor: pointer; /* cambiar cursor a pointer para indicar que es clickeable */
     /* intensificar sombras durante hover para enfatizar interactividad */
     box-shadow: /* sombras mejoradas para efecto hover */
         0 12px 40px rgba(0, 0, 0, 0.2), /* sombra externa mas grande e intensa */
         inset 0 1px 0 rgba(255, 255, 255, 0.3); /* reflejo interno mas pronunciado */
-} /* fin de efectos hover para notificaciones */
+} /* fin de efectos hover para notificaciones simples */
+
+/* notificaciones con botones no deben tener cursor pointer en el contenedor */
+.notification:has(.notification-buttons) { /* notificaciones que contienen botones */
+    cursor: default; /* cursor normal, no pointer */
+} /* fin de estilo para notificaciones con botones */
+
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+/* 🔔 SISTEMA DE CONFIRMACIÓN EN NOTIFICACIONES - UX Moderno */
+/* ═══════════════════════════════════════════════════════════════════════════════ */
+
+.notification-content { /* contenedor para contenido estructurado de notificaciones */
+    display: flex; /* usar flexbox para layout vertical */
+    flex-direction: column; /* apilar elementos verticalmente */
+    gap: 8px; /* espacio consistente entre elementos */
+} /* fin de contenedor notification-content */
+
+.notification-text { /* texto principal de la notificación */
+    line-height: 1.4; /* altura de línea para mejor legibilidad */
+    margin-bottom: 4px; /* pequeño margen inferior */
+} /* fin de notification-text */
+
+.notification-buttons { /* contenedor para botones de confirmación en notificaciones */
+    display: flex; /* usar flexbox para layout horizontal */
+    gap: 8px; /* espacio de 8px entre botones */
+    margin-top: 12px; /* margen superior para separar del texto */
+    justify-content: flex-end; /* alinear botones a la derecha */
+} /* fin de contenedor notification-buttons */
+
+.notification-btn { /* clase base para botones dentro de notificaciones */
+    padding: 6px 12px; /* padding compacto para botones pequeños */
+    border: none; /* sin borde para estilo moderno */
+    border-radius: 6px; /* bordes redondeados consistentes */
+    font-size: 12px; /* texto pequeño pero legible */
+    font-weight: 600; /* peso de fuente semi-bold */
+    cursor: pointer; /* cursor pointer para indicar interactividad */
+    transition: all 0.2s ease; /* transiciones suaves para todos los cambios */
+    text-transform: uppercase; /* texto en mayúsculas para énfasis */
+    letter-spacing: 0.5px; /* espaciado de letras para mejor legibilidad */
+} /* fin de clase base notification-btn */
+
+.notification-btn.confirm { /* botón de confirmación (sí/confirmar) */
+    background: rgba(255, 255, 255, 0.2); /* fondo blanco semi-transparente */
+    color: white; /* texto blanco para contraste */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* borde blanco sutil */
+} /* fin de botón confirm */
+
+.notification-btn.confirm:hover { /* efecto hover para botón confirmar */
+    background: rgba(255, 255, 255, 0.3); /* fondo más opaco en hover */
+    transform: translateY(-1px); /* elevar ligeramente */
+} /* fin de hover confirm */
+
+.notification-btn.cancel { /* botón de cancelación (no/cancelar) */
+    background: rgba(0, 0, 0, 0.2); /* fondo negro semi-transparente */
+    color: rgba(255, 255, 255, 0.8); /* texto blanco ligeramente transparente */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* borde más sutil */
+} /* fin de botón cancel */
+
+.notification-btn.cancel:hover { /* efecto hover para botón cancelar */
+    background: rgba(0, 0, 0, 0.3); /* fondo más opaco en hover */
+    color: white; /* texto completamente blanco en hover */
+    transform: translateY(-1px); /* elevar ligeramente */
+} /* fin de hover cancel */
 
 /* ═══════════════════════════════════════════════════════════════════════════════ */
 /* 🌍 SOPORTE CROSS-BROWSER MEJORADO - Compatibilidad con navegadores antiguos */
